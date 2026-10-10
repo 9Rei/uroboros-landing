@@ -105,27 +105,23 @@ const subjects = {
 // ============================================================
 
 (function initTheme() {
-  const saved = localStorage.getItem('theme');
-  const systemLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-
-  const theme = saved || (systemLight ? 'light' : 'dark');
-  if (theme === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
-  }
+  var saved = localStorage.getItem("theme");
+  var systemLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+  var theme = saved || (systemLight ? "light" : "dark");
+  if (theme === "light") document.documentElement.setAttribute("data-theme", "light");
 })();
 
-document.addEventListener('DOMContentLoaded', () => {
-  const toggle = document.getElementById('theme-toggle');
+document.addEventListener("DOMContentLoaded", function () {
+  var toggle = document.getElementById("theme-toggle");
   if (!toggle) return;
-
-  toggle.addEventListener('click', () => {
-    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  toggle.addEventListener("click", function () {
+    var isLight = document.documentElement.getAttribute("data-theme") === "light";
     if (isLight) {
-      document.documentElement.removeAttribute('data-theme');
-      localStorage.setItem('theme', 'dark');
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "dark");
     } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-      localStorage.setItem('theme', 'light');
+      document.documentElement.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
     }
   });
 });
@@ -135,226 +131,61 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================================
 
 function daysSince(dateInput) {
-  const then = new Date(dateInput).getTime();
+  var then = new Date(dateInput).getTime();
   if (isNaN(then)) return 999;
-  const now = Date.now();
-  return Math.floor((now - then) / (1000 * 60 * 60 * 24));
+  return Math.floor((Date.now() - then) / (1000 * 60 * 60 * 24));
 }
 
 function formatDate(dateInput) {
-  const d = new Date(dateInput);
+  var d = new Date(dateInput);
   if (isNaN(d.getTime())) return dateInput;
-  return d.toLocaleDateString('ru-RU', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
+  return d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" });
 }
 
 function buildRecent() {
-  const allTopics = [];
-
-  Object.keys(subjects).forEach(key => {
-    if (key === 'recent') return;
-    const section = subjects[key];
-    section.topics.forEach(topic => {
-      allTopics.push({
-        ...topic,
-        sectionTitle: section.title,
-        sectionKey: key
-      });
+  var allTopics = [];
+  Object.keys(subjects).forEach(function (key) {
+    if (key === "recent") return;
+    var section = subjects[key];
+    if (!section || !Array.isArray(section.topics)) return;
+    section.topics.forEach(function (topic) {
+      allTopics.push(Object.assign({}, topic, { sectionTitle: section.title, sectionKey: key }));
     });
   });
-
-  allTopics.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  subjects.recent.topics = allTopics.filter(t => daysSince(t.date) <= 30);
+  allTopics.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+  subjects.recent.topics = allTopics.filter(function (t) { return daysSince(t.date) <= 30; });
 }
 buildRecent();
 
 function fillCards() {
-  const cardsContainer = document.querySelector('.cards');
+  var cardsContainer = document.querySelector(".cards");
   if (!cardsContainer) return;
-
-  const cards = Array.from(cardsContainer.querySelectorAll('.card'));
-
-  const cardsWithData = cards.map(card => {
-    const key = card.dataset.subject;
-    const section = subjects[key];
-    if (!section || !section.topics.length) return { card, key, sortKey: '' };
-
-    const lastTopic = section.topics[section.topics.length - 1];
-
-    const lastEl = card.querySelector('[data-last-topic]');
+  var cards = Array.prototype.slice.call(cardsContainer.querySelectorAll(".card"));
+  var cardsWithData = cards.map(function (card) {
+    var key = card.dataset.subject;
+    var section = subjects[key];
+    if (!section || !section.topics.length) return { card: card, key: key, sortKey: "" };
+    var lastTopic = section.topics[section.topics.length - 1];
+    var lastEl = card.querySelector("[data-last-topic]");
     if (lastEl) lastEl.textContent = lastTopic.title;
-
-    const badge = card.querySelector('[data-badge]');
+    var badge = card.querySelector("[data-badge]");
     if (badge && daysSince(lastTopic.date) < 1) {
-      badge.textContent = 'NEW';
-      badge.classList.add('card__badge--show');
+      badge.textContent = "NEW";
+      badge.classList.add("card__badge--show");
     }
-
-    return { card, key, sortKey: section.title };
+    return { card: card, key: key, sortKey: section.title || "" };
   });
-
-  const regular = cardsWithData.filter(c => c.key !== 'recent');
-  const special = cardsWithData.filter(c => c.key === 'recent');
-
-  regular.sort((a, b) => a.sortKey.localeCompare(b.sortKey, 'ru'));
-
-  regular.forEach((item, i) => {
-    const numEl = item.card.querySelector('.card__num');
-    if (numEl) numEl.textContent = String(i + 1).padStart(2, '0');
+  var regular = cardsWithData.filter(function (c) { return c.key !== "recent"; });
+  var special = cardsWithData.filter(function (c) { return c.key === "recent"; });
+  regular.sort(function (a, b) { return a.sortKey.localeCompare(b.sortKey, "ru"); });
+  regular.forEach(function (item, i) {
+    var numEl = item.card.querySelector(".card__num");
+    if (numEl) numEl.textContent = String(i + 1).padStart(2, "0");
   });
-
-  special.forEach(item => {
-    const numEl = item.card.querySelector('.card__num');
-    if (numEl) numEl.textContent = '∞';
+  special.forEach(function (item) {
+    var numEl = item.card.querySelector(".card__num");
+    if (numEl) numEl.textContent = "∞";
   });
-
-  const ordered = [...regular, ...special];
-  ordered.forEach(({ card }) => cardsContainer.appendChild(card));
+  regular.concat(special).forEach(function (item) { cardsContainer.appendChild(item.card); });
 }
 fillCards();
-
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    const id = link.getAttribute('href');
-    if (id === '#') return;
-    const target = document.querySelector(id);
-    if (!target) return;
-    e.preventDefault();
-    const top = target.getBoundingClientRect().top + window.pageYOffset - 64;
-    window.scrollTo({ top, behavior: 'smooth' });
-  });
-});
-
-let currentSubject = null;
-let currentTopicIndex = 0;
-
-const modal = document.getElementById('modal');
-const modalSection = document.getElementById('modal-section');
-const modalNum = document.getElementById('modal-num');
-const modalTitle = document.getElementById('modal-title');
-const modalDate = document.getElementById('modal-date');
-const modalSteps = document.getElementById('modal-steps');
-const modalFiles = document.getElementById('modal-files');
-const modalDots = document.getElementById('modal-dots');
-const prevBtn = document.getElementById('modal-prev');
-const nextBtn = document.getElementById('modal-next');
-
-function applyAccentTheme(colorKey) {
-  [...modal.classList].forEach(c => {
-    if (c.startsWith('modal--') && c !== 'modal--open') {
-      modal.classList.remove(c);
-    }
-  });
-  modal.classList.add('modal--' + colorKey);
-}
-
-function buildDots() {
-  modalDots.innerHTML = '';
-  const topics = subjects[currentSubject].topics;
-  topics.forEach((topic, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'modal__dot';
-    btn.textContent = topic.num || String(i + 1).padStart(2, '0');
-    btn.addEventListener('click', () => showTopic(i));
-    modalDots.appendChild(btn);
-  });
-}
-
-function showTopic(index) {
-  const topics = subjects[currentSubject].topics;
-
-  if (index < 0) index = topics.length - 1;
-  if (index >= topics.length) index = 0;
-
-  currentTopicIndex = index;
-  const topic = topics[index];
-
-  const colorKey = (currentSubject === 'recent' && topic.sectionKey)
-    ? topic.sectionKey
-    : currentSubject;
-  applyAccentTheme(colorKey);
-
-  modalSection.textContent = subjects[currentSubject].title;
-  modalNum.textContent = topic.num || String(index + 1).padStart(2, '0');
-  modalTitle.textContent = topic.title;
-
-  modalDate.innerHTML = '';
-  const dateText = document.createElement('span');
-  dateText.textContent = 'Добавлено ' + formatDate(topic.date);
-  modalDate.appendChild(dateText);
-
-  if (daysSince(topic.date) < 1) {
-    const tag = document.createElement('span');
-    tag.className = 'modal__date-tag';
-    tag.textContent = 'NEW';
-    modalDate.appendChild(tag);
-  }
-
-  modalSteps.innerHTML = '';
-  topic.steps.forEach(step => {
-    const li = document.createElement('li');
-    li.textContent = step;
-    modalSteps.appendChild(li);
-  });
-
-  modalFiles.innerHTML = '';
-  topic.files.forEach(file => {
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.href = file.url;
-    a.textContent = file.name;
-    li.appendChild(a);
-    modalFiles.appendChild(li);
-  });
-
-  const dots = modalDots.querySelectorAll('.modal__dot');
-  dots.forEach((dot, i) => {
-    dot.classList.toggle('modal__dot--active', i === index);
-  });
-}
-
-document.querySelectorAll('.card').forEach(card => {
-  card.addEventListener('click', (e) => {
-    e.preventDefault();
-    const key = card.dataset.subject;
-    if (!subjects[key]) return;
-    if (!subjects[key].topics.length) return;
-
-    currentSubject = key;
-
-    const startIndex = (key === 'recent')
-      ? 0
-      : subjects[key].topics.length - 1;
-
-    buildDots();
-    showTopic(startIndex);
-
-    modal.classList.add('modal--open');
-    document.body.style.overflow = 'hidden';
-  });
-});
-
-prevBtn.addEventListener('click', () => showTopic(currentTopicIndex - 1));
-nextBtn.addEventListener('click', () => showTopic(currentTopicIndex + 1));
-
-document.querySelectorAll('[data-close]').forEach(el => {
-  el.addEventListener('click', () => {
-    modal.classList.remove('modal--open');
-    document.body.style.overflow = '';
-  });
-});
-
-document.addEventListener('keydown', (e) => {
-  if (!modal.classList.contains('modal--open')) return;
-
-  if (e.key === 'Escape') {
-    modal.classList.remove('modal--open');
-    document.body.style.overflow = '';
-  }
-  if (e.key === 'ArrowLeft') showTopic(currentTopicIndex - 1);
-  if (e.key === 'ArrowRight') showTopic(currentTopicIndex + 1);
-});
