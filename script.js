@@ -1,4 +1,116 @@
 // ============================================================
+//  ДАННЫЕ САЙТА
+// ============================================================
+
+const subjects = {
+  biochem: {
+    num: "01",
+    title: "Биохимия",
+    topics: [
+      {
+        num: "2.2",
+        title: "Транскрипция, трансляция. ДНК технологии в медицине. Экспрессия генов",
+        steps: [
+          "Прочитать файлик",
+          "Прочитать тесты",
+          "Выполнить тест",
+        ],
+        date: "2026-10-10",
+        files: [
+          { name: "БХ_2.2", url: "\"C:\\Users\\kaigo\\Downloads\\script.js\"" },
+        ]
+      },
+      {
+        title: "Раздел в разработке",
+        steps: [
+          "Материалы появятся позже",
+          "Следите за обновлениями",
+        ],
+        date: "2026-09-01",
+        files: [
+          { name: "Пока пусто", url: "#" },
+        ]
+      }
+    ]
+  },
+  physio: {
+    num: "02",
+    title: "Физиология",
+    topics: [
+      {
+        title: "Раздел в разработке",
+        steps: [
+          "Материалы появятся позже",
+          "Следите за обновлениями",
+        ],
+        date: "2026-09-01",
+        files: [
+          { name: "Пока пусто", url: "#" },
+        ]
+      }
+    ]
+  },
+  histology: {
+    num: "03",
+    title: "Гистология",
+    topics: [
+      {
+        title: "Раздел в разработке",
+        steps: [
+          "Материалы появятся позже",
+          "Следите за обновлениями",
+        ],
+        date: "2026-09-01",
+        files: [
+          { name: "Пока пусто", url: "#" },
+        ]
+      }
+    ]
+  },
+  microbio: {
+    num: "04",
+    title: "Микробиология",
+    topics: [
+      {
+        title: "Инфекция, инфекционный процесс. Факторы патогенности бактерий.",
+        steps: [
+          "Прочитать файлик «МИКРА_6.pdf»",
+          "Выполнить тест",
+          "Посмотреть видеоразбор по теме",
+        ],
+        date: "2026-10-10",
+        files: [
+          { name: "МИКРА_6.pdf", url: "files/МИКРА_6.pdf" },
+        ]
+      }
+    ]
+  },
+  hygiene: {
+    num: "05",
+    title: "Гигиена",
+    topics: [
+      {
+        title: "Раздел в разработке",
+        steps: [
+          "Материалы появятся позже",
+          "Следите за обновлениями",
+        ],
+        date: "2026-09-01",
+        files: [
+          { name: "Пока пусто", url: "#" },
+        ]
+      }
+    ]
+  },
+  recent: {
+    num: "∞",
+    title: "Недавно обновлённые",
+    topics: [
+    ]
+  }
+};
+
+// ============================================================
 //  ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ
 // ============================================================
 
@@ -27,104 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-
-// ============================================================
-//  ДАННЫЕ САЙТА
-// ============================================================
-
-const subjects = {
-  biochem: {
-    num: '01',
-    title: 'Биохимия',
-    topics: [
-      {
-        title: 'Раздел в разработке',
-        steps: [
-          'Материалы появятся позже',
-          'Следите за обновлениями'
-        ],
-        date: '2026-09-01',
-        files: [
-          { name: 'Пока пусто', url: '#' }
-        ]
-      }
-    ]
-  },
-  physio: {
-    num: '02',
-    title: 'Физиология',
-    topics: [
-      {
-        title: 'Раздел в разработке',
-        steps: [
-          'Материалы появятся позже',
-          'Следите за обновлениями'
-        ],
-        date: '2026-09-01',
-        files: [
-          { name: 'Пока пусто', url: '#' }
-        ]
-      }
-    ]
-  },
-  histology: {
-    num: '03',
-    title: 'Гистология',
-    topics: [
-      {
-        title: 'Раздел в разработке',
-        steps: [
-          'Материалы появятся позже',
-          'Следите за обновлениями'
-        ],
-        date: '2026-09-01',
-        files: [
-          { name: 'Пока пусто', url: '#' }
-        ]
-      }
-    ]
-  },
-  microbio: {
-    num: '04',
-    title: 'Микробиология',
-    topics: [
-      {
-        title: 'Инфекция, инфекционный процесс. Факторы патогенности бактерий.',
-        steps: [
-          'Прочитать файлик «МИКРА_6.pdf»',
-          'Выполнить тест',
-          'Посмотреть видеоразбор по теме'
-        ],
-        date: '2026-10-10',
-        files: [
-          { name: 'МИКРА_6.pdf', url: 'files/МИКРА_6.pdf' }
-        ]
-      }
-    ]
-  },
-  hygiene: {
-    num: '05',
-    title: 'Гигиена',
-    topics: [
-      {
-        title: 'Раздел в разработке',
-        steps: [
-          'Материалы появятся позже',
-          'Следите за обновлениями'
-        ],
-        date: '2026-09-01',
-        files: [
-          { name: 'Пока пусто', url: '#' }
-        ]
-      }
-    ]
-  },
-  recent: {
-    num: '∞',
-    title: 'Недавно обновлённые',
-    topics: []
-  }
-};
 
 // ============================================================
 //  ЛОГИКА
@@ -198,13 +212,11 @@ function fillCards() {
 
   regular.sort((a, b) => a.sortKey.localeCompare(b.sortKey, 'ru'));
 
-  // Присваиваем номера 01, 02, 03… по порядку сортировки
   regular.forEach((item, i) => {
     const numEl = item.card.querySelector('.card__num');
     if (numEl) numEl.textContent = String(i + 1).padStart(2, '0');
   });
 
-  // «Недавнее» — всегда ∞
   special.forEach(item => {
     const numEl = item.card.querySelector('.card__num');
     if (numEl) numEl.textContent = '∞';
@@ -256,7 +268,7 @@ function buildDots() {
   topics.forEach((topic, i) => {
     const btn = document.createElement('button');
     btn.className = 'modal__dot';
-    btn.textContent = String(i + 1).padStart(2, '0');
+    btn.textContent = topic.num || String(i + 1).padStart(2, '0');
     btn.addEventListener('click', () => showTopic(i));
     modalDots.appendChild(btn);
   });
@@ -277,7 +289,7 @@ function showTopic(index) {
   applyAccentTheme(colorKey);
 
   modalSection.textContent = subjects[currentSubject].title;
-  modalNum.textContent = String(index + 1).padStart(2, '0');
+  modalNum.textContent = topic.num || String(index + 1).padStart(2, '0');
   modalTitle.textContent = topic.title;
 
   modalDate.innerHTML = '';
