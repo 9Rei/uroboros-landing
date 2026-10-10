@@ -19,17 +19,6 @@ const subjects = {
         files: [
           { name: "БХ_2.2", url: "\"C:\\Users\\kaigo\\Downloads\\script.js\"" },
         ]
-      },
-      {
-        title: "Раздел в разработке",
-        steps: [
-          "Материалы появятся позже",
-          "Следите за обновлениями",
-        ],
-        date: "2026-09-01",
-        files: [
-          { name: "Пока пусто", url: "#" },
-        ]
       }
     ]
   },
