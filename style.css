@@ -21,9 +21,12 @@
   --on-accent: #0d0f0c;
   --radius: 16px;
   --radius-sm: 10px;
+
+  /* Для лёгкого градиента секций */
+  --section-glow: rgba(132, 204, 22, 0.05);
 }
 
-/* ===== Светлая тема — тёплая, зелёно-бежевая ===== */
+/* Светлая тема — тёплая, зелёно-бежевая */
 html[data-theme="light"] {
   --bg: #eef2e6;
   --bg-soft: #e2e8d6;
@@ -37,6 +40,7 @@ html[data-theme="light"] {
   --accent-dim: rgba(91, 156, 10, 0.12);
   --accent-tint: rgba(91, 156, 10, 0.05);
   --on-accent: #ffffff;
+  --section-glow: rgba(91, 156, 10, 0.05);
 }
 
 body {
@@ -49,7 +53,6 @@ body {
   transition: background 0.35s ease, color 0.35s ease;
 }
 
-/* Мягкое зелёное свечение по углам в светлой теме */
 html[data-theme="light"] body {
   background-image:
     radial-gradient(circle at 12% 0%, rgba(132, 204, 22, 0.14) 0%, transparent 42%),
@@ -268,13 +271,44 @@ html[data-theme="light"] .theme-toggle__thumb {
   color: var(--accent);
 }
 
-/* ===== Секции ===== */
-.section { padding: 70px 0; }
-
-.section--soft {
-  background: var(--bg-soft);
-  transition: background 0.35s ease;
+/* ============================================
+   СЕКЦИИ — ЛЁГКИЙ ГРАДИЕНТ
+   ============================================ */
+.section {
+  padding: 70px 0;
 }
+
+/* Полоса с очень лёгким градиентом — сверху и снизу растворяется */
+/* Полоса с волной снизу */
+.section--soft {
+  position: relative;
+  background: var(--bg-soft);
+  overflow: hidden;
+}
+
+/* Волна снизу вверх */
+.section--soft::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  background: linear-gradient(
+    to top,
+    var(--bg) 0%,
+    var(--bg-soft) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section--soft > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.section__head { margin-bottom: 36px; }
 
 .section__head { margin-bottom: 36px; }
 
@@ -299,108 +333,8 @@ html[data-theme="light"] .theme-toggle__thumb {
 }
 
 /* ============================================
-   ЦВЕТА И ОРНАМЕНТЫ КАРТОЧЕК ПО РАЗДЕЛАМ
+   КАРТОЧКИ ПРЕДМЕТОВ — ЦВЕТА ПО РАЗДЕЛАМ
    ============================================ */
-
-/* 01. Биохимия — гексагоны */
-.card[data-subject="biochem"] {
-  --card-accent: #a3e635;
-  --card-tint: rgba(163, 230, 53, 0.05);
-  --card-tint-hover: rgba(163, 230, 53, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%23a3e635' stroke-width='1' stroke-opacity='0.18'><polygon points='30,5 52,18 52,42 30,55 8,42 8,18'/><polygon points='30,15 43,23 43,37 30,45 17,37 17,23'/></g></svg>");
-}
-
-/* 02. Физиология — волны */
-.card[data-subject="physio"] {
-  --card-accent: #38bdf8;
-  --card-tint: rgba(56, 189, 248, 0.05);
-  --card-tint-hover: rgba(56, 189, 248, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'><path d='M0,20 L15,20 L20,8 L25,32 L30,20 L45,20 L50,8 L55,32 L60,20 L80,20' fill='none' stroke='%2338bdf8' stroke-width='1' stroke-opacity='0.20'/></svg>");
-}
-
-/* 03. Гистология — клетки */
-.card[data-subject="histology"] {
-  --card-accent: #e879f9;
-  --card-tint: rgba(232, 121, 249, 0.05);
-  --card-tint-hover: rgba(232, 121, 249, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><g fill='none' stroke='%23e879f9' stroke-width='0.8' stroke-opacity='0.20'><circle cx='10' cy='10' r='6'/><circle cx='30' cy='10' r='6'/><circle cx='10' cy='30' r='6'/><circle cx='30' cy='30' r='6'/><circle cx='20' cy='20' r='6'/></g></svg>");
-}
-
-/* 04. Микробиология — бактерии */
-.card[data-subject="microbio"] {
-  --card-accent: #fb923c;
-  --card-tint: rgba(251, 146, 60, 0.05);
-  --card-tint-hover: rgba(251, 146, 60, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><g fill='%23fb923c' fill-opacity='0.18'><circle cx='10' cy='10' r='2.5'/><circle cx='30' cy='15' r='1.8'/><circle cx='45' cy='40' r='2.2'/><circle cx='15' cy='35' r='1.5'/><circle cx='38' cy='25' r='2.8'/><circle cx='8' cy='45' r='1.2'/></g></svg>");
-}
-
-/* 05. Гигиена — капли */
-.card[data-subject="hygiene"] {
-  --card-accent: #2dd4bf;
-  --card-tint: rgba(45, 212, 191, 0.05);
-  --card-tint-hover: rgba(45, 212, 191, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%232dd4bf' stroke-width='1' stroke-opacity='0.18'><path d='M15,5 C15,15 25,20 25,28 A10,10 0 1,1 5,28 C5,20 15,15 15,5 Z'/><path d='M45,30 C45,38 55,42 55,50 A10,10 0 1,1 35,50 C35,42 45,38 45,30 Z'/></g></svg>");
-}
-
-/* ∞. Недавнее — точки */
-.card[data-subject="recent"] {
-  --card-accent: #94a3b8;
-  --card-tint: rgba(148, 163, 184, 0.05);
-  --card-tint-hover: rgba(148, 163, 184, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><g fill='%2394a3b8' fill-opacity='0.18'><circle cx='5' cy='5' r='1.2'/><circle cx='20' cy='20' r='1.2'/></g></svg>");
-}
-
-/* Светлая тема — бледнее */
-html[data-theme="light"] .card[data-subject="biochem"] {
-  --card-accent: #5b9c0a;
-  --card-tint: rgba(91, 156, 10, 0.05);
-  --card-tint-hover: rgba(91, 156, 10, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%235b9c0a' stroke-width='1' stroke-opacity='0.16'><polygon points='30,5 52,18 52,42 30,55 8,42 8,18'/><polygon points='30,15 43,23 43,37 30,45 17,37 17,23'/></g></svg>");
-}
-html[data-theme="light"] .card[data-subject="physio"] {
-  --card-accent: #0284c7;
-  --card-tint: rgba(2, 132, 199, 0.05);
-  --card-tint-hover: rgba(2, 132, 199, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'><path d='M0,20 L15,20 L20,8 L25,32 L30,20 L45,20 L50,8 L55,32 L60,20 L80,20' fill='none' stroke='%230284c7' stroke-width='1' stroke-opacity='0.18'/></svg>");
-}
-html[data-theme="light"] .card[data-subject="histology"] {
-  --card-accent: #c026d3;
-  --card-tint: rgba(192, 38, 211, 0.05);
-  --card-tint-hover: rgba(192, 38, 211, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><g fill='none' stroke='%23c026d3' stroke-width='0.8' stroke-opacity='0.18'><circle cx='10' cy='10' r='6'/><circle cx='30' cy='10' r='6'/><circle cx='10' cy='30' r='6'/><circle cx='30' cy='30' r='6'/><circle cx='20' cy='20' r='6'/></g></svg>");
-}
-html[data-theme="light"] .card[data-subject="microbio"] {
-  --card-accent: #ea580c;
-  --card-tint: rgba(234, 88, 12, 0.05);
-  --card-tint-hover: rgba(234, 88, 12, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><g fill='%23ea580c' fill-opacity='0.16'><circle cx='10' cy='10' r='2.5'/><circle cx='30' cy='15' r='1.8'/><circle cx='45' cy='40' r='2.2'/><circle cx='15' cy='35' r='1.5'/><circle cx='38' cy='25' r='2.8'/><circle cx='8' cy='45' r='1.2'/></g></svg>");
-}
-html[data-theme="light"] .card[data-subject="hygiene"] {
-  --card-accent: #0d9488;
-  --card-tint: rgba(13, 148, 136, 0.05);
-  --card-tint-hover: rgba(13, 148, 136, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%230d9488' stroke-width='1' stroke-opacity='0.16'><path d='M15,5 C15,15 25,20 25,28 A10,10 0 1,1 5,28 C5,20 15,15 15,5 Z'/><path d='M45,30 C45,38 55,42 55,50 A10,10 0 1,1 35,50 C35,42 45,38 45,30 Z'/></g></svg>");
-}
-html[data-theme="light"] .card[data-subject="recent"] {
-  --card-accent: #64748b;
-  --card-tint: rgba(100, 116, 139, 0.05);
-  --card-tint-hover: rgba(100, 116, 139, 0.10);
-  --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><g fill='%2364748b' fill-opacity='0.16'><circle cx='5' cy='5' r='1.2'/><circle cx='20' cy='20' r='1.2'/></g></svg>");
-}
-
-/* ===== Карточки предметов ===== */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -408,9 +342,9 @@ html[data-theme="light"] .card[data-subject="recent"] {
 }
 
 .card {
-  --card-accent: var(--accent);
-  --card-tint: var(--accent-tint);
-  --card-tint-hover: var(--accent-dim);
+  --card-accent: #a3e635;
+  --card-tint: rgba(163, 230, 53, 0.14);
+  --card-tint-hover: rgba(163, 230, 53, 0.24);
   --card-pattern: none;
 
   position: relative;
@@ -418,7 +352,11 @@ html[data-theme="light"] .card[data-subject="recent"] {
   flex-direction: column;
   min-height: 200px;
   background: var(--surface);
-  background-image: linear-gradient(135deg, var(--card-tint) 0%, transparent 65%);
+  background-image: linear-gradient(
+    135deg,
+    var(--card-tint) 0%,
+    transparent 60%
+  );
   background-repeat: no-repeat;
   background-position: left top;
   background-size: 100% 100%;
@@ -429,7 +367,6 @@ html[data-theme="light"] .card[data-subject="recent"] {
   transition: transform 0.25s, border-color 0.25s, background 0.35s, box-shadow 0.25s;
 }
 
-/* Орнамент с маской */
 .card::before {
   content: '';
   position: absolute;
@@ -476,7 +413,11 @@ html[data-theme="light"] .card[data-subject="recent"] {
 .card:hover {
   border-color: var(--card-accent);
   transform: translateY(-4px);
-  background-image: linear-gradient(135deg, var(--card-tint-hover) 0%, transparent 65%);
+  background-image: linear-gradient(
+    135deg,
+    var(--card-tint-hover) 0%,
+    transparent 60%
+  );
   box-shadow: 0 12px 28px -10px var(--card-tint-hover);
 }
 
@@ -512,7 +453,7 @@ html[data-theme="light"] .card[data-subject="recent"] {
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--on-accent);
+  color: #ffffff;
   background: var(--card-accent);
   padding: 3px 8px;
   border-radius: 999px;
@@ -553,21 +494,106 @@ html[data-theme="light"] .card[data-subject="recent"] {
   transition: color 0.35s ease;
 }
 
-.card--recent {
-  background-color: var(--bg-soft);
-  border-color: var(--accent-dim);
+/* -------------------------------------------------
+   ЦВЕТА КАЖДОЙ КАРТОЧКИ
+   ------------------------------------------------- */
+
+/* 01. Биохимия — лаймовый */
+.card[data-subject="biochem"] {
+  --card-accent: #a3e635;
+  --card-tint: rgba(163, 230, 53, 0.14);
+  --card-tint-hover: rgba(163, 230, 53, 0.24);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%23a3e635' stroke-width='1' stroke-opacity='0.25'><polygon points='30,5 52,18 52,42 30,55 8,42 8,18'/><polygon points='30,15 43,23 43,37 30,45 17,37 17,23'/></g></svg>");
 }
 
-.card--recent .card__num {
-  color: var(--muted);
-  font-size: 18px;
-  letter-spacing: 0;
+/* 02. Физиология — голубой */
+.card[data-subject="physio"] {
+  --card-accent: #38bdf8;
+  --card-tint: rgba(56, 189, 248, 0.14);
+  --card-tint-hover: rgba(56, 189, 248, 0.24);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'><path d='M0,20 L15,20 L20,8 L25,32 L30,20 L45,20 L50,8 L55,32 L60,20 L80,20' fill='none' stroke='%2338bdf8' stroke-width='1' stroke-opacity='0.30'/></svg>");
 }
 
-.card--recent .card__title {
-  color: var(--text);
-  font-size: 20px;
-  font-weight: 600;
+/* 03. Гистология — розово-фиолетовый */
+.card[data-subject="histology"] {
+  --card-accent: #e879f9;
+  --card-tint: rgba(232, 121, 249, 0.14);
+  --card-tint-hover: rgba(232, 121, 249, 0.24);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><g fill='none' stroke='%23e879f9' stroke-width='0.8' stroke-opacity='0.28'><circle cx='10' cy='10' r='6'/><circle cx='30' cy='10' r='6'/><circle cx='10' cy='30' r='6'/><circle cx='30' cy='30' r='6'/><circle cx='20' cy='20' r='6'/></g></svg>");
+}
+
+/* 04. Микробиология — оранжевый */
+.card[data-subject="microbio"] {
+  --card-accent: #fb923c;
+  --card-tint: rgba(251, 146, 60, 0.14);
+  --card-tint-hover: rgba(251, 146, 60, 0.24);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><g fill='%23fb923c' fill-opacity='0.25'><circle cx='10' cy='10' r='2.5'/><circle cx='30' cy='15' r='1.8'/><circle cx='45' cy='40' r='2.2'/><circle cx='15' cy='35' r='1.5'/><circle cx='38' cy='25' r='2.8'/><circle cx='8' cy='45' r='1.2'/></g></svg>");
+}
+
+/* 05. Гигиена — бирюзовый */
+.card[data-subject="hygiene"] {
+  --card-accent: #2dd4bf;
+  --card-tint: rgba(45, 212, 191, 0.14);
+  --card-tint-hover: rgba(45, 212, 191, 0.24);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%232dd4bf' stroke-width='1' stroke-opacity='0.25'><path d='M15,5 C15,15 25,20 25,28 A10,10 0 1,1 5,28 C5,20 15,15 15,5 Z'/><path d='M45,30 C45,38 55,42 55,50 A10,10 0 1,1 35,50 C35,42 45,38 45,30 Z'/></g></svg>");
+}
+
+/* ∞. Недавнее — серый */
+.card[data-subject="recent"] {
+  --card-accent: #94a3b8;
+  --card-tint: rgba(148, 163, 184, 0.10);
+  --card-tint-hover: rgba(148, 163, 184, 0.18);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><g fill='%2394a3b8' fill-opacity='0.22'><circle cx='5' cy='5' r='1.2'/><circle cx='20' cy='20' r='1.2'/></g></svg>");
+}
+
+/* Светлая тема — те же цвета, чуть плотнее */
+html[data-theme="light"] .card[data-subject="biochem"] {
+  --card-accent: #65a30d;
+  --card-tint: rgba(101, 163, 13, 0.12);
+  --card-tint-hover: rgba(101, 163, 13, 0.20);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%2365a30d' stroke-width='1' stroke-opacity='0.22'><polygon points='30,5 52,18 52,42 30,55 8,42 8,18'/><polygon points='30,15 43,23 43,37 30,45 17,37 17,23'/></g></svg>");
+}
+html[data-theme="light"] .card[data-subject="physio"] {
+  --card-accent: #0284c7;
+  --card-tint: rgba(2, 132, 199, 0.12);
+  --card-tint-hover: rgba(2, 132, 199, 0.20);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'><path d='M0,20 L15,20 L20,8 L25,32 L30,20 L45,20 L50,8 L55,32 L60,20 L80,20' fill='none' stroke='%230284c7' stroke-width='1' stroke-opacity='0.28'/></svg>");
+}
+html[data-theme="light"] .card[data-subject="histology"] {
+  --card-accent: #c026d3;
+  --card-tint: rgba(192, 38, 211, 0.12);
+  --card-tint-hover: rgba(192, 38, 211, 0.20);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><g fill='none' stroke='%23c026d3' stroke-width='0.8' stroke-opacity='0.25'><circle cx='10' cy='10' r='6'/><circle cx='30' cy='10' r='6'/><circle cx='10' cy='30' r='6'/><circle cx='30' cy='30' r='6'/><circle cx='20' cy='20' r='6'/></g></svg>");
+}
+html[data-theme="light"] .card[data-subject="microbio"] {
+  --card-accent: #ea580c;
+  --card-tint: rgba(234, 88, 12, 0.12);
+  --card-tint-hover: rgba(234, 88, 12, 0.20);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><g fill='%23ea580c' fill-opacity='0.22'><circle cx='10' cy='10' r='2.5'/><circle cx='30' cy='15' r='1.8'/><circle cx='45' cy='40' r='2.2'/><circle cx='15' cy='35' r='1.5'/><circle cx='38' cy='25' r='2.8'/><circle cx='8' cy='45' r='1.2'/></g></svg>");
+}
+html[data-theme="light"] .card[data-subject="hygiene"] {
+  --card-accent: #0d9488;
+  --card-tint: rgba(13, 148, 136, 0.12);
+  --card-tint-hover: rgba(13, 148, 136, 0.20);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%230d9488' stroke-width='1' stroke-opacity='0.22'><path d='M15,5 C15,15 25,20 25,28 A10,10 0 1,1 5,28 C5,20 15,15 15,5 Z'/><path d='M45,30 C45,38 55,42 55,50 A10,10 0 1,1 35,50 C35,42 45,38 45,30 Z'/></g></svg>");
+}
+html[data-theme="light"] .card[data-subject="recent"] {
+  --card-accent: #64748b;
+  --card-tint: rgba(100, 116, 139, 0.10);
+  --card-tint-hover: rgba(100, 116, 139, 0.18);
+  --card-pattern:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><g fill='%2364748b' fill-opacity='0.20'><circle cx='5' cy='5' r='1.2'/><circle cx='20' cy='20' r='1.2'/></g></svg>");
 }
 
 /* ===== Обновления ===== */
@@ -673,7 +699,6 @@ html[data-theme="light"] .card[data-subject="recent"] {
   transition: color 0.35s ease;
 }
 
-/* Тонкие настройки ссылок в светлой теме */
 html[data-theme="light"] .link-card {
   background: #fbfdf7;
   border-color: #d5dfc4;
@@ -718,7 +743,9 @@ html[data-theme="light"] .footer {
   transition: color 0.35s ease;
 }
 
-/* ===== Модальное окно ===== */
+/* ============================================
+   МОДАЛЬНОЕ ОКНО
+   ============================================ */
 .modal {
   position: fixed;
   inset: 0;
@@ -849,10 +876,7 @@ html[data-theme="light"] .modal--recent .modal__box {
   --modal-accent-solid: 100, 116, 139;
 }
 
-/* Само окно модалки */
 .modal__box {
-  --modal-accent-solid: 163, 230, 53;
-
   position: relative;
   z-index: 2;
   width: 100%;
@@ -862,8 +886,8 @@ html[data-theme="light"] .modal--recent .modal__box {
   background:
     linear-gradient(
       135deg,
-      rgba(var(--modal-accent-solid), 0.10) 0%,
-      rgba(var(--modal-accent-solid), 0.03) 50%,
+      rgba(var(--modal-accent-solid, 163, 230, 53), 0.10) 0%,
+      rgba(var(--modal-accent-solid, 163, 230, 53), 0.03) 50%,
       transparent 100%
     ),
     rgba(26, 30, 20, 0.78);
@@ -871,13 +895,13 @@ html[data-theme="light"] .modal--recent .modal__box {
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
 
-  border: 1px solid rgba(var(--modal-accent-solid), 0.28);
+  border: 1px solid rgba(var(--modal-accent-solid, 163, 230, 53), 0.28);
   border-radius: var(--radius);
-  padding: 32px 44px 36px;
+  padding: 28px 44px 36px;
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(var(--modal-accent-solid), 0.06) inset,
-    0 0 80px -20px rgba(var(--modal-accent-solid), 0.35);
+    0 0 0 1px rgba(var(--modal-accent-solid, 163, 230, 53), 0.06) inset,
+    0 0 80px -20px rgba(var(--modal-accent-solid, 163, 230, 53), 0.35);
   animation: modal-in 0.25s ease;
   transition: background 0.35s ease, border-color 0.35s ease;
 }
@@ -886,16 +910,16 @@ html[data-theme="light"] .modal__box {
   background:
     linear-gradient(
       135deg,
-      rgba(var(--modal-accent-solid), 0.10) 0%,
-      rgba(var(--modal-accent-solid), 0.03) 50%,
+      rgba(var(--modal-accent-solid, 91, 156, 10), 0.10) 0%,
+      rgba(var(--modal-accent-solid, 91, 156, 10), 0.03) 50%,
       transparent 100%
     ),
     rgba(251, 253, 247, 0.92);
 
   box-shadow:
     0 20px 60px rgba(58, 75, 40, 0.15),
-    0 0 0 1px rgba(var(--modal-accent-solid), 0.08) inset,
-    0 0 80px -20px rgba(var(--modal-accent-solid), 0.35);
+    0 0 0 1px rgba(var(--modal-accent-solid, 91, 156, 10), 0.08) inset,
+    0 0 80px -20px rgba(var(--modal-accent-solid, 91, 156, 10), 0.35);
 }
 
 @keyframes modal-in {
@@ -910,7 +934,7 @@ html[data-theme="light"] .modal__box {
   gap: 16px;
   margin-bottom: 24px;
   padding-bottom: 18px;
-  border-bottom: 1px solid rgba(var(--modal-accent-solid), 0.15);
+  border-bottom: 1px solid rgba(var(--modal-accent-solid, 163, 230, 53), 0.15);
 }
 
 .modal__section {
@@ -922,13 +946,20 @@ html[data-theme="light"] .modal__box {
   transition: color 0.35s ease;
 }
 
+.modal__top-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 .modal__date {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 12px;
+  padding: 5px 11px;
   background: var(--accent-dim);
-  border: 1px solid rgba(var(--modal-accent-solid), 0.28);
+  border: 1px solid rgba(var(--modal-accent-solid, 163, 230, 53), 0.28);
   border-radius: 999px;
   font-size: 12px;
   color: var(--accent);
@@ -945,8 +976,47 @@ html[data-theme="light"] .modal__box {
   text-transform: uppercase;
   color: var(--on-accent);
   background: var(--accent);
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: 999px;
+}
+
+.modal__close {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
+  border: 1px solid rgba(var(--modal-accent-solid, 163, 230, 53), 0.55);
+  background: rgba(var(--modal-accent-solid, 163, 230, 53), 0.16);
+  color: rgb(var(--modal-accent-solid, 163, 230, 53));
+
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  padding-bottom: 2px;
+
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.modal__close:hover {
+  background: rgb(var(--modal-accent-solid, 163, 230, 53));
+  color: #0d0f0c;
+  border-color: rgb(var(--modal-accent-solid, 163, 230, 53));
+  transform: scale(1.08);
+}
+
+html[data-theme="light"] .modal__close:hover {
+  color: #ffffff;
 }
 
 .modal__body { display: block; }
@@ -979,8 +1049,8 @@ html[data-theme="light"] .modal__box {
 }
 
 .modal__prep {
-  background: rgba(var(--modal-accent-solid), 0.07);
-  border: 1px solid rgba(var(--modal-accent-solid), 0.18);
+  background: rgba(var(--modal-accent-solid, 163, 230, 53), 0.07);
+  border: 1px solid rgba(var(--modal-accent-solid, 163, 230, 53), 0.18);
   border-radius: var(--radius);
   padding: 22px 26px;
   margin-bottom: 28px;
@@ -988,7 +1058,7 @@ html[data-theme="light"] .modal__box {
 }
 
 html[data-theme="light"] .modal__prep {
-  background: rgba(var(--modal-accent-solid), 0.06);
+  background: rgba(var(--modal-accent-solid, 91, 156, 10), 0.06);
 }
 
 .modal__prep-title {
@@ -1047,8 +1117,8 @@ html[data-theme="light"] .modal__prep {
   display: flex;
   align-items: center;
   padding: 16px 20px;
-  background: rgba(var(--modal-accent-solid), 0.06);
-  border: 1px solid rgba(var(--modal-accent-solid), 0.18);
+  background: rgba(var(--modal-accent-solid, 163, 230, 53), 0.06);
+  border: 1px solid rgba(var(--modal-accent-solid, 163, 230, 53), 0.18);
   border-radius: var(--radius-sm);
   font-size: 16px;
   color: var(--text);
@@ -1057,7 +1127,7 @@ html[data-theme="light"] .modal__prep {
 }
 
 html[data-theme="light"] .modal__files a {
-  background: rgba(var(--modal-accent-solid), 0.05);
+  background: rgba(var(--modal-accent-solid, 91, 156, 10), 0.05);
 }
 
 .modal__files a::before {
@@ -1076,7 +1146,7 @@ html[data-theme="light"] .modal__files a {
 .modal__files a:hover {
   border-color: var(--accent);
   color: var(--accent);
-  background: rgba(var(--modal-accent-solid), 0.12);
+  background: rgba(var(--modal-accent-solid, 163, 230, 53), 0.12);
 }
 
 .modal__files a:hover::before { opacity: 1; }
@@ -1088,13 +1158,13 @@ html[data-theme="light"] .modal__files a {
   flex-wrap: wrap;
   margin-top: 32px;
   padding-top: 24px;
-  border-top: 1px solid rgba(var(--modal-accent-solid), 0.15);
+  border-top: 1px solid rgba(var(--modal-accent-solid, 163, 230, 53), 0.15);
 }
 
 .modal__dot {
   min-width: 42px;
   padding: 8px 12px;
-  border: 1px solid rgba(var(--modal-accent-solid), 0.18);
+  border: 1px solid rgba(var(--modal-accent-solid, 163, 230, 53), 0.18);
   background: transparent;
   color: var(--muted);
   border-radius: 8px;
@@ -1109,7 +1179,7 @@ html[data-theme="light"] .modal__files a {
 
 .modal__dot:hover {
   color: var(--text);
-  border-color: rgba(var(--modal-accent-solid), 0.4);
+  border-color: rgba(var(--modal-accent-solid, 163, 230, 53), 0.4);
   opacity: 0.85;
 }
 
@@ -1147,7 +1217,6 @@ html[data-theme="light"] .modal__files a {
   .card { min-height: 180px; }
   .card::before { background-size: 60px 60px; }
   .card__title { font-size: 22px; }
-  .card--recent .card__title { font-size: 18px; }
 
   .links-grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -1157,7 +1226,7 @@ html[data-theme="light"] .modal__files a {
   .link-card__title { font-size: 18px; }
 
   .modal { padding: 20px 12px; }
-  .modal__box { padding: 24px 22px 26px; }
+  .modal__box { padding: 22px 22px 26px; }
   .modal__title { font-size: 26px; }
 }
 
@@ -1190,7 +1259,6 @@ html[data-theme="light"] .modal__files a {
   .card { min-height: 140px; padding: 18px 18px 16px; }
   .card::before { background-size: 50px 50px; }
   .card__title { font-size: 22px; }
-  .card--recent .card__title { font-size: 18px; }
 
   .links-grid { grid-template-columns: 1fr; gap: 10px; }
   .link-card { min-height: 100px; padding: 20px 26px; }
@@ -1205,9 +1273,8 @@ html[data-theme="light"] .modal__files a {
   .footer { padding: 22px 0; }
   .footer__inner { flex-direction: column; align-items: flex-start; gap: 10px; }
 
-  /* Модалка на телефоне */
   .modal { padding: 12px 8px; }
-  .modal__box { padding: 20px 16px 20px; border-radius: 12px; }
+  .modal__box { padding: 18px 16px 20px; border-radius: 12px; }
 
   .modal__backdrop {
     backdrop-filter: blur(8px);
@@ -1217,12 +1284,25 @@ html[data-theme="light"] .modal__files a {
   .modal__top {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 16px;
     padding-bottom: 14px;
   }
   .modal__section { font-size: 11px; }
+
+  .modal__top-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .modal__date { font-size: 10.5px; padding: 4px 9px; }
+
+  .modal__close {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    padding-bottom: 2px;
+  }
 
   .modal__num { font-size: 11px; margin-bottom: 6px; }
   .modal__title { font-size: 20px; line-height: 1.18; margin-bottom: 16px; }
@@ -1248,9 +1328,10 @@ html[data-theme="light"] .modal__files a {
   .section__title { font-size: 20px; }
   .card__title { font-size: 20px; }
 
-  .modal__box { padding: 18px 14px 18px; }
+  .modal__box { padding: 16px 14px 18px; }
   .modal__title { font-size: 18px; }
   .modal__steps li { font-size: 13px; }
   .modal__files a { font-size: 13px; padding: 11px 12px; }
   .modal__dot { min-width: 36px; padding: 7px 10px; font-size: 11px; }
 }
+
