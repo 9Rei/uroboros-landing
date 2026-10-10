@@ -5,6 +5,7 @@
   box-sizing: border-box;
 }
 
+/* ===== Тёмная тема (по умолчанию) ===== */
 :root {
   --bg: #0d0f0c;
   --bg-soft: #14170f;
@@ -22,18 +23,19 @@
   --radius-sm: 10px;
 }
 
+/* ===== Светлая тема — тёплая, зелёно-бежевая ===== */
 html[data-theme="light"] {
-  --bg: #f7f8f3;
-  --bg-soft: #eef0e6;
-  --surface: #ffffff;
-  --surface-2: #f1f4e8;
-  --border: #e0e4d3;
-  --text: #1a1e14;
-  --muted: #6b7355;
-  --accent: #65a30d;
+  --bg: #eef2e6;
+  --bg-soft: #e2e8d6;
+  --surface: #fbfdf7;
+  --surface-2: #f1f5e8;
+  --border: #cdd6bd;
+  --text: #1a2415;
+  --muted: #5a6b4a;
+  --accent: #5b9c0a;
   --accent-soft: #84cc16;
-  --accent-dim: rgba(101, 163, 13, 0.12);
-  --accent-tint: rgba(101, 163, 13, 0.05);
+  --accent-dim: rgba(91, 156, 10, 0.12);
+  --accent-tint: rgba(91, 156, 10, 0.05);
   --on-accent: #ffffff;
 }
 
@@ -45,6 +47,14 @@ body {
   -webkit-text-size-adjust: 100%;
   overflow-x: hidden;
   transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* Мягкое зелёное свечение по углам в светлой теме */
+html[data-theme="light"] body {
+  background-image:
+    radial-gradient(circle at 12% 0%, rgba(132, 204, 22, 0.14) 0%, transparent 42%),
+    radial-gradient(circle at 88% 100%, rgba(91, 156, 10, 0.10) 0%, transparent 38%);
+  background-attachment: fixed;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -69,7 +79,8 @@ button { font-family: inherit; }
 }
 
 html[data-theme="light"] .header {
-  background: rgba(247, 248, 243, 0.85);
+  background: rgba(238, 242, 230, 0.85);
+  border-bottom-color: rgba(91, 156, 10, 0.15);
 }
 
 .header__inner {
@@ -196,8 +207,8 @@ html[data-theme="light"] .header {
 }
 
 html[data-theme="light"] .theme-toggle__track {
-  background: rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.1);
+  background: rgba(91, 156, 10, 0.10);
+  border-color: rgba(91, 156, 10, 0.25);
 }
 
 .theme-toggle__thumb {
@@ -217,8 +228,8 @@ html[data-theme="light"] .theme-toggle__track {
 
 html[data-theme="light"] .theme-toggle__thumb {
   left: 30px;
-  background: #65a30d;
-  box-shadow: 0 2px 6px rgba(101, 163, 13, 0.45);
+  background: #5b9c0a;
+  box-shadow: 0 2px 6px rgba(91, 156, 10, 0.45);
 }
 
 .theme-toggle:hover .theme-toggle__track { border-color: var(--accent); }
@@ -291,7 +302,7 @@ html[data-theme="light"] .theme-toggle__thumb {
    ЦВЕТА И ОРНАМЕНТЫ КАРТОЧЕК ПО РАЗДЕЛАМ
    ============================================ */
 
-/* 01. Биохимия — гексагоны (молекулы) */
+/* 01. Биохимия — гексагоны */
 .card[data-subject="biochem"] {
   --card-accent: #a3e635;
   --card-tint: rgba(163, 230, 53, 0.05);
@@ -300,7 +311,7 @@ html[data-theme="light"] .theme-toggle__thumb {
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%23a3e635' stroke-width='1' stroke-opacity='0.18'><polygon points='30,5 52,18 52,42 30,55 8,42 8,18'/><polygon points='30,15 43,23 43,37 30,45 17,37 17,23'/></g></svg>");
 }
 
-/* 02. Физиология — волны (ЭКГ) */
+/* 02. Физиология — волны */
 .card[data-subject="physio"] {
   --card-accent: #38bdf8;
   --card-tint: rgba(56, 189, 248, 0.05);
@@ -345,48 +356,48 @@ html[data-theme="light"] .theme-toggle__thumb {
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><g fill='%2394a3b8' fill-opacity='0.18'><circle cx='5' cy='5' r='1.2'/><circle cx='20' cy='20' r='1.2'/></g></svg>");
 }
 
-/* Светлая тема — ещё бледнее */
+/* Светлая тема — бледнее */
 html[data-theme="light"] .card[data-subject="biochem"] {
-  --card-accent: #65a30d;
-  --card-tint: rgba(101, 163, 13, 0.04);
-  --card-tint-hover: rgba(101, 163, 13, 0.09);
+  --card-accent: #5b9c0a;
+  --card-tint: rgba(91, 156, 10, 0.05);
+  --card-tint-hover: rgba(91, 156, 10, 0.10);
   --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%2365a30d' stroke-width='1' stroke-opacity='0.14'><polygon points='30,5 52,18 52,42 30,55 8,42 8,18'/><polygon points='30,15 43,23 43,37 30,45 17,37 17,23'/></g></svg>");
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%235b9c0a' stroke-width='1' stroke-opacity='0.16'><polygon points='30,5 52,18 52,42 30,55 8,42 8,18'/><polygon points='30,15 43,23 43,37 30,45 17,37 17,23'/></g></svg>");
 }
 html[data-theme="light"] .card[data-subject="physio"] {
   --card-accent: #0284c7;
-  --card-tint: rgba(2, 132, 199, 0.04);
-  --card-tint-hover: rgba(2, 132, 199, 0.09);
+  --card-tint: rgba(2, 132, 199, 0.05);
+  --card-tint-hover: rgba(2, 132, 199, 0.10);
   --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'><path d='M0,20 L15,20 L20,8 L25,32 L30,20 L45,20 L50,8 L55,32 L60,20 L80,20' fill='none' stroke='%230284c7' stroke-width='1' stroke-opacity='0.15'/></svg>");
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'><path d='M0,20 L15,20 L20,8 L25,32 L30,20 L45,20 L50,8 L55,32 L60,20 L80,20' fill='none' stroke='%230284c7' stroke-width='1' stroke-opacity='0.18'/></svg>");
 }
 html[data-theme="light"] .card[data-subject="histology"] {
   --card-accent: #c026d3;
-  --card-tint: rgba(192, 38, 211, 0.04);
-  --card-tint-hover: rgba(192, 38, 211, 0.09);
+  --card-tint: rgba(192, 38, 211, 0.05);
+  --card-tint-hover: rgba(192, 38, 211, 0.10);
   --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><g fill='none' stroke='%23c026d3' stroke-width='0.8' stroke-opacity='0.15'><circle cx='10' cy='10' r='6'/><circle cx='30' cy='10' r='6'/><circle cx='10' cy='30' r='6'/><circle cx='30' cy='30' r='6'/><circle cx='20' cy='20' r='6'/></g></svg>");
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><g fill='none' stroke='%23c026d3' stroke-width='0.8' stroke-opacity='0.18'><circle cx='10' cy='10' r='6'/><circle cx='30' cy='10' r='6'/><circle cx='10' cy='30' r='6'/><circle cx='30' cy='30' r='6'/><circle cx='20' cy='20' r='6'/></g></svg>");
 }
 html[data-theme="light"] .card[data-subject="microbio"] {
   --card-accent: #ea580c;
-  --card-tint: rgba(234, 88, 12, 0.04);
-  --card-tint-hover: rgba(234, 88, 12, 0.09);
+  --card-tint: rgba(234, 88, 12, 0.05);
+  --card-tint-hover: rgba(234, 88, 12, 0.10);
   --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><g fill='%23ea580c' fill-opacity='0.14'><circle cx='10' cy='10' r='2.5'/><circle cx='30' cy='15' r='1.8'/><circle cx='45' cy='40' r='2.2'/><circle cx='15' cy='35' r='1.5'/><circle cx='38' cy='25' r='2.8'/><circle cx='8' cy='45' r='1.2'/></g></svg>");
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><g fill='%23ea580c' fill-opacity='0.16'><circle cx='10' cy='10' r='2.5'/><circle cx='30' cy='15' r='1.8'/><circle cx='45' cy='40' r='2.2'/><circle cx='15' cy='35' r='1.5'/><circle cx='38' cy='25' r='2.8'/><circle cx='8' cy='45' r='1.2'/></g></svg>");
 }
 html[data-theme="light"] .card[data-subject="hygiene"] {
   --card-accent: #0d9488;
-  --card-tint: rgba(13, 148, 136, 0.04);
-  --card-tint-hover: rgba(13, 148, 136, 0.09);
+  --card-tint: rgba(13, 148, 136, 0.05);
+  --card-tint-hover: rgba(13, 148, 136, 0.10);
   --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%230d9488' stroke-width='1' stroke-opacity='0.14'><path d='M15,5 C15,15 25,20 25,28 A10,10 0 1,1 5,28 C5,20 15,15 15,5 Z'/><path d='M45,30 C45,38 55,42 55,50 A10,10 0 1,1 35,50 C35,42 45,38 45,30 Z'/></g></svg>");
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='%230d9488' stroke-width='1' stroke-opacity='0.16'><path d='M15,5 C15,15 25,20 25,28 A10,10 0 1,1 5,28 C5,20 15,15 15,5 Z'/><path d='M45,30 C45,38 55,42 55,50 A10,10 0 1,1 35,50 C35,42 45,38 45,30 Z'/></g></svg>");
 }
 html[data-theme="light"] .card[data-subject="recent"] {
   --card-accent: #64748b;
-  --card-tint: rgba(100, 116, 139, 0.04);
-  --card-tint-hover: rgba(100, 116, 139, 0.09);
+  --card-tint: rgba(100, 116, 139, 0.05);
+  --card-tint-hover: rgba(100, 116, 139, 0.10);
   --card-pattern:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><g fill='%2364748b' fill-opacity='0.14'><circle cx='5' cy='5' r='1.2'/><circle cx='20' cy='20' r='1.2'/></g></svg>");
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><g fill='%2364748b' fill-opacity='0.16'><circle cx='5' cy='5' r='1.2'/><circle cx='20' cy='20' r='1.2'/></g></svg>");
 }
 
 /* ===== Карточки предметов ===== */
@@ -418,7 +429,7 @@ html[data-theme="light"] .card[data-subject="recent"] {
   transition: transform 0.25s, border-color 0.25s, background 0.35s, box-shadow 0.25s;
 }
 
-/* ===== ОРНАМЕНТ — отдельный слой с маской ===== */
+/* Орнамент с маской */
 .card::before {
   content: '';
   position: absolute;
@@ -431,7 +442,6 @@ html[data-theme="light"] .card[data-subject="recent"] {
   pointer-events: none;
   opacity: 0.85;
 
-  /* Маска: видим только у правого нижнего угла, к центру — плавно исчезает */
   -webkit-mask-image: radial-gradient(
     ellipse 75% 75% at 100% 100%,
     black 0%,
@@ -450,7 +460,6 @@ html[data-theme="light"] .card[data-subject="recent"] {
   transition: opacity 0.35s ease;
 }
 
-/* Верхняя акцентная линия — теперь через ::after */
 .card::after {
   content: '';
   position: absolute;
@@ -474,7 +483,6 @@ html[data-theme="light"] .card[data-subject="recent"] {
 .card:hover::before { opacity: 1; }
 .card:hover::after { opacity: 1; }
 
-/* Контент поверх орнамента */
 .card__top,
 .card__title,
 .card__last {
@@ -506,8 +514,8 @@ html[data-theme="light"] .card[data-subject="recent"] {
   text-transform: uppercase;
   color: var(--on-accent);
   background: var(--card-accent);
-  padding: 3px 7px;
-  border-radius: 6px;
+  padding: 3px 8px;
+  border-radius: 999px;
   opacity: 0;
   transform: scale(0.9);
   transition: all 0.2s;
@@ -665,11 +673,27 @@ html[data-theme="light"] .card[data-subject="recent"] {
   transition: color 0.35s ease;
 }
 
+/* Тонкие настройки ссылок в светлой теме */
+html[data-theme="light"] .link-card {
+  background: #fbfdf7;
+  border-color: #d5dfc4;
+}
+
+html[data-theme="light"] .link-card:hover {
+  border-color: var(--accent);
+  background: #ffffff;
+  box-shadow: 0 8px 24px -8px rgba(91, 156, 10, 0.20);
+}
+
 /* ===== Подвал ===== */
 .footer {
   border-top: 1px solid var(--border);
   padding: 32px 0;
   margin-top: 40px;
+}
+
+html[data-theme="light"] .footer {
+  border-top-color: #cdd6bd;
 }
 
 .footer__inner {
@@ -718,10 +742,13 @@ html[data-theme="light"] .card[data-subject="recent"] {
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
   z-index: 1;
+  cursor: pointer;
 }
 
 html[data-theme="light"] .modal__backdrop {
-  background: rgba(26, 30, 20, 0.45);
+  background: rgba(58, 75, 40, 0.35);
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
 }
 
 /* Акцентные цвета по разделам */
@@ -780,11 +807,11 @@ html[data-theme="light"] .modal__backdrop {
 }
 
 html[data-theme="light"] .modal--biochem .modal__box {
-  --accent: #65a30d;
-  --accent-dim: rgba(101, 163, 13, 0.18);
-  --accent-tint: rgba(101, 163, 13, 0.06);
+  --accent: #5b9c0a;
+  --accent-dim: rgba(91, 156, 10, 0.18);
+  --accent-tint: rgba(91, 156, 10, 0.06);
   --on-accent: #ffffff;
-  --modal-accent-solid: 101, 163, 13;
+  --modal-accent-solid: 91, 156, 10;
 }
 html[data-theme="light"] .modal--physio .modal__box {
   --accent: #0284c7;
@@ -863,11 +890,11 @@ html[data-theme="light"] .modal__box {
       rgba(var(--modal-accent-solid), 0.03) 50%,
       transparent 100%
     ),
-    rgba(255, 255, 255, 0.88);
+    rgba(251, 253, 247, 0.92);
 
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.10),
-    0 0 0 1px rgba(var(--modal-accent-solid), 0.06) inset,
+    0 20px 60px rgba(58, 75, 40, 0.15),
+    0 0 0 1px rgba(var(--modal-accent-solid), 0.08) inset,
     0 0 80px -20px rgba(var(--modal-accent-solid), 0.35);
 }
 
@@ -895,12 +922,6 @@ html[data-theme="light"] .modal__box {
   transition: color 0.35s ease;
 }
 
-.modal__top-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
 .modal__date {
   display: inline-flex;
   align-items: center;
@@ -924,31 +945,8 @@ html[data-theme="light"] .modal__box {
   text-transform: uppercase;
   color: var(--on-accent);
   background: var(--accent);
-  padding: 2px 6px;
+  padding: 2px 8px;
   border-radius: 999px;
-}
-
-.modal__close {
-  width: 36px;
-  height: 36px;
-  border: none;
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 22px;
-  line-height: 1;
-  transition: all 0.2s;
-  flex-shrink: 0;
-}
-
-html[data-theme="light"] .modal__close {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.modal__close:hover {
-  background: var(--accent);
-  color: var(--on-accent);
 }
 
 .modal__body { display: block; }
@@ -1163,6 +1161,9 @@ html[data-theme="light"] .modal__files a {
   .modal__title { font-size: 26px; }
 }
 
+/* ============================================
+   ТЕЛЕФОНЫ
+   ============================================ */
 @media (max-width: 640px) {
   .container { padding: 0 16px; }
   .nav { display: none; }
@@ -1204,20 +1205,24 @@ html[data-theme="light"] .modal__files a {
   .footer { padding: 22px 0; }
   .footer__inner { flex-direction: column; align-items: flex-start; gap: 10px; }
 
+  /* Модалка на телефоне */
   .modal { padding: 12px 8px; }
   .modal__box { padding: 20px 16px 20px; border-radius: 12px; }
 
+  .modal__backdrop {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
   .modal__top {
     flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
+    align-items: flex-start;
+    gap: 8px;
     margin-bottom: 16px;
     padding-bottom: 14px;
   }
   .modal__section { font-size: 11px; }
-  .modal__top-right { justify-content: space-between; width: 100%; gap: 8px; }
   .modal__date { font-size: 10.5px; padding: 4px 9px; }
-  .modal__close { width: 30px; height: 30px; font-size: 18px; }
 
   .modal__num { font-size: 11px; margin-bottom: 6px; }
   .modal__title { font-size: 20px; line-height: 1.18; margin-bottom: 16px; }
