@@ -3,22 +3,15 @@
 // ============================================================
 //
 //  КАК ДОБАВИТЬ ТЕМУ:
-//  1. Найди нужный раздел ниже (biochem, physio, histology, ...).
-//  2. Скопируй блок темы { ... } и вставь в конец topics.
-//  3. Заполни поля num, title, steps, date, files.
+//  1. Найди нужный раздел.
+//  2. Скопируй блок { ... } в конец topics.
+//  3. Заполни поля: num, title, steps, date, files.
 //
 //  ПРО date:
-//    'today'         → подставится сегодняшняя дата
-//    '2026-10-10'    → конкретная дата (ГГГГ-ММ-ДД)
+//    Формат: 'ГГГГ-ММ-ДД'  (например '2026-10-10')
+//    Просто вписывай дату вручную.
 //
 // ============================================================
-
-function resolveDate(dateValue) {
-  if (dateValue === 'today') {
-    return new Date().toISOString().slice(0, 10);
-  }
-  return dateValue;
-}
 
 const subjects = {
   biochem: {
@@ -30,10 +23,9 @@ const subjects = {
         title: 'Раздел в разработке',
         steps: [
           'Материалы появятся позже',
-          'Следите за обновлениями',
-          'Посмотреть видеоразбор по теме'
+          'Следите за обновлениями'
         ],
-        date: '09.10.26',
+        date: '2025-08-30',
         files: [
           { name: 'Пока пусто', url: '#' }
         ]
@@ -51,7 +43,7 @@ const subjects = {
           'Материалы появятся позже',
           'Следите за обновлениями'
         ],
-        date: '09.10.26',
+        date: '2025-08-30',
         files: [
           { name: 'Пока пусто', url: '#' }
         ]
@@ -69,33 +61,33 @@ const subjects = {
           'Материалы появятся позже',
           'Следите за обновлениями'
         ],
-        date: '09.10.26',
+        date: '2025-08-30',
         files: [
           { name: 'Пока пусто', url: '#' }
         ]
       }
     ]
   },
-
   microbio: {
     num: '04',
     title: 'Микробиология',
     topics: [
-     {
+      {
         num: '06',
         title: 'Инфекция, инфекционный процесс. Факторы патогенности бактерий.',
         steps: [
-          'Прочитать файлик',
-          'Выполнить тест'
+          'Прочитать файлик «МИКРА_6.pdf»',
+          'Выполнить тест',
+          'Посмотреть видеоразбор по теме',
+          'P.s. Вот так вот'
         ],
-        date: 'today',
+        date: '2026-10-10',
         files: [
           { name: 'МИКРА_6.pdf', url: 'files/МИКРА_6.pdf' }
         ]
       }
     ]
   },
-
   hygiene: {
     num: '05',
     title: 'Гигиена',
@@ -107,7 +99,7 @@ const subjects = {
           'Материалы появятся позже',
           'Следите за обновлениями'
         ],
-        date: '09.10.26',
+        date: '2025-08-30',
         files: [
           { name: 'Пока пусто', url: '#' }
         ]
@@ -122,32 +114,26 @@ const subjects = {
 };
 
 // ============================================================
-//  ЛОГИКА — МЕНЯТЬ НЕ НУЖНО
+//  ЛОГИКА
 // ============================================================
 
 function daysSince(dateInput) {
   const then = new Date(dateInput).getTime();
+  if (isNaN(then)) return 999; // защита от неправильной даты
   const now = Date.now();
   return Math.floor((now - then) / (1000 * 60 * 60 * 24));
 }
 
 function formatDate(dateInput) {
-  return new Date(dateInput).toLocaleDateString('ru-RU', {
+  const d = new Date(dateInput);
+  if (isNaN(d.getTime())) return dateInput; // если дата битая — показываем как есть
+  return d.toLocaleDateString('ru-RU', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
   });
 }
 
-// Обработка 'today'
-Object.keys(subjects).forEach(key => {
-  if (key === 'recent') return;
-  subjects[key].topics.forEach(topic => {
-    topic.date = resolveDate(topic.date);
-  });
-});
-
-// Сборка «Недавно обновлённых»
 function buildRecent() {
   const allTopics = [];
 
@@ -168,7 +154,6 @@ function buildRecent() {
 }
 buildRecent();
 
-// Заполнение карточек
 function fillCards() {
   document.querySelectorAll('.card').forEach(card => {
     const key = card.dataset.subject;
@@ -189,7 +174,6 @@ function fillCards() {
 }
 fillCards();
 
-// Плавная прокрутка
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', (e) => {
     const id = link.getAttribute('href');
@@ -202,7 +186,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// Модальное окно
 let currentSubject = null;
 let currentTopicIndex = 0;
 
