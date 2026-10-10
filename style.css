@@ -314,6 +314,76 @@ html[data-theme="light"] .theme-toggle__thumb {
   transition: color 0.35s ease;
 }
 
+/* ============================================
+   ЦВЕТА КАРТОЧЕК ПО РАЗДЕЛАМ
+   ============================================ */
+.card[data-subject="biochem"] {
+  --card-accent: #a3e635;
+  --card-tint: rgba(163, 230, 53, 0.06);
+  --card-tint-hover: rgba(163, 230, 53, 0.14);
+}
+
+.card[data-subject="physio"] {
+  --card-accent: #38bdf8;
+  --card-tint: rgba(56, 189, 248, 0.06);
+  --card-tint-hover: rgba(56, 189, 248, 0.14);
+}
+
+.card[data-subject="histology"] {
+  --card-accent: #e879f9;
+  --card-tint: rgba(232, 121, 249, 0.06);
+  --card-tint-hover: rgba(232, 121, 249, 0.14);
+}
+
+.card[data-subject="microbio"] {
+  --card-accent: #fb923c;
+  --card-tint: rgba(251, 146, 60, 0.06);
+  --card-tint-hover: rgba(251, 146, 60, 0.14);
+}
+
+.card[data-subject="hygiene"] {
+  --card-accent: #2dd4bf;
+  --card-tint: rgba(45, 212, 191, 0.06);
+  --card-tint-hover: rgba(45, 212, 191, 0.14);
+}
+
+.card[data-subject="recent"] {
+  --card-accent: #94a3b8;
+  --card-tint: rgba(148, 163, 184, 0.06);
+  --card-tint-hover: rgba(148, 163, 184, 0.14);
+}
+
+html[data-theme="light"] .card[data-subject="biochem"] {
+  --card-accent: #65a30d;
+  --card-tint: rgba(101, 163, 13, 0.06);
+  --card-tint-hover: rgba(101, 163, 13, 0.14);
+}
+html[data-theme="light"] .card[data-subject="physio"] {
+  --card-accent: #0284c7;
+  --card-tint: rgba(2, 132, 199, 0.06);
+  --card-tint-hover: rgba(2, 132, 199, 0.14);
+}
+html[data-theme="light"] .card[data-subject="histology"] {
+  --card-accent: #c026d3;
+  --card-tint: rgba(192, 38, 211, 0.06);
+  --card-tint-hover: rgba(192, 38, 211, 0.14);
+}
+html[data-theme="light"] .card[data-subject="microbio"] {
+  --card-accent: #ea580c;
+  --card-tint: rgba(234, 88, 12, 0.06);
+  --card-tint-hover: rgba(234, 88, 12, 0.14);
+}
+html[data-theme="light"] .card[data-subject="hygiene"] {
+  --card-accent: #0d9488;
+  --card-tint: rgba(13, 148, 136, 0.06);
+  --card-tint-hover: rgba(13, 148, 136, 0.14);
+}
+html[data-theme="light"] .card[data-subject="recent"] {
+  --card-accent: #64748b;
+  --card-tint: rgba(100, 116, 139, 0.06);
+  --card-tint-hover: rgba(100, 116, 139, 0.14);
+}
+
 /* ===== Карточки предметов ===== */
 .cards {
   display: grid;
@@ -322,16 +392,22 @@ html[data-theme="light"] .theme-toggle__thumb {
 }
 
 .card {
+  --card-accent: var(--accent);
+  --card-tint: var(--accent-tint);
+  --card-tint-hover: var(--accent-dim);
+
   position: relative;
   display: flex;
   flex-direction: column;
   min-height: 200px;
   background: var(--surface);
+  background-image:
+    linear-gradient(135deg, var(--card-tint) 0%, transparent 70%);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 22px 22px 20px;
   overflow: hidden;
-  transition: transform 0.25s, border-color 0.25s, background 0.35s;
+  transition: transform 0.25s, border-color 0.25s, background 0.35s, box-shadow 0.25s;
 }
 
 .card::before {
@@ -341,7 +417,7 @@ html[data-theme="light"] .theme-toggle__thumb {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  background: linear-gradient(90deg, transparent, var(--card-accent), transparent);
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -353,14 +429,16 @@ html[data-theme="light"] .theme-toggle__thumb {
   bottom: 0;
   width: 0;
   height: 2px;
-  background: var(--accent);
+  background: var(--card-accent);
   transition: width 0.35s ease;
 }
 
 .card:hover {
-  border-color: var(--accent);
+  border-color: var(--card-accent);
   transform: translateY(-4px);
-  background: var(--surface-2);
+  background-image:
+    linear-gradient(135deg, var(--card-tint-hover) 0%, transparent 70%);
+  box-shadow: 0 12px 28px -10px var(--card-tint-hover);
 }
 
 .card:hover::before {
@@ -382,7 +460,7 @@ html[data-theme="light"] .theme-toggle__thumb {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.2em;
-  color: var(--accent);
+  color: var(--card-accent);
   font-variant-numeric: tabular-nums;
   text-transform: uppercase;
   transition: color 0.35s ease;
@@ -394,7 +472,7 @@ html[data-theme="light"] .theme-toggle__thumb {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--on-accent);
-  background: var(--accent);
+  background: var(--card-accent);
   padding: 3px 7px;
   border-radius: 6px;
   opacity: 0;
@@ -436,6 +514,8 @@ html[data-theme="light"] .theme-toggle__thumb {
 
 .card--recent {
   background: var(--bg-soft);
+  background-image:
+    linear-gradient(135deg, var(--card-tint) 0%, transparent 70%);
   border-color: var(--accent-dim);
 }
 
@@ -447,8 +527,8 @@ html[data-theme="light"] .theme-toggle__thumb {
   left: 0;
   width: 3px;
   height: auto;
-  background: var(--accent);
-  opacity: 0.5;
+  background: var(--card-accent);
+  opacity: 0.6;
   border-radius: 0 3px 3px 0;
   transition: opacity 0.25s, background 0.35s;
 }
@@ -629,124 +709,170 @@ html[data-theme="light"] .theme-toggle__thumb {
 .modal__backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
   z-index: 1;
 }
 
 html[data-theme="light"] .modal__backdrop {
-  background: rgba(26, 30, 20, 0.5);
-}
-
-.modal__box {
-  --accent-tint: rgba(163, 230, 53, 0.05);
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 820px;
-  margin: auto;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px 44px 36px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  animation: modal-in 0.25s ease;
-  transition: background 0.35s ease;
-}
-
-@keyframes modal-in {
-  from { opacity: 0; transform: translateY(12px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  background: rgba(26, 30, 20, 0.45);
 }
 
 /* ============================================
-   АКЦЕНТНЫЕ ЦВЕТА ПО РАЗДЕЛАМ
+   АКЦЕНТНЫЕ ЦВЕТА ПО РАЗДЕЛАМ (модалка)
    ============================================ */
 .modal--biochem .modal__box {
   --accent: #a3e635;
   --accent-soft: #84cc16;
-  --accent-dim: rgba(163, 230, 53, 0.12);
-  --accent-tint: rgba(163, 230, 53, 0.05);
+  --accent-dim: rgba(163, 230, 53, 0.18);
+  --accent-tint: rgba(163, 230, 53, 0.06);
   --on-accent: #0d0f0c;
+  --modal-accent-solid: 163, 230, 53;
 }
 
 .modal--physio .modal__box {
   --accent: #38bdf8;
   --accent-soft: #0ea5e9;
-  --accent-dim: rgba(56, 189, 248, 0.14);
-  --accent-tint: rgba(56, 189, 248, 0.05);
+  --accent-dim: rgba(56, 189, 248, 0.20);
+  --accent-tint: rgba(56, 189, 248, 0.06);
   --on-accent: #0d0f0c;
+  --modal-accent-solid: 56, 189, 248;
 }
 
 .modal--histology .modal__box {
   --accent: #e879f9;
   --accent-soft: #d946ef;
-  --accent-dim: rgba(232, 121, 249, 0.14);
-  --accent-tint: rgba(232, 121, 249, 0.05);
+  --accent-dim: rgba(232, 121, 249, 0.20);
+  --accent-tint: rgba(232, 121, 249, 0.06);
   --on-accent: #0d0f0c;
+  --modal-accent-solid: 232, 121, 249;
 }
 
 .modal--microbio .modal__box {
   --accent: #fb923c;
   --accent-soft: #f97316;
-  --accent-dim: rgba(251, 146, 60, 0.14);
-  --accent-tint: rgba(251, 146, 60, 0.05);
+  --accent-dim: rgba(251, 146, 60, 0.20);
+  --accent-tint: rgba(251, 146, 60, 0.06);
   --on-accent: #0d0f0c;
+  --modal-accent-solid: 251, 146, 60;
 }
 
 .modal--hygiene .modal__box {
   --accent: #2dd4bf;
   --accent-soft: #14b8a6;
-  --accent-dim: rgba(45, 212, 191, 0.14);
-  --accent-tint: rgba(45, 212, 191, 0.05);
+  --accent-dim: rgba(45, 212, 191, 0.20);
+  --accent-tint: rgba(45, 212, 191, 0.06);
   --on-accent: #0d0f0c;
+  --modal-accent-solid: 45, 212, 191;
 }
 
 .modal--recent .modal__box {
   --accent: #94a3b8;
   --accent-soft: #cbd5e1;
-  --accent-dim: rgba(148, 163, 184, 0.14);
-  --accent-tint: rgba(148, 163, 184, 0.05);
+  --accent-dim: rgba(148, 163, 184, 0.20);
+  --accent-tint: rgba(148, 163, 184, 0.06);
   --on-accent: #0d0f0c;
+  --modal-accent-solid: 148, 163, 184;
 }
 
-/* Светлая тема: акценты темнее */
 html[data-theme="light"] .modal--biochem .modal__box {
   --accent: #65a30d;
-  --accent-dim: rgba(101, 163, 13, 0.14);
-  --accent-tint: rgba(101, 163, 13, 0.05);
+  --accent-dim: rgba(101, 163, 13, 0.18);
+  --accent-tint: rgba(101, 163, 13, 0.06);
   --on-accent: #ffffff;
+  --modal-accent-solid: 101, 163, 13;
 }
 html[data-theme="light"] .modal--physio .modal__box {
   --accent: #0284c7;
-  --accent-dim: rgba(2, 132, 199, 0.14);
-  --accent-tint: rgba(2, 132, 199, 0.05);
+  --accent-dim: rgba(2, 132, 199, 0.18);
+  --accent-tint: rgba(2, 132, 199, 0.06);
   --on-accent: #ffffff;
+  --modal-accent-solid: 2, 132, 199;
 }
 html[data-theme="light"] .modal--histology .modal__box {
   --accent: #c026d3;
-  --accent-dim: rgba(192, 38, 211, 0.14);
-  --accent-tint: rgba(192, 38, 211, 0.05);
+  --accent-dim: rgba(192, 38, 211, 0.18);
+  --accent-tint: rgba(192, 38, 211, 0.06);
   --on-accent: #ffffff;
+  --modal-accent-solid: 192, 38, 211;
 }
 html[data-theme="light"] .modal--microbio .modal__box {
   --accent: #ea580c;
-  --accent-dim: rgba(234, 88, 12, 0.14);
-  --accent-tint: rgba(234, 88, 12, 0.05);
+  --accent-dim: rgba(234, 88, 12, 0.18);
+  --accent-tint: rgba(234, 88, 12, 0.06);
   --on-accent: #ffffff;
+  --modal-accent-solid: 234, 88, 12;
 }
 html[data-theme="light"] .modal--hygiene .modal__box {
   --accent: #0d9488;
-  --accent-dim: rgba(13, 148, 136, 0.14);
-  --accent-tint: rgba(13, 148, 136, 0.05);
+  --accent-dim: rgba(13, 148, 136, 0.18);
+  --accent-tint: rgba(13, 148, 136, 0.06);
   --on-accent: #ffffff;
+  --modal-accent-solid: 13, 148, 136;
 }
 html[data-theme="light"] .modal--recent .modal__box {
   --accent: #64748b;
-  --accent-dim: rgba(100, 116, 139, 0.14);
-  --accent-tint: rgba(100, 116, 139, 0.05);
+  --accent-dim: rgba(100, 116, 139, 0.18);
+  --accent-tint: rgba(100, 116, 139, 0.06);
   --on-accent: #ffffff;
+  --modal-accent-solid: 100, 116, 139;
+}
+
+/* ============================================
+   САМО ОКНО МОДАЛКИ
+   ============================================ */
+.modal__box {
+  --modal-accent-solid: 163, 230, 53;
+
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 820px;
+  margin: auto;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(var(--modal-accent-solid), 0.10) 0%,
+      rgba(var(--modal-accent-solid), 0.03) 50%,
+      transparent 100%
+    ),
+    rgba(26, 30, 20, 0.78);
+
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+
+  border: 1px solid rgba(var(--modal-accent-solid), 0.28);
+  border-radius: var(--radius);
+  padding: 32px 44px 36px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(var(--modal-accent-solid), 0.06) inset,
+    0 0 80px -20px rgba(var(--modal-accent-solid), 0.35);
+  animation: modal-in 0.25s ease;
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+html[data-theme="light"] .modal__box {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(var(--modal-accent-solid), 0.10) 0%,
+      rgba(var(--modal-accent-solid), 0.03) 50%,
+      transparent 100%
+    ),
+    rgba(255, 255, 255, 0.88);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.10),
+    0 0 0 1px rgba(var(--modal-accent-solid), 0.06) inset,
+    0 0 80px -20px rgba(var(--modal-accent-solid), 0.35);
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .modal__top {
@@ -756,7 +882,7 @@ html[data-theme="light"] .modal--recent .modal__box {
   gap: 16px;
   margin-bottom: 24px;
   padding-bottom: 18px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(var(--modal-accent-solid), 0.15);
 }
 
 .modal__section {
@@ -780,7 +906,7 @@ html[data-theme="light"] .modal--recent .modal__box {
   gap: 8px;
   padding: 6px 12px;
   background: var(--accent-dim);
-  border: 1px solid var(--accent-dim);
+  border: 1px solid rgba(var(--modal-accent-solid), 0.28);
   border-radius: 999px;
   font-size: 12px;
   color: var(--accent);
@@ -805,7 +931,7 @@ html[data-theme="light"] .modal--recent .modal__box {
   width: 36px;
   height: 36px;
   border: none;
-  background: var(--surface-2);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text);
   border-radius: 10px;
   cursor: pointer;
@@ -815,43 +941,21 @@ html[data-theme="light"] .modal--recent .modal__box {
   flex-shrink: 0;
 }
 
+html[data-theme="light"] .modal__close {
+  background: rgba(0, 0, 0, 0.05);
+}
+
 .modal__close:hover {
   background: var(--accent);
   color: var(--on-accent);
 }
 
 .modal__body {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.modal__nav {
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  color: var(--text);
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 26px;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.modal__nav:hover {
-  background: var(--accent);
-  color: var(--on-accent);
-  border-color: var(--accent);
-  transform: scale(1.05);
+  display: block;
 }
 
 .modal__content {
-  flex: 1;
+  width: 100%;
   min-width: 0;
 }
 
@@ -877,14 +981,17 @@ html[data-theme="light"] .modal--recent .modal__box {
   transition: color 0.35s ease;
 }
 
-/* Ячейка «Для подготовки к паре достаточно» */
 .modal__prep {
-  background: var(--accent-tint);
-  border: 1px solid var(--border);
+  background: rgba(var(--modal-accent-solid), 0.07);
+  border: 1px solid rgba(var(--modal-accent-solid), 0.18);
   border-radius: var(--radius);
   padding: 22px 26px;
   margin-bottom: 28px;
   transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+html[data-theme="light"] .modal__prep {
+  background: rgba(var(--modal-accent-solid), 0.06);
 }
 
 .modal__prep-title {
@@ -947,13 +1054,17 @@ html[data-theme="light"] .modal--recent .modal__box {
   display: flex;
   align-items: center;
   padding: 16px 20px;
-  background: var(--accent-tint);
-  border: 1px solid var(--border);
+  background: rgba(var(--modal-accent-solid), 0.06);
+  border: 1px solid rgba(var(--modal-accent-solid), 0.18);
   border-radius: var(--radius-sm);
   font-size: 16px;
   color: var(--text);
   transition: all 0.2s;
   word-break: break-word;
+}
+
+html[data-theme="light"] .modal__files a {
+  background: rgba(var(--modal-accent-solid), 0.05);
 }
 
 .modal__files a::before {
@@ -963,7 +1074,7 @@ html[data-theme="light"] .modal--recent .modal__box {
   height: 6px;
   border-radius: 50%;
   background: var(--accent);
-  opacity: 0.7;
+  opacity: 0.8;
   margin-right: 14px;
   flex-shrink: 0;
   transition: opacity 0.2s, background 0.35s;
@@ -972,13 +1083,16 @@ html[data-theme="light"] .modal--recent .modal__box {
 .modal__files a:hover {
   border-color: var(--accent);
   color: var(--accent);
-  background: var(--surface-2);
+  background: rgba(var(--modal-accent-solid), 0.12);
 }
 
 .modal__files a:hover::before {
   opacity: 1;
 }
 
+/* ============================================
+   НИЖНЯЯ ПАНЕЛЬ С НОМЕРАМИ
+   ============================================ */
 .modal__dots {
   display: flex;
   justify-content: center;
@@ -986,13 +1100,13 @@ html[data-theme="light"] .modal--recent .modal__box {
   flex-wrap: wrap;
   margin-top: 32px;
   padding-top: 24px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(var(--modal-accent-solid), 0.15);
 }
 
 .modal__dot {
   min-width: 42px;
   padding: 8px 12px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(var(--modal-accent-solid), 0.18);
   background: transparent;
   color: var(--muted);
   border-radius: 8px;
@@ -1001,257 +1115,109 @@ html[data-theme="light"] .modal--recent .modal__box {
   font-weight: 600;
   letter-spacing: 0.08em;
   font-variant-numeric: tabular-nums;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  opacity: 0.5;
 }
 
 .modal__dot:hover {
   color: var(--text);
-  border-color: var(--muted);
+  border-color: rgba(var(--modal-accent-solid), 0.4);
+  opacity: 0.85;
 }
 
+/* Активный номер — просто залит цветом раздела */
 .modal__dot--active {
   background: var(--accent);
   color: var(--on-accent);
   border-color: var(--accent);
+  opacity: 1;
 }
 
 /* ============================================
    ПЛАНШЕТЫ (до 820px)
    ============================================ */
 @media (max-width: 820px) {
-  .container {
-    padding: 0 20px;
-  }
+  .container { padding: 0 20px; }
+  .header__inner { height: 56px; }
+  .logo { font-size: 16px; }
+  .logo__mark { font-size: 20px; }
+  .nav { gap: 14px; }
+  .nav a { font-size: 13px; }
 
-  .header__inner {
-    height: 56px;
-  }
+  .hero { padding: 60px 0 50px; }
+  .hero__top { margin-bottom: 18px; }
+  .hero__badge { font-size: 12px; padding: 5px 12px; }
+  .hero__title { font-size: 38px; }
+  .hero__subtitle { font-size: 15px; margin-top: 18px; }
 
-  .logo {
-    font-size: 16px;
-  }
-
-  .logo__mark {
-    font-size: 20px;
-  }
-
-  .nav {
-    gap: 14px;
-  }
-
-  .nav a {
-    font-size: 13px;
-  }
-
-  .hero {
-    padding: 60px 0 50px;
-  }
-
-  .hero__top {
-    margin-bottom: 18px;
-  }
-
-  .hero__badge {
-    font-size: 12px;
-    padding: 5px 12px;
-  }
-
-  .hero__title {
-    font-size: 38px;
-  }
-
-  .hero__subtitle {
-    font-size: 15px;
-    margin-top: 18px;
-  }
-
-  .section {
-    padding: 50px 0;
-  }
-
-  .section__title {
-    font-size: 26px;
-  }
+  .section { padding: 50px 0; }
+  .section__title { font-size: 26px; }
 
   .cards {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 12px;
   }
-
-  .card {
-    min-height: 180px;
-  }
-
-  .card__title {
-    font-size: 22px;
-  }
-
-  .card--recent .card__title {
-    font-size: 18px;
-  }
+  .card { min-height: 180px; }
+  .card__title { font-size: 22px; }
+  .card--recent .card__title { font-size: 18px; }
 
   .links-grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 12px;
   }
+  .link-card { min-height: 110px; padding: 22px 28px; }
+  .link-card__title { font-size: 18px; }
 
-  .link-card {
-    min-height: 110px;
-    padding: 22px 28px;
-  }
-
-  .link-card__title {
-    font-size: 18px;
-  }
-
-  .modal {
-    padding: 20px 12px;
-  }
-
-  .modal__box {
-    padding: 24px 22px 26px;
-  }
-
-  .modal__title {
-    font-size: 26px;
-  }
+  .modal { padding: 20px 12px; }
+  .modal__box { padding: 24px 22px 26px; }
+  .modal__title { font-size: 26px; }
 }
 
 /* ============================================
    ТЕЛЕФОНЫ (до 640px)
    ============================================ */
 @media (max-width: 640px) {
-  .container {
-    padding: 0 16px;
-  }
+  .container { padding: 0 16px; }
+  .nav { display: none; }
+  .header__inner { height: 54px; }
 
-  .nav {
-    display: none;
-  }
-
-  .header__inner {
-    height: 54px;
-  }
-
-  .hero {
-    padding: 44px 0 40px;
-  }
-
-  .hero__glow {
-    width: 460px;
-    height: 460px;
-    top: -140px;
-  }
-
-  .hero__title {
-    font-size: 30px;
-    line-height: 1.15;
-  }
-
-  .hero__subtitle {
-    font-size: 14px;
-    margin-top: 14px;
-  }
+  .hero { padding: 44px 0 40px; }
+  .hero__glow { width: 460px; height: 460px; top: -140px; }
+  .hero__title { font-size: 30px; line-height: 1.15; }
+  .hero__subtitle { font-size: 14px; margin-top: 14px; }
 
   .hero__cta {
     margin-top: 22px;
     flex-direction: column;
     align-items: stretch;
   }
+  .hero__cta .btn { justify-content: center; width: 100%; }
 
-  .hero__cta .btn {
-    justify-content: center;
-    width: 100%;
-  }
+  .btn { padding: 11px 18px; font-size: 14px; }
 
-  .btn {
-    padding: 11px 18px;
-    font-size: 14px;
-  }
+  .section { padding: 40px 0; }
+  .section__title { font-size: 22px; }
 
-  .section {
-    padding: 40px 0;
-  }
+  .cards { grid-template-columns: 1fr; gap: 10px; }
+  .card { min-height: 140px; padding: 18px 18px 16px; }
+  .card__title { font-size: 22px; }
+  .card--recent .card__title { font-size: 18px; }
 
-  .section__title {
-    font-size: 22px;
-  }
+  .links-grid { grid-template-columns: 1fr; gap: 10px; }
+  .link-card { min-height: 100px; padding: 20px 26px; }
+  .link-card__title { font-size: 18px; }
+  .link-card__desc { font-size: 12.5px; }
 
-  .cards {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
+  .updates { padding-left: 18px; }
+  .updates__item { flex-direction: column; gap: 3px; padding-bottom: 16px; }
+  .updates__item::before { left: -25px; top: 6px; width: 8px; height: 8px; }
+  .updates__date { min-width: auto; }
 
-  .card {
-    min-height: 140px;
-    padding: 18px 18px 16px;
-  }
+  .footer { padding: 22px 0; }
+  .footer__inner { flex-direction: column; align-items: flex-start; gap: 10px; }
 
-  .card__title {
-    font-size: 22px;
-  }
-
-  .card--recent .card__title {
-    font-size: 18px;
-  }
-
-  .links-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .link-card {
-    min-height: 100px;
-    padding: 20px 26px;
-  }
-
-  .link-card__title {
-    font-size: 18px;
-  }
-
-  .link-card__desc {
-    font-size: 12.5px;
-  }
-
-  .updates {
-    padding-left: 18px;
-  }
-
-  .updates__item {
-    flex-direction: column;
-    gap: 3px;
-    padding-bottom: 16px;
-  }
-
-  .updates__item::before {
-    left: -25px;
-    top: 6px;
-    width: 8px;
-    height: 8px;
-  }
-
-  .updates__date {
-    min-width: auto;
-  }
-
-  .footer {
-    padding: 22px 0;
-  }
-
-  .footer__inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .modal {
-    padding: 12px 8px;
-  }
-
-  .modal__box {
-    padding: 20px 16px 20px;
-    border-radius: 12px;
-  }
+  .modal { padding: 12px 8px; }
+  .modal__box { padding: 20px 16px 20px; border-radius: 12px; }
 
   .modal__top {
     flex-direction: column;
@@ -1260,148 +1226,41 @@ html[data-theme="light"] .modal--recent .modal__box {
     margin-bottom: 16px;
     padding-bottom: 14px;
   }
+  .modal__section { font-size: 11px; }
+  .modal__top-right { justify-content: space-between; width: 100%; gap: 8px; }
+  .modal__date { font-size: 10.5px; padding: 4px 9px; }
+  .modal__close { width: 30px; height: 30px; font-size: 18px; }
 
-  .modal__section {
-    font-size: 11px;
-  }
+  .modal__num { font-size: 11px; margin-bottom: 6px; }
+  .modal__title { font-size: 20px; line-height: 1.18; margin-bottom: 16px; }
 
-  .modal__top-right {
-    justify-content: space-between;
-    width: 100%;
-    gap: 8px;
-  }
+  .modal__prep { padding: 14px 16px; margin-bottom: 18px; border-radius: 12px; }
+  .modal__prep-title { font-size: 10.5px; margin-bottom: 10px; }
 
-  .modal__date {
-    font-size: 10.5px;
-    padding: 4px 9px;
-  }
+  .modal__steps li { font-size: 14px; padding: 4px 0 4px 22px; }
+  .modal__steps li::before { font-size: 14px; top: 4px; }
 
-  .modal__close {
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-  }
+  .modal__subtitle { font-size: 10.5px; margin-bottom: 10px; }
+  .modal__files li { margin-bottom: 8px; }
+  .modal__files a { font-size: 14px; padding: 12px 14px; border-radius: 8px; }
+  .modal__files a::before { margin-right: 10px; width: 5px; height: 5px; }
 
-  .modal__nav {
-    display: none !important;
-  }
-
-  .modal__body {
-    display: block;
-    gap: 0;
-  }
-
-  .modal__content {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .modal__num {
-    font-size: 11px;
-    margin-bottom: 6px;
-  }
-
-  .modal__title {
-    font-size: 20px;
-    line-height: 1.18;
-    margin-bottom: 16px;
-  }
-
-  .modal__prep {
-    padding: 14px 16px;
-    margin-bottom: 18px;
-    border-radius: 12px;
-  }
-
-  .modal__prep-title {
-    font-size: 10.5px;
-    margin-bottom: 10px;
-  }
-
-  .modal__steps li {
-    font-size: 14px;
-    padding: 4px 0 4px 22px;
-  }
-
-  .modal__steps li::before {
-    font-size: 14px;
-    top: 4px;
-  }
-
-  .modal__subtitle {
-    font-size: 10.5px;
-    margin-bottom: 10px;
-  }
-
-  .modal__files li {
-    margin-bottom: 8px;
-  }
-
-  .modal__files a {
-    font-size: 14px;
-    padding: 12px 14px;
-    border-radius: 8px;
-  }
-
-  .modal__files a::before {
-    margin-right: 10px;
-    width: 5px;
-    height: 5px;
-  }
-
-  .modal__dots {
-    margin-top: 20px;
-    padding-top: 16px;
-    gap: 6px;
-  }
-
-  .modal__dot {
-    min-width: 40px;
-    padding: 8px 11px;
-    font-size: 12px;
-  }
+  .modal__dots { margin-top: 20px; padding-top: 16px; gap: 6px; }
+  .modal__dot { min-width: 40px; padding: 8px 11px; font-size: 12px; }
 }
 
 /* ============================================
    ОЧЕНЬ УЗКИЕ (до 360px)
    ============================================ */
 @media (max-width: 360px) {
-  .container {
-    padding: 0 14px;
-  }
+  .container { padding: 0 14px; }
+  .hero__title { font-size: 26px; }
+  .section__title { font-size: 20px; }
+  .card__title { font-size: 20px; }
 
-  .hero__title {
-    font-size: 26px;
-  }
-
-  .section__title {
-    font-size: 20px;
-  }
-
-  .card__title {
-    font-size: 20px;
-  }
-
-  .modal__box {
-    padding: 18px 14px 18px;
-  }
-
-  .modal__title {
-    font-size: 18px;
-  }
-
-  .modal__steps li {
-    font-size: 13px;
-  }
-
-  .modal__files a {
-    font-size: 13px;
-    padding: 11px 12px;
-  }
-
-  .modal__dot {
-    min-width: 36px;
-    padding: 7px 10px;
-    font-size: 11px;
-  }
+  .modal__box { padding: 18px 14px 18px; }
+  .modal__title { font-size: 18px; }
+  .modal__steps li { font-size: 13px; }
+  .modal__files a { font-size: 13px; padding: 11px 12px; }
+  .modal__dot { min-width: 36px; padding: 7px 10px; font-size: 11px; }
 }

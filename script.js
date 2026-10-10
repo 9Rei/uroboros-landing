@@ -13,11 +13,11 @@ const subjects = {
         steps: [
           "Прочитать файлик",
           "Прочитать тесты",
-          "Выполнить тест",
+          "Выполнить тест"
         ],
         date: "2026-10-10",
         files: [
-          { name: "БХ_2.2", url: "\"C:\\Users\\kaigo\\Downloads\\script.js\"" },
+          { name: "БХ_2.2.pdf", url: "files/БХ_2.2.pdf" }
         ]
       }
     ]
@@ -30,11 +30,11 @@ const subjects = {
         title: "Раздел в разработке",
         steps: [
           "Материалы появятся позже",
-          "Следите за обновлениями",
+          "Следите за обновлениями"
         ],
         date: "2026-09-01",
         files: [
-          { name: "Пока пусто", url: "#" },
+          { name: "Пока пусто", url: "#" }
         ]
       }
     ]
@@ -47,11 +47,11 @@ const subjects = {
         title: "Раздел в разработке",
         steps: [
           "Материалы появятся позже",
-          "Следите за обновлениями",
+          "Следите за обновлениями"
         ],
         date: "2026-09-01",
         files: [
-          { name: "Пока пусто", url: "#" },
+          { name: "Пока пусто", url: "#" }
         ]
       }
     ]
@@ -65,11 +65,11 @@ const subjects = {
         steps: [
           "Прочитать файлик «МИКРА_6.pdf»",
           "Выполнить тест",
-          "Посмотреть видеоразбор по теме",
+          "Посмотреть видеоразбор по теме"
         ],
         date: "2026-10-10",
         files: [
-          { name: "МИКРА_6.pdf", url: "files/МИКРА_6.pdf" },
+          { name: "МИКРА_6.pdf", url: "files/МИКРА_6.pdf" }
         ]
       }
     ]
@@ -82,11 +82,11 @@ const subjects = {
         title: "Раздел в разработке",
         steps: [
           "Материалы появятся позже",
-          "Следите за обновлениями",
+          "Следите за обновлениями"
         ],
         date: "2026-09-01",
         files: [
-          { name: "Пока пусто", url: "#" },
+          { name: "Пока пусто", url: "#" }
         ]
       }
     ]
@@ -94,10 +94,40 @@ const subjects = {
   recent: {
     num: "∞",
     title: "Недавно обновлённые",
-    topics: [
-    ]
+    topics: []
   }
 };
+
+// ============================================================
+//  ГЛОБАЛЬНАЯ МАКСИМАЛЬНАЯ ДАТА (для определения "нового")
+// ============================================================
+
+let globalMaxDate = null;
+
+function calcGlobalMaxDate() {
+  let maxTime = 0;
+
+  Object.keys(subjects).forEach(key => {
+    if (key === 'recent') return;
+    const section = subjects[key];
+    section.topics.forEach(topic => {
+      const t = new Date(topic.date).getTime();
+      if (!isNaN(t) && t > maxTime) maxTime = t;
+    });
+  });
+
+  globalMaxDate = maxTime > 0 ? maxTime : null;
+}
+
+function isTopicFresh(topic) {
+  if (!globalMaxDate) return false;
+
+  const t = new Date(topic.date).getTime();
+  if (isNaN(t)) return false;
+
+  const DAY = 1000 * 60 * 60 * 24;
+  return (globalMaxDate - t) < DAY;
+}
 
 // ============================================================
 //  ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ
@@ -133,13 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //  ЛОГИКА
 // ============================================================
 
-function daysSince(dateInput) {
-  const then = new Date(dateInput).getTime();
-  if (isNaN(then)) return 999;
-  const now = Date.now();
-  return Math.floor((now - then) / (1000 * 60 * 60 * 24));
-}
-
 function formatDate(dateInput) {
   const d = new Date(dateInput);
   if (isNaN(d.getTime())) return dateInput;
@@ -148,6 +171,23 @@ function formatDate(dateInput) {
     month: 'long',
     year: 'numeric'
   });
+}
+
+function findLatestTopicIndex(topics) {
+  if (!topics.length) return 0;
+
+  let maxTime = -Infinity;
+  let maxIdx = 0;
+
+  topics.forEach((topic, i) => {
+    const t = new Date(topic.date).getTime();
+    if (!isNaN(t) && t >= maxTime) {
+      maxTime = t;
+      maxIdx = i;
+    }
+  });
+
+  return maxIdx;
 }
 
 function buildRecent() {
@@ -167,7 +207,7 @@ function buildRecent() {
 
   allTopics.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  subjects.recent.topics = allTopics.filter(t => daysSince(t.date) <= 30);
+  subjects.recent.topics = allTopics;
 }
 buildRecent();
 
@@ -182,13 +222,18 @@ function fillCards() {
     const section = subjects[key];
     if (!section || !section.topics.length) return { card, key, sortKey: '' };
 
-    const lastTopic = section.topics[section.topics.length - 1];
+    const latestIdx = findLatestTopicIndex(section.topics);
+    const lastTopic = section.topics[latestIdx];
+    const isPlaceholder = lastTopic.title === 'Раздел в разработке';
 
     const lastEl = card.querySelector('[data-last-topic]');
     if (lastEl) lastEl.textContent = lastTopic.title;
 
     const badge = card.querySelector('[data-badge]');
-    if (badge && daysSince(lastTopic.date) < 1) {
+    if (badge
+        && key !== 'recent'
+        && !isPlaceholder
+        && isTopicFresh(lastTopic)) {
       badge.textContent = 'NEW';
       badge.classList.add('card__badge--show');
     }
@@ -214,6 +259,8 @@ function fillCards() {
   const ordered = [...regular, ...special];
   ordered.forEach(({ card }) => cardsContainer.appendChild(card));
 }
+
+calcGlobalMaxDate();
 fillCards();
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
@@ -239,8 +286,6 @@ const modalDate = document.getElementById('modal-date');
 const modalSteps = document.getElementById('modal-steps');
 const modalFiles = document.getElementById('modal-files');
 const modalDots = document.getElementById('modal-dots');
-const prevBtn = document.getElementById('modal-prev');
-const nextBtn = document.getElementById('modal-next');
 
 function applyAccentTheme(colorKey) {
   [...modal.classList].forEach(c => {
@@ -286,7 +331,8 @@ function showTopic(index) {
   dateText.textContent = 'Добавлено ' + formatDate(topic.date);
   modalDate.appendChild(dateText);
 
-  if (daysSince(topic.date) < 1) {
+  const isPlaceholder = topic.title === 'Раздел в разработке';
+  if (currentSubject !== 'recent' && !isPlaceholder && isTopicFresh(topic)) {
     const tag = document.createElement('span');
     tag.className = 'modal__date-tag';
     tag.textContent = 'NEW';
@@ -306,6 +352,8 @@ function showTopic(index) {
     const a = document.createElement('a');
     a.href = file.url;
     a.textContent = file.name;
+    a.target = '_blank';
+    a.rel = 'noopener';
     li.appendChild(a);
     modalFiles.appendChild(li);
   });
@@ -325,9 +373,12 @@ document.querySelectorAll('.card').forEach(card => {
 
     currentSubject = key;
 
-    const startIndex = (key === 'recent')
-      ? 0
-      : subjects[key].topics.length - 1;
+    let startIndex;
+    if (key === 'recent') {
+      startIndex = 0;
+    } else {
+      startIndex = findLatestTopicIndex(subjects[key].topics);
+    }
 
     buildDots();
     showTopic(startIndex);
@@ -336,9 +387,6 @@ document.querySelectorAll('.card').forEach(card => {
     document.body.style.overflow = 'hidden';
   });
 });
-
-prevBtn.addEventListener('click', () => showTopic(currentTopicIndex - 1));
-nextBtn.addEventListener('click', () => showTopic(currentTopicIndex + 1));
 
 document.querySelectorAll('[data-close]').forEach(el => {
   el.addEventListener('click', () => {
