@@ -13,16 +13,17 @@ const subjects = {
         steps: [
           "Прочитать основной файлик",
           "Прочитать файлик тестов",
-          "Решить тест",
+          "Решить тест"
         ],
         date: "2026-10-10",
         files: [
-          { name: "БХ_2.2", url: "files/БХ_2.2.pdf" },
-          { name: "БХ_2.2ТЕСТЫ", url: "files/БХ_2.2ТЕСТЫ.pdf" },
+          { name: "БХ_2.2.pdf", url: "files/БХ_2.2.pdf" },
+          { name: "БХ_2.2ТЕСТЫ.pdf", url: "files/БХ_2.2ТЕСТЫ.pdf" }
         ]
       }
     ]
   },
+
   physio: {
     num: "02",
     title: "Физиология",
@@ -31,44 +32,46 @@ const subjects = {
         title: "Раздел в разработке",
         steps: [
           "Материалы появятся позже",
-          "Следите за обновлениями",
+          "Следите за обновлениями"
         ],
         date: "2026-09-01",
         files: [
-          { name: "Пока пусто", url: "#" },
+          { name: "Пока пусто", url: "#" }
         ]
       }
     ]
   },
+
   histology: {
     num: "03",
     title: "Гистология",
     topics: [
       {
-        num: "23",
-        title: "Пищевар желудка",
-        steps: [
-          "Прочитать файлик",
-          "Выполнить тест",
-        ],
-        date: "2026-16-10",
-        files: [
-          { name: "ГИСТА_23", url: "files/ГИСТА" },
-        ]
-      },
-      {
         title: "Раздел в разработке",
         steps: [
           "Материалы появятся позже",
-          "Следите за обновлениями",
+          "Следите за обновлениями"
         ],
         date: "2026-09-01",
         files: [
-          { name: "Пока пусто", url: "#" },
+          { name: "Пока пусто", url: "#" }
+        ]
+      },
+      {
+        num: "23",
+        title: "Пищеварение в желудке",
+        steps: [
+          "Прочитать файлик",
+          "Выполнить тест"
+        ],
+        date: "2026-10-16",
+        files: [
+          { name: "ГИСТА_23.pdf", url: "files/ГИСТА_23.pdf" }
         ]
       }
     ]
   },
+
   microbio: {
     num: "04",
     title: "Микробиология",
@@ -78,15 +81,16 @@ const subjects = {
         steps: [
           "Прочитать файлик «МИКРА_6.pdf»",
           "Выполнить тест",
-          "Посмотреть видеоразбор по теме",
+          "Посмотреть видеоразбор по теме"
         ],
         date: "2026-10-10",
         files: [
-          { name: "МИКРА_6.pdf", url: "files/МИКРА_6.pdf" },
+          { name: "МИКРА_6.pdf", url: "files/МИКРА_6.pdf" }
         ]
       }
     ]
   },
+
   hygiene: {
     num: "05",
     title: "Гигиена",
@@ -95,22 +99,23 @@ const subjects = {
         title: "Раздел в разработке",
         steps: [
           "Материалы появятся позже",
-          "Следите за обновлениями",
+          "Следите за обновлениями"
         ],
         date: "2026-09-01",
         files: [
-          { name: "Пока пусто", url: "#" },
+          { name: "Пока пусто", url: "#" }
         ]
       }
     ]
   },
+
   recent: {
     num: "∞",
     title: "Недавно обновлённые",
-    topics: [
-    ]
+    topics: []
   }
 };
+
 
 // ============================================================
 //  ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ
@@ -137,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
 
 // ============================================================
 //  ЛОГИКА
@@ -201,3 +207,159 @@ function fillCards() {
   regular.concat(special).forEach(function (item) { cardsContainer.appendChild(item.card); });
 }
 fillCards();
+
+
+// ============================================================
+//  ПЛАВНАЯ ПРОКРУТКА
+// ============================================================
+
+document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+  link.addEventListener("click", function (e) {
+    var id = link.getAttribute("href");
+    if (id === "#") return;
+    var target = document.querySelector(id);
+    if (!target) return;
+    e.preventDefault();
+    var top = target.getBoundingClientRect().top + window.pageYOffset - 64;
+    window.scrollTo({ top: top, behavior: "smooth" });
+  });
+});
+
+
+// ============================================================
+//  МОДАЛЬНОЕ ОКНО
+// ============================================================
+
+var currentSubject = null;
+var currentTopicIndex = 0;
+
+var modal        = document.getElementById("modal");
+var modalSection = document.getElementById("modal-section");
+var modalNum     = document.getElementById("modal-num");
+var modalTitle   = document.getElementById("modal-title");
+var modalDate    = document.getElementById("modal-date");
+var modalSteps   = document.getElementById("modal-steps");
+var modalFiles   = document.getElementById("modal-files");
+var modalDots    = document.getElementById("modal-dots");
+
+function applyAccentTheme(colorKey) {
+  Array.prototype.slice.call(modal.classList).forEach(function (cls) {
+    if (cls.indexOf("modal--") === 0 && cls !== "modal--open") {
+      modal.classList.remove(cls);
+    }
+  });
+  modal.classList.add("modal--" + colorKey);
+}
+
+function buildDots() {
+  modalDots.innerHTML = "";
+  var topics = subjects[currentSubject].topics;
+  topics.forEach(function (topic, i) {
+    var btn = document.createElement("button");
+    btn.className = "modal__dot";
+    btn.textContent = topic.num || String(i + 1).padStart(2, "0");
+    btn.addEventListener("click", function () { showTopic(i); });
+    modalDots.appendChild(btn);
+  });
+}
+
+function showTopic(index) {
+  var topics = subjects[currentSubject].topics;
+  if (index < 0) index = topics.length - 1;
+  if (index >= topics.length) index = 0;
+
+  currentTopicIndex = index;
+  var topic = topics[index];
+
+  var colorKey = (currentSubject === "recent" && topic.sectionKey)
+    ? topic.sectionKey
+    : currentSubject;
+  applyAccentTheme(colorKey);
+
+  modalSection.textContent = subjects[currentSubject].title;
+  modalNum.textContent = topic.num || String(index + 1).padStart(2, "0");
+  modalTitle.textContent = topic.title;
+
+  modalDate.innerHTML = "";
+  var dateText = document.createElement("span");
+  dateText.textContent = "Добавлено " + formatDate(topic.date);
+  modalDate.appendChild(dateText);
+
+  if (daysSince(topic.date) < 1) {
+    var tag = document.createElement("span");
+    tag.className = "modal__date-tag";
+    tag.textContent = "NEW";
+    modalDate.appendChild(tag);
+  }
+
+  modalSteps.innerHTML = "";
+  topic.steps.forEach(function (step) {
+    var li = document.createElement("li");
+    li.textContent = step;
+    modalSteps.appendChild(li);
+  });
+
+  modalFiles.innerHTML = "";
+  topic.files.forEach(function (file) {
+    var li = document.createElement("li");
+    var a = document.createElement("a");
+    a.href = file.url;
+    a.textContent = file.name;
+    a.target = "_blank";
+    a.rel = "noopener";
+    li.appendChild(a);
+    modalFiles.appendChild(li);
+  });
+
+  var dots = modalDots.querySelectorAll(".modal__dot");
+  dots.forEach(function (dot, i) {
+    dot.classList.toggle("modal__dot--active", i === index);
+  });
+}
+
+document.querySelectorAll(".card").forEach(function (card) {
+  card.addEventListener("click", function (e) {
+    e.preventDefault();
+    var key = card.dataset.subject;
+    if (!subjects[key]) return;
+    if (!subjects[key].topics.length) return;
+
+    currentSubject = key;
+    var startIndex = (key === "recent") ? 0 : subjects[key].topics.length - 1;
+
+    buildDots();
+    showTopic(startIndex);
+
+    modal.classList.add("modal--open");
+    document.body.style.overflow = "hidden";
+  });
+});
+
+function closeModal() {
+  modal.classList.remove("modal--open");
+  document.body.style.overflow = "";
+}
+
+document.querySelectorAll("[data-close]").forEach(function (el) {
+  el.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    closeModal();
+  });
+  el.addEventListener("touchend", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    closeModal();
+  });
+});
+
+modal.addEventListener("click", function (e) {
+  if (e.target === modal) closeModal();
+});
+
+document.addEventListener("keydown", function (e) {
+  if (!modal.classList.contains("modal--open")) return;
+  if (e.key === "Escape") closeModal();
+  if (e.key === "ArrowLeft") showTopic(currentTopicIndex - 1);
+  if (e.key === "ArrowRight") showTopic(currentTopicIndex + 1);
+});
