@@ -1,16 +1,35 @@
 // ============================================================
-//  ДАННЫЕ САЙТА
+//  ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ
 // ============================================================
-//
-//  КАК ДОБАВИТЬ ТЕМУ:
-//  1. Найди нужный раздел.
-//  2. Скопируй блок { ... } в конец topics.
-//  3. Заполни поля: num, title, steps, date, files.
-//
-//  ПРО date:
-//    Формат: 'ГГГГ-ММ-ДД'  (например '2026-10-10')
-//    Просто вписывай дату вручную.
-//
+
+(function initTheme() {
+  const saved = localStorage.getItem('theme');
+  const systemLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+  const theme = saved || (systemLight ? 'light' : 'dark');
+  if (theme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.getElementById('theme-toggle');
+  if (!toggle) return;
+
+  toggle.addEventListener('click', () => {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if (isLight) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+    }
+  });
+});
+
+// ============================================================
+//  ДАННЫЕ САЙТА
 // ============================================================
 
 const subjects = {
@@ -19,7 +38,6 @@ const subjects = {
     title: 'Биохимия',
     topics: [
       {
-        num: '01',
         title: 'Раздел в разработке',
         steps: [
           'Материалы появятся позже',
@@ -37,7 +55,6 @@ const subjects = {
     title: 'Физиология',
     topics: [
       {
-        num: '01',
         title: 'Раздел в разработке',
         steps: [
           'Материалы появятся позже',
@@ -55,7 +72,6 @@ const subjects = {
     title: 'Гистология',
     topics: [
       {
-        num: '01',
         title: 'Раздел в разработке',
         steps: [
           'Материалы появятся позже',
@@ -73,7 +89,6 @@ const subjects = {
     title: 'Микробиология',
     topics: [
       {
-        num: '06',
         title: 'Инфекция, инфекционный процесс. Факторы патогенности бактерий.',
         steps: [
           'Прочитать файлик «МИКРА_6.pdf»',
@@ -92,7 +107,6 @@ const subjects = {
     title: 'Гигиена',
     topics: [
       {
-        num: '01',
         title: 'Раздел в разработке',
         steps: [
           'Материалы появятся позже',
@@ -118,14 +132,14 @@ const subjects = {
 
 function daysSince(dateInput) {
   const then = new Date(dateInput).getTime();
-  if (isNaN(then)) return 999; // защита от неправильной даты
+  if (isNaN(then)) return 999;
   const now = Date.now();
   return Math.floor((now - then) / (1000 * 60 * 60 * 24));
 }
 
 function formatDate(dateInput) {
   const d = new Date(dateInput);
-  if (isNaN(d.getTime())) return dateInput; // если дата битая — показываем как есть
+  if (isNaN(d.getTime())) return dateInput;
   return d.toLocaleDateString('ru-RU', {
     day: 'numeric',
     month: 'long',
@@ -142,7 +156,8 @@ function buildRecent() {
     section.topics.forEach(topic => {
       allTopics.push({
         ...topic,
-        sectionTitle: section.title
+        sectionTitle: section.title,
+        sectionKey: key
       });
     });
   });
@@ -154,10 +169,15 @@ function buildRecent() {
 buildRecent();
 
 function fillCards() {
-  document.querySelectorAll('.card').forEach(card => {
+  const cardsContainer = document.querySelector('.cards');
+  if (!cardsContainer) return;
+
+  const cards = Array.from(cardsContainer.querySelectorAll('.card'));
+
+  const cardsWithData = cards.map(card => {
     const key = card.dataset.subject;
     const section = subjects[key];
-    if (!section || !section.topics.length) return;
+    if (!section || !section.topics.length) return { card, key, sortKey: '' };
 
     const lastTopic = section.topics[section.topics.length - 1];
 
@@ -169,7 +189,29 @@ function fillCards() {
       badge.textContent = 'NEW';
       badge.classList.add('card__badge--show');
     }
+
+    return { card, key, sortKey: section.title };
   });
+
+  const regular = cardsWithData.filter(c => c.key !== 'recent');
+  const special = cardsWithData.filter(c => c.key === 'recent');
+
+  regular.sort((a, b) => a.sortKey.localeCompare(b.sortKey, 'ru'));
+
+  // Присваиваем номера 01, 02, 03… по порядку сортировки
+  regular.forEach((item, i) => {
+    const numEl = item.card.querySelector('.card__num');
+    if (numEl) numEl.textContent = String(i + 1).padStart(2, '0');
+  });
+
+  // «Недавнее» — всегда ∞
+  special.forEach(item => {
+    const numEl = item.card.querySelector('.card__num');
+    if (numEl) numEl.textContent = '∞';
+  });
+
+  const ordered = [...regular, ...special];
+  ordered.forEach(({ card }) => cardsContainer.appendChild(card));
 }
 fillCards();
 
@@ -199,13 +241,22 @@ const modalDots = document.getElementById('modal-dots');
 const prevBtn = document.getElementById('modal-prev');
 const nextBtn = document.getElementById('modal-next');
 
+function applyAccentTheme(colorKey) {
+  [...modal.classList].forEach(c => {
+    if (c.startsWith('modal--') && c !== 'modal--open') {
+      modal.classList.remove(c);
+    }
+  });
+  modal.classList.add('modal--' + colorKey);
+}
+
 function buildDots() {
   modalDots.innerHTML = '';
   const topics = subjects[currentSubject].topics;
   topics.forEach((topic, i) => {
     const btn = document.createElement('button');
     btn.className = 'modal__dot';
-    btn.textContent = topic.num;
+    btn.textContent = String(i + 1).padStart(2, '0');
     btn.addEventListener('click', () => showTopic(i));
     modalDots.appendChild(btn);
   });
@@ -220,8 +271,13 @@ function showTopic(index) {
   currentTopicIndex = index;
   const topic = topics[index];
 
+  const colorKey = (currentSubject === 'recent' && topic.sectionKey)
+    ? topic.sectionKey
+    : currentSubject;
+  applyAccentTheme(colorKey);
+
   modalSection.textContent = subjects[currentSubject].title;
-  modalNum.textContent = topic.num;
+  modalNum.textContent = String(index + 1).padStart(2, '0');
   modalTitle.textContent = topic.title;
 
   modalDate.innerHTML = '';

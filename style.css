@@ -5,6 +5,7 @@
   box-sizing: border-box;
 }
 
+/* ===== Тёмная тема (по умолчанию) ===== */
 :root {
   --bg: #0d0f0c;
   --bg-soft: #14170f;
@@ -16,8 +17,26 @@
   --accent: #a3e635;
   --accent-soft: #84cc16;
   --accent-dim: rgba(163, 230, 53, 0.12);
+  --accent-tint: rgba(163, 230, 53, 0.05);
+  --on-accent: #0d0f0c;
   --radius: 16px;
   --radius-sm: 10px;
+}
+
+/* Светлая тема */
+html[data-theme="light"] {
+  --bg: #f7f8f3;
+  --bg-soft: #eef0e6;
+  --surface: #ffffff;
+  --surface-2: #f1f4e8;
+  --border: #e0e4d3;
+  --text: #1a1e14;
+  --muted: #6b7355;
+  --accent: #65a30d;
+  --accent-soft: #84cc16;
+  --accent-dim: rgba(101, 163, 13, 0.12);
+  --accent-tint: rgba(101, 163, 13, 0.05);
+  --on-accent: #ffffff;
 }
 
 body {
@@ -27,6 +46,7 @@ body {
   line-height: 1.6;
   -webkit-text-size-adjust: 100%;
   overflow-x: hidden;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
 a {
@@ -53,6 +73,11 @@ button {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
+  transition: background 0.35s ease;
+}
+
+html[data-theme="light"] .header {
+  background: rgba(247, 248, 243, 0.85);
 }
 
 .header__inner {
@@ -68,11 +93,14 @@ button {
   gap: 8px;
   font-weight: 600;
   font-size: 17px;
+  color: var(--text);
+  transition: color 0.35s ease;
 }
 
 .logo__mark {
   color: var(--accent);
   font-size: 22px;
+  transition: color 0.35s ease;
 }
 
 .nav {
@@ -104,8 +132,9 @@ button {
   transform: translateX(-50%);
   width: 700px;
   height: 700px;
-  background: radial-gradient(circle, rgba(163, 230, 53, 0.15) 0%, transparent 65%);
+  background: radial-gradient(circle, var(--accent-dim) 0%, transparent 65%);
   pointer-events: none;
+  transition: background 0.35s ease;
 }
 
 .hero .container {
@@ -113,16 +142,24 @@ button {
   z-index: 1;
 }
 
+.hero__top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
 .hero__badge {
   display: inline-block;
   padding: 6px 14px;
   background: var(--accent-dim);
-  border: 1px solid rgba(163, 230, 53, 0.25);
+  border: 1px solid var(--accent-dim);
   border-radius: 999px;
   font-size: 13px;
   color: var(--accent);
-  margin-bottom: 24px;
   font-weight: 500;
+  transition: all 0.35s ease;
 }
 
 .hero__title {
@@ -130,10 +167,13 @@ button {
   line-height: 1.1;
   max-width: 780px;
   letter-spacing: -0.02em;
+  color: var(--text);
+  transition: color 0.35s ease;
 }
 
 .accent {
   color: var(--accent);
+  transition: color 0.35s ease;
 }
 
 .hero__subtitle {
@@ -141,6 +181,7 @@ button {
   max-width: 560px;
   font-size: 17px;
   color: var(--muted);
+  transition: color 0.35s ease;
 }
 
 .hero__cta {
@@ -150,6 +191,62 @@ button {
   flex-wrap: wrap;
 }
 
+/* ============================================
+   ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ
+   ============================================ */
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  display: inline-flex;
+}
+
+.theme-toggle__track {
+  display: block;
+  position: relative;
+  width: 56px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+}
+
+html[data-theme="light"] .theme-toggle__track {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #a3e635;
+  box-shadow: 0 2px 6px rgba(163, 230, 53, 0.45);
+  transition:
+    left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+html[data-theme="light"] .theme-toggle__thumb {
+  left: 30px;
+  background: #65a30d;
+  box-shadow: 0 2px 6px rgba(101, 163, 13, 0.45);
+}
+
+.theme-toggle:hover .theme-toggle__track {
+  border-color: var(--accent);
+}
+
+/* ===== Кнопки ===== */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -165,7 +262,7 @@ button {
 
 .btn--primary {
   background: var(--accent);
-  color: #0d0f0c;
+  color: var(--on-accent);
 }
 
 .btn--primary:hover {
@@ -183,12 +280,14 @@ button {
   color: var(--accent);
 }
 
+/* ===== Секции ===== */
 .section {
   padding: 70px 0;
 }
 
 .section--soft {
   background: var(--bg-soft);
+  transition: background 0.35s ease;
 }
 
 .section__head {
@@ -198,20 +297,24 @@ button {
 .section__title {
   font-size: 32px;
   letter-spacing: -0.01em;
+  color: var(--text);
+  transition: color 0.35s ease;
 }
 
 .section__desc {
   color: var(--muted);
   font-size: 15px;
   margin-top: 8px;
+  transition: color 0.35s ease;
 }
 
 .text {
   color: var(--muted);
   max-width: 720px;
+  transition: color 0.35s ease;
 }
 
-/* ===== Карточки ===== */
+/* ===== Карточки предметов ===== */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -228,7 +331,7 @@ button {
   border-radius: var(--radius);
   padding: 22px 22px 20px;
   overflow: hidden;
-  transition: all 0.25s;
+  transition: transform 0.25s, border-color 0.25s, background 0.35s;
 }
 
 .card::before {
@@ -255,7 +358,7 @@ button {
 }
 
 .card:hover {
-  border-color: rgba(163, 230, 53, 0.4);
+  border-color: var(--accent);
   transform: translateY(-4px);
   background: var(--surface-2);
 }
@@ -282,6 +385,7 @@ button {
   color: var(--accent);
   font-variant-numeric: tabular-nums;
   text-transform: uppercase;
+  transition: color 0.35s ease;
 }
 
 .card__badge {
@@ -289,7 +393,7 @@ button {
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #0d0f0c;
+  color: var(--on-accent);
   background: var(--accent);
   padding: 3px 7px;
   border-radius: 6px;
@@ -311,6 +415,8 @@ button {
   margin-bottom: auto;
   word-break: break-word;
   hyphens: auto;
+  color: var(--text);
+  transition: color 0.35s ease;
 }
 
 .card__last {
@@ -325,11 +431,12 @@ button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: color 0.35s ease;
 }
 
 .card--recent {
   background: var(--bg-soft);
-  border-color: rgba(163, 230, 53, 0.18);
+  border-color: var(--accent-dim);
 }
 
 .card--recent::before {
@@ -343,7 +450,7 @@ button {
   background: var(--accent);
   opacity: 0.5;
   border-radius: 0 3px 3px 0;
-  transition: opacity 0.25s;
+  transition: opacity 0.25s, background 0.35s;
 }
 
 .card--recent:hover::before {
@@ -362,6 +469,7 @@ button {
   font-weight: 600;
 }
 
+/* ===== Обновления ===== */
 .updates {
   list-style: none;
   border-left: 2px solid var(--border);
@@ -389,6 +497,7 @@ button {
   height: 10px;
   border-radius: 50%;
   background: var(--accent);
+  transition: background 0.35s ease;
 }
 
 .updates__date {
@@ -396,31 +505,80 @@ button {
   font-size: 13px;
   font-weight: 500;
   min-width: 90px;
+  transition: color 0.35s ease;
 }
 
 .updates__text {
   color: var(--text);
   font-size: 15px;
+  transition: color 0.35s ease;
 }
 
-.contacts {
+/* ============================================
+   ПОЛЕЗНЫЕ ССЫЛКИ
+   ============================================ */
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.link-card {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 24px;
-  padding: 40px;
+  text-align: center;
+  min-height: 130px;
+  padding: 26px 32px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  flex-wrap: wrap;
+  border-radius: 999px;
+  overflow: hidden;
+  transition: transform 0.25s, border-color 0.25s, background 0.35s;
 }
 
-.contacts__links {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+.link-card::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.35s ease;
 }
 
+.link-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  background: var(--surface-2);
+}
+
+.link-card:hover::after {
+  width: 40px;
+}
+
+.link-card__title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 4px;
+  transition: color 0.35s ease;
+}
+
+.link-card__desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+  transition: color 0.35s ease;
+}
+
+/* ===== Подвал ===== */
 .footer {
   border-top: 1px solid var(--border);
   padding: 32px 0;
@@ -439,12 +597,14 @@ button {
   font-size: 18px;
   color: var(--accent);
   margin-bottom: 4px;
+  transition: color 0.35s ease;
 }
 
 .footer__note,
 .footer__copy {
   font-size: 13px;
   color: var(--muted);
+  transition: color 0.35s ease;
 }
 
 /* ============================================
@@ -475,7 +635,12 @@ button {
   z-index: 1;
 }
 
+html[data-theme="light"] .modal__backdrop {
+  background: rgba(26, 30, 20, 0.5);
+}
+
 .modal__box {
+  --accent-tint: rgba(163, 230, 53, 0.05);
   position: relative;
   z-index: 2;
   width: 100%;
@@ -487,11 +652,101 @@ button {
   padding: 32px 44px 36px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   animation: modal-in 0.25s ease;
+  transition: background 0.35s ease;
 }
 
 @keyframes modal-in {
   from { opacity: 0; transform: translateY(12px) scale(0.98); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ============================================
+   АКЦЕНТНЫЕ ЦВЕТА ПО РАЗДЕЛАМ
+   ============================================ */
+.modal--biochem .modal__box {
+  --accent: #a3e635;
+  --accent-soft: #84cc16;
+  --accent-dim: rgba(163, 230, 53, 0.12);
+  --accent-tint: rgba(163, 230, 53, 0.05);
+  --on-accent: #0d0f0c;
+}
+
+.modal--physio .modal__box {
+  --accent: #38bdf8;
+  --accent-soft: #0ea5e9;
+  --accent-dim: rgba(56, 189, 248, 0.14);
+  --accent-tint: rgba(56, 189, 248, 0.05);
+  --on-accent: #0d0f0c;
+}
+
+.modal--histology .modal__box {
+  --accent: #e879f9;
+  --accent-soft: #d946ef;
+  --accent-dim: rgba(232, 121, 249, 0.14);
+  --accent-tint: rgba(232, 121, 249, 0.05);
+  --on-accent: #0d0f0c;
+}
+
+.modal--microbio .modal__box {
+  --accent: #fb923c;
+  --accent-soft: #f97316;
+  --accent-dim: rgba(251, 146, 60, 0.14);
+  --accent-tint: rgba(251, 146, 60, 0.05);
+  --on-accent: #0d0f0c;
+}
+
+.modal--hygiene .modal__box {
+  --accent: #2dd4bf;
+  --accent-soft: #14b8a6;
+  --accent-dim: rgba(45, 212, 191, 0.14);
+  --accent-tint: rgba(45, 212, 191, 0.05);
+  --on-accent: #0d0f0c;
+}
+
+.modal--recent .modal__box {
+  --accent: #94a3b8;
+  --accent-soft: #cbd5e1;
+  --accent-dim: rgba(148, 163, 184, 0.14);
+  --accent-tint: rgba(148, 163, 184, 0.05);
+  --on-accent: #0d0f0c;
+}
+
+/* Светлая тема: акценты темнее */
+html[data-theme="light"] .modal--biochem .modal__box {
+  --accent: #65a30d;
+  --accent-dim: rgba(101, 163, 13, 0.14);
+  --accent-tint: rgba(101, 163, 13, 0.05);
+  --on-accent: #ffffff;
+}
+html[data-theme="light"] .modal--physio .modal__box {
+  --accent: #0284c7;
+  --accent-dim: rgba(2, 132, 199, 0.14);
+  --accent-tint: rgba(2, 132, 199, 0.05);
+  --on-accent: #ffffff;
+}
+html[data-theme="light"] .modal--histology .modal__box {
+  --accent: #c026d3;
+  --accent-dim: rgba(192, 38, 211, 0.14);
+  --accent-tint: rgba(192, 38, 211, 0.05);
+  --on-accent: #ffffff;
+}
+html[data-theme="light"] .modal--microbio .modal__box {
+  --accent: #ea580c;
+  --accent-dim: rgba(234, 88, 12, 0.14);
+  --accent-tint: rgba(234, 88, 12, 0.05);
+  --on-accent: #ffffff;
+}
+html[data-theme="light"] .modal--hygiene .modal__box {
+  --accent: #0d9488;
+  --accent-dim: rgba(13, 148, 136, 0.14);
+  --accent-tint: rgba(13, 148, 136, 0.05);
+  --on-accent: #ffffff;
+}
+html[data-theme="light"] .modal--recent .modal__box {
+  --accent: #64748b;
+  --accent-dim: rgba(100, 116, 139, 0.14);
+  --accent-tint: rgba(100, 116, 139, 0.05);
+  --on-accent: #ffffff;
 }
 
 .modal__top {
@@ -510,6 +765,7 @@ button {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
+  transition: color 0.35s ease;
 }
 
 .modal__top-right {
@@ -524,12 +780,13 @@ button {
   gap: 8px;
   padding: 6px 12px;
   background: var(--accent-dim);
-  border: 1px solid rgba(163, 230, 53, 0.22);
+  border: 1px solid var(--accent-dim);
   border-radius: 999px;
   font-size: 12px;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  transition: all 0.35s ease;
 }
 
 .modal__date-tag {
@@ -538,7 +795,7 @@ button {
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #0d0f0c;
+  color: var(--on-accent);
   background: var(--accent);
   padding: 2px 6px;
   border-radius: 4px;
@@ -560,7 +817,7 @@ button {
 
 .modal__close:hover {
   background: var(--accent);
-  color: #0d0f0c;
+  color: var(--on-accent);
 }
 
 .modal__body {
@@ -588,7 +845,7 @@ button {
 
 .modal__nav:hover {
   background: var(--accent);
-  color: #0d0f0c;
+  color: var(--on-accent);
   border-color: var(--accent);
   transform: scale(1.05);
 }
@@ -606,6 +863,7 @@ button {
   font-variant-numeric: tabular-nums;
   text-transform: uppercase;
   margin-bottom: 10px;
+  transition: color 0.35s ease;
 }
 
 .modal__title {
@@ -615,14 +873,18 @@ button {
   line-height: 1.08;
   margin-bottom: 26px;
   word-break: break-word;
+  color: var(--text);
+  transition: color 0.35s ease;
 }
 
+/* Ячейка «Для подготовки к паре достаточно» */
 .modal__prep {
-  background: var(--bg-soft);
+  background: var(--accent-tint);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 22px 26px;
   margin-bottom: 28px;
+  transition: background 0.35s ease, border-color 0.35s ease;
 }
 
 .modal__prep-title {
@@ -632,6 +894,7 @@ button {
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 14px;
+  transition: color 0.35s ease;
 }
 
 .modal__steps {
@@ -646,6 +909,7 @@ button {
   color: var(--text);
   line-height: 1.5;
   counter-increment: step;
+  transition: color 0.35s ease;
 }
 
 .modal__steps li::before {
@@ -658,6 +922,7 @@ button {
   color: var(--accent);
   font-variant-numeric: tabular-nums;
   line-height: 1.5;
+  transition: color 0.35s ease;
 }
 
 .modal__subtitle {
@@ -667,6 +932,7 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-weight: 500;
+  transition: color 0.35s ease;
 }
 
 .modal__files {
@@ -681,10 +947,11 @@ button {
   display: flex;
   align-items: center;
   padding: 16px 20px;
-  background: var(--bg-soft);
+  background: var(--accent-tint);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 16px;
+  color: var(--text);
   transition: all 0.2s;
   word-break: break-word;
 }
@@ -696,10 +963,10 @@ button {
   height: 6px;
   border-radius: 50%;
   background: var(--accent);
-  opacity: 0.6;
+  opacity: 0.7;
   margin-right: 14px;
   flex-shrink: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, background 0.35s;
 }
 
 .modal__files a:hover {
@@ -744,7 +1011,7 @@ button {
 
 .modal__dot--active {
   background: var(--accent);
-  color: #0d0f0c;
+  color: var(--on-accent);
   border-color: var(--accent);
 }
 
@@ -780,10 +1047,13 @@ button {
     padding: 60px 0 50px;
   }
 
+  .hero__top {
+    margin-bottom: 18px;
+  }
+
   .hero__badge {
     font-size: 12px;
     padding: 5px 12px;
-    margin-bottom: 18px;
   }
 
   .hero__title {
@@ -820,6 +1090,20 @@ button {
     font-size: 18px;
   }
 
+  .links-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .link-card {
+    min-height: 110px;
+    padding: 22px 28px;
+  }
+
+  .link-card__title {
+    font-size: 18px;
+  }
+
   .modal {
     padding: 20px 12px;
   }
@@ -834,7 +1118,7 @@ button {
 }
 
 /* ============================================
-   ТЕЛЕФОНЫ (до 640px) — жёсткая адаптация
+   ТЕЛЕФОНЫ (до 640px)
    ============================================ */
 @media (max-width: 640px) {
   .container {
@@ -893,7 +1177,6 @@ button {
     font-size: 22px;
   }
 
-  /* Карточки — одна колонка */
   .cards {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -912,7 +1195,24 @@ button {
     font-size: 18px;
   }
 
-  /* Обновления */
+  .links-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .link-card {
+    min-height: 100px;
+    padding: 20px 26px;
+  }
+
+  .link-card__title {
+    font-size: 18px;
+  }
+
+  .link-card__desc {
+    font-size: 12.5px;
+  }
+
   .updates {
     padding-left: 18px;
   }
@@ -934,23 +1234,6 @@ button {
     min-width: auto;
   }
 
-  /* Контакты */
-  .contacts {
-    padding: 22px 18px;
-  }
-
-  .contacts__links {
-    width: 100%;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .contacts__links .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* Подвал */
   .footer {
     padding: 22px 0;
   }
@@ -961,7 +1244,6 @@ button {
     gap: 10px;
   }
 
-  /* ============ МОДАЛКА НА ТЕЛЕФОНЕ ============ */
   .modal {
     padding: 12px 8px;
   }
@@ -971,7 +1253,6 @@ button {
     border-radius: 12px;
   }
 
-  /* Верхняя панель: название раздела, дата, крестик */
   .modal__top {
     flex-direction: column;
     align-items: stretch;
@@ -1001,12 +1282,10 @@ button {
     font-size: 18px;
   }
 
-  /* СТРЕЛКИ СКРЫВАЕМ ПОЛНОСТЬЮ */
   .modal__nav {
     display: none !important;
   }
 
-  /* Тело — просто блочный контент на всю ширину */
   .modal__body {
     display: block;
     gap: 0;

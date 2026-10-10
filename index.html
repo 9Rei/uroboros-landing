@@ -19,7 +19,7 @@
         <a href="#files">Файлы</a>
         <a href="#updates">Обновления</a>
         <a href="#about">О проекте</a>
-        <a href="#contacts">Контакты</a>
+        <a href="#links">Ссылки</a>
       </nav>
     </div>
   </header>
@@ -28,7 +28,17 @@
   <section class="hero">
     <div class="hero__glow"></div>
     <div class="container">
-      <div class="hero__badge">Для всех, кто учится</div>
+
+      <div class="hero__top">
+        <div class="hero__badge">Для всех, кто учится</div>
+
+        <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
+          <span class="theme-toggle__track">
+            <span class="theme-toggle__thumb"></span>
+          </span>
+        </button>
+      </div>
+
       <h1 class="hero__title">
         Всё для учёбы —<br>
         <span class="accent">собрано и разложено</span>
@@ -147,18 +157,33 @@
     </div>
   </section>
 
-  <!-- КОНТАКТЫ -->
-  <section id="contacts" class="section section--soft">
+  <!-- ПОЛЕЗНЫЕ ССЫЛКИ -->
+  <section id="links" class="section section--soft">
     <div class="container">
-      <div class="contacts">
-        <div>
-          <h2 class="section__title">Связаться</h2>
-          <p class="section__desc">Есть вопросы, идеи или нашли ошибку? Напишите.</p>
-        </div>
-        <div class="contacts__links">
-          <a href="https://vk.ru/id718862595" class="btn btn--primary" target="_blank" rel="noopener">Вконтакте</a>
-          <a href="kaigorodovanton2007@gmail.com" class="btn btn--ghost">Почта</a>
-        </div>
+      <div class="section__head">
+        <h2 class="section__title">Полезные ссылки</h2>
+      </div>
+
+      <div class="links-grid">
+         <a href="https://www.google.com/url?q=https%3A%2F%2Fwebinar.asmu.ru%2F&sa=D&sntz=1&usg=AOvVaw3Ze7uDaCMd9ESgkYuqERXV" class="link-card" target="_blank" rel="noopener">
+          <div class="link-card__title">Лекции</div>
+          <div class="link-card__desc">Записи и презентации</div>
+        </a>
+
+        <a href="https://www.google.com/url?q=https%3A%2F%2Flk.asmu.ru%2Fprofile&sa=D&sntz=1&usg=AOvVaw28FJZKkr3QchzBRVHMNjsw" class="link-card" target="_blank" rel="noopener">
+          <div class="link-card__title">Личный кабинет</div>
+          <div class="link-card__desc">Вход в студенческий портал</div>
+        </a>
+
+        <a href="https://www.google.com/url?q=https%3A%2F%2Fgrades.agmu.ru%2Fstudent.php&sa=D&sntz=1&usg=AOvVaw32ZycGK5YuZcg4ufdCBVcv" class="link-card" target="_blank" rel="noopener">
+          <div class="link-card__title">Баллы</div>
+          <div class="link-card__desc">Проверка успеваемости</div>
+        </a>
+
+        <a href="https://www.google.com/url?q=https%3A%2F%2Fdo.asmu.ru%2Fmy%2F&sa=D&sntz=1&usg=AOvVaw1_Fq5sM-ugEPEgvjILWrH4" class="link-card" target="_blank" rel="noopener">
+          <div class="link-card__title">Moodle</div>
+          <div class="link-card__desc">Задания и тесты</div>
+        </a>
       </div>
     </div>
   </section>
