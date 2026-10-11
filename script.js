@@ -337,7 +337,8 @@ function animateTopicsMerge(target) {
   var mergeDelay = 700;
 
   var dots = [];
-  for (var i = 0; i < target; i++) {
+  var totalDots = 5;
+  for (var i = 0; i < totalDots; i++) {
     var dot = document.createElement("span");
     dot.className = "stat__dot";
     dotsContainer.appendChild(dot);
@@ -551,7 +552,15 @@ function showTopic(index) {
 
   modalSection.textContent = subjects[currentSubject].title;
   modalNum.textContent = topic.num || String(index + 1).padStart(2, "0");
+
   modalTitle.textContent = topic.title;
+  modalTitle.classList.remove("modal__title--open");
+  modalTitle.classList.remove("modal__title--clamped");
+
+  requestAnimationFrame(function () {
+    var isClamped = modalTitle.scrollHeight > modalTitle.clientHeight + 2;
+    modalTitle.classList.toggle("modal__title--clamped", isClamped);
+  });
 
   modalDate.innerHTML = "";
   var dateText = document.createElement("span");
@@ -606,6 +615,10 @@ function openModal(key) {
 function closeModal() {
   modal.classList.remove("modal--open");
   document.body.style.overflow = "";
+  if (modalTitle) {
+    modalTitle.classList.remove("modal__title--open");
+    modalTitle.classList.remove("modal__title--clamped");
+  }
 }
 
 function initModal() {
@@ -641,6 +654,16 @@ function initModal() {
     if (e.key === "ArrowLeft") showTopic(currentTopicIndex - 1);
     if (e.key === "ArrowRight") showTopic(currentTopicIndex + 1);
   });
+
+  if (modalTitle) {
+    modalTitle.addEventListener("click", function () {
+      if (!modalTitle.classList.contains("modal__title--clamped") &&
+          !modalTitle.classList.contains("modal__title--open")) {
+        return;
+      }
+      modalTitle.classList.toggle("modal__title--open");
+    });
+  }
 }
 
 // ============================================================
