@@ -91,6 +91,16 @@ button { font-family: inherit; }
   animation: header-fade-in 0.6s ease 2.7s forwards;
 }
 
+/* Мобильный вид — уменьшаем отступы и размер шрифта */
+@media (max-width: 640px) {
+  .nav {
+    gap: 16px;
+  }
+  .nav a {
+    font-size: 13.5px;
+  }
+}
+
 .nav a {
   font-size: 14.5px;
   color: var(--muted);
@@ -1228,7 +1238,6 @@ button { font-family: inherit; }
    ============================================================ */
 @media (max-width: 640px) {
   .container { padding: 0 16px; }
-  .nav { display: none; }
   .header__inner { height: 54px; }
 
   .hero { padding: 44px 0 40px; }
