@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UROBOROS — всё для учёбы</title>
+  <title>uroboros</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,27 +26,47 @@
 
   <!-- HERO -->
   <section class="hero">
+    <svg class="hero__uroboros" viewBox="0 0 200 200" aria-hidden="true">
+      <circle cx="100" cy="100" r="80" fill="none"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-dasharray="400 100" stroke-linecap="round"/>
+    </svg>
     <div class="hero__glow"></div>
+
     <div class="container">
+      <div class="hero__badge" id="today-badge"></div>
 
-      <div class="hero__top">
-        <div class="hero__badge">Для всех, кто учится</div>
+      <h1 class="hero__title" id="greeting"></h1>
 
-        <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
-          <span class="theme-toggle__track">
-            <span class="theme-toggle__thumb"></span>
-          </span>
-        </button>
-      </div>
-
-      <h1 class="hero__title">
-        Всё для учёбы —<br>
-        <span class="accent">собрано и разложено</span>
-      </h1>
       <p class="hero__subtitle">
         Конспекты и файлы по предметам — в одном месте.
         Без хаоса в чатах и потерянных файлов.
       </p>
+
+      <div class="stats" id="hero-stats">
+        <div class="stat">
+          <div class="stat__value">
+            <span id="stat-size">0</span>
+          </div>
+          <div class="stat__label">общий объём</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat__value">
+            <span id="stat-device">—</span>
+          </div>
+          <div class="stat__label">за учёбой</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat__value stat__value--merge">
+            <span class="stat__dots" id="stat-topics-dots"></span>
+            <span class="stat__number" id="stat-topics"></span>
+          </div>
+          <div class="stat__label">тем на сайте</div>
+        </div>
+      </div>
+
       <div class="hero__cta">
         <a href="#files" class="btn btn--primary">Перейти к файлам</a>
         <a href="#links" class="btn btn--ghost">Полезные ссылки</a>
@@ -114,7 +134,6 @@
             <div class="card__badge" data-badge></div>
           </div>
           <h3 class="card__title">Недавно обновлённые</h3>
-          <p class="card__last" data-last-topic>—</p>
         </a>
       </div>
     </div>
@@ -125,23 +144,33 @@
     <div class="container">
       <div class="section__head">
         <h2 class="section__title">Обновления</h2>
-        <p class="section__desc">Что нового на сайте</p>
+        <p class="section__desc">Как растёт сайт</p>
       </div>
 
-      <ul class="updates">
-        <li class="updates__item">
-          <span class="updates__date">10.10.2026</span>
-          <span class="updates__text">Добавлена первая тема</span>
-        </li>
-        <li class="updates__item">
-          <span class="updates__date">09.10.2026</span>
-          <span class="updates__text">Выход версии 3.0</span>
-        </li>
-        <li class="updates__item">
-          <span class="updates__date">08.10.2026</span>
-          <span class="updates__text">Новый дизайн главной страницы</span>
-        </li>
-      </ul>
+      <div class="growth">
+        <div class="growth__stats">
+          <div class="growth__stat">
+            <div class="growth__value" id="growth-total">0</div>
+            <div class="growth__label">тем всего</div>
+          </div>
+          <div class="growth__stat">
+            <div class="growth__value" id="growth-week">0</div>
+            <div class="growth__label">за 7 дней</div>
+          </div>
+          <div class="growth__stat">
+            <div class="growth__value" id="growth-last">—</div>
+            <div class="growth__label">последнее</div>
+          </div>
+        </div>
+
+        <div class="growth__chart">
+          <div class="growth__chart-title">Рост числа тем</div>
+          <div class="growth__chart-wrap">
+            <svg class="growth__svg" id="growth-svg" viewBox="0 0 600 200" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="growth__axis" id="growth-axis"></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -152,7 +181,7 @@
         <h2 class="section__title">О проекте</h2>
       </div>
       <p class="text">
-        Uroboros — змея, пожирающая сама себя, символ бесконечности. Учёба — это тоже цикл. Нужно сидеть на парах, приходить домой и искать, что и откуда учить, учитывать множество нюансов. Я хотел сделать этот процесс приятнее и удобнее, поэтому и сделал этот сайт. Здесь собрано всё, что нужно для учёбы: расписание, материалы, даты экзаменов и полезные ссылки. Конечно, без своей команды сайт не может существовать, и я рад, что меня поддерживают.
+        Uroboros — змея, пожирающая сама себя, символ бесконечности. Учёба — это тоже цикл. Нужно сидеть на парах, приходить домой и искать, что и откуда учить, учитывать множество нюансов. Я хотел сделать этот процесс приятнее и удобнее, поэтому и сделал этот сайт. Здесь собрано всё, что нужно для учёбы: расписание, материалы, даты экзаменов и полезные ссылки.
       </p>
     </div>
   </section>
@@ -162,25 +191,25 @@
     <div class="container">
       <div class="section__head">
         <h2 class="section__title">Полезные ссылки</h2>
+        <p class="section__desc">Сервисы и материалы</p>
       </div>
-
       <div class="links-grid">
-        <a href="https://www.google.com/url?q=https%3A%2F%2Fwebinar.asmu.ru%2F&sa=D&sntz=1&usg=AOvVaw3Ze7uDaCMd9ESgkYuqERXV" class="link-card" target="_blank" rel="noopener">
+        <a href="https://webinar.asmu.ru/" class="link-card" target="_blank" rel="noopener">
           <div class="link-card__title">Лекции</div>
           <div class="link-card__desc">Записи и презентации</div>
         </a>
 
-        <a href="https://www.google.com/url?q=https%3A%2F%2Flk.asmu.ru%2Fprofile&sa=D&sntz=1&usg=AOvVaw28FJZKkr3QchzBRVHMNjsw" class="link-card" target="_blank" rel="noopener">
+        <a href="https://lk.asmu.ru/profile" class="link-card" target="_blank" rel="noopener">
           <div class="link-card__title">Личный кабинет</div>
           <div class="link-card__desc">Вход в студенческий портал</div>
         </a>
 
-        <a href="https://www.google.com/url?q=https%3A%2F%2Fgrades.agmu.ru%2Fstudent.php&sa=D&sntz=1&usg=AOvVaw32ZycGK5YuZcg4ufdCBVcv" class="link-card" target="_blank" rel="noopener">
+        <a href="https://grades.agmu.ru/student.php" class="link-card" target="_blank" rel="noopener">
           <div class="link-card__title">Баллы</div>
           <div class="link-card__desc">Проверка успеваемости</div>
         </a>
 
-        <a href="https://www.google.com/url?q=https%3A%2F%2Fdo.asmu.ru%2Fmy%2F&sa=D&sntz=1&usg=AOvVaw1_Fq5sM-ugEPEgvjILWrH4" class="link-card" target="_blank" rel="noopener">
+        <a href="https://do.asmu.ru/my/" class="link-card" target="_blank" rel="noopener">
           <div class="link-card__title">Moodle</div>
           <div class="link-card__desc">Задания и тесты</div>
         </a>
@@ -194,6 +223,7 @@
       <div>
         <div class="footer__logo">∞ uroboros</div>
         <p class="footer__note">Некоммерческий проект. Автор: KAGOR.</p>
+        <p class="footer__time" id="time-counter"></p>
       </div>
       <div class="footer__copy">© 2026</div>
     </div>
@@ -206,7 +236,6 @@
     <div class="modal__box">
       <div class="modal__top">
         <div class="modal__section" id="modal-section">Раздел</div>
-
         <div class="modal__top-right">
           <div class="modal__date" id="modal-date"></div>
           <button class="modal__close" data-close aria-label="Закрыть">×</button>
