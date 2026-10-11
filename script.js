@@ -122,11 +122,156 @@ const subjects = {
 };
 
 // ============================================================
+//  РАСПИСАНИЕ
+// ============================================================
+
+const schedule = {
+  "ПН": [
+    {
+      time: "8:00–10:25",
+      title: "Микробио",
+      room: "239 каб.",
+      teacher: "Тимонов Андрей Викторович",
+      place: "Папанинцев, 126"
+    },
+    {
+      time: "10:40–13:05",
+      title: "Биохимия",
+      room: "305 каб.",
+      teacher: "Волобой Нина Леонидовна",
+      place: "Папанинцев, 126"
+    }
+  ],
+
+  "ВТ": [
+    {
+      time: "8:00–9:30",
+      title: "ОМиПК",
+      subgroups: [
+        { label: "А", room: "48 каб.", teacher: "Старчикова Маргарита Валерьевна" },
+        { label: "Б", room: "43 каб.", teacher: "Кленова Анна Фёдоровна" }
+      ],
+      place: "Комсомольский, 82"
+    },
+    {
+      time: "9:40–11:10",
+      title: "Биоэтика",
+      subgroups: [
+        { label: "А", room: "53 каб.", teacher: "Кочетова Юлия Юрьевна" },
+        { label: "Б", room: "55 каб.", teacher: "Вольферц Марина Валерьевна" }
+      ],
+      place: "Комсомольский, 82"
+    },
+    {
+      time: "13:00–14:30",
+      title: "ЛЕКЦИЯ",
+      subtitle: "Бх \\ мира \\ этика",
+      isLecture: true
+    },
+    {
+      time: "14:40–16:10",
+      title: "ЛЕКЦИЯ",
+      subtitle: "Гг \\ бжд \\ истмед",
+      isLecture: true
+    }
+  ],
+
+  "СР": [
+    {
+      time: "8:00–10:25",
+      title: "БЖД",
+      room: "220 каб.",
+      teacher: "Асманова Мария Андреевна",
+      place: "Некрасова, 65"
+    },
+    {
+      time: "10:40–13:05",
+      title: "Гигиена",
+      room: "133 каб.",
+      teacher: "Ушаков Александр Анатольевич",
+      place: "Некрасова, 65"
+    },
+    {
+      time: "14:40–16:10",
+      title: "ЛЕКЦИЯ",
+      subtitle: "н.физ \\ гист \\ омипк",
+      isLecture: true
+    }
+  ],
+
+  "ЧТ": [
+    {
+      time: "8:00–10:25",
+      title: "Норм физа",
+      room: "409 каб.",
+      teacher: "Шахматов Игорь Ильич",
+      place: "Папанинцев, 126"
+    },
+    {
+      time: "10:35–12:05",
+      title: "Истмед (1 нед.)",
+      room: "326 каб.",
+      teacher: "Кулипанова Наталья Викторовна",
+      place: "Папанинцев, 126"
+    }
+  ],
+
+  "ПТ": [
+    {
+      time: "10:30–12:00",
+      title: "Физра",
+      room: "4 каб.",
+      teacher: "Воронцов Павел Геннадьевич",
+      place: "Некрасова, 65"
+    },
+    {
+      time: "13:30–15:55",
+      title: "Гиста",
+      room: "433 каб.",
+      teacher: "Грибанова Ольга Геннадьевна",
+      place: "Папанинцев, 126"
+    }
+  ],
+
+  "СБ": [
+    {
+      time: "9:40–11:10",
+      title: "ЛЕКЦИЯ",
+      subtitle: "истмед",
+      isLecture: true
+    }
+  ]
+};
+
+// ============================================================
+//  ДАТЫ ЛЕКЦИЙ
+// ============================================================
+
+// Год, для которого указаны даты (можно менять)
+var LECTURE_YEAR = 2026;
+
+// Время лекций по предмету (если разное — уточняйте)
+var LECTURE_TIME = "13:00";
+
+// Даты лекций — формат "ДД.ММ"
+var lectureDates = {
+  "Биохимия": ["01.09", "22.09", "13.10", "03.11", "17.11", "01.12", "15.12", "22.12"],
+  "Микра":    ["08.09", "29.09", "20.10", "10.11"],
+  "Биоэтика": ["15.09", "06.10", "27.10"],
+  "Гигиена":  ["01.09", "22.09", "13.10", "27.10", "10.11", "24.11", "08.12", "22.12"],
+  "БЖД":      ["08.09", "29.09", "20.10", "03.11", "17.11", "01.12", "15.12"],
+  "Истмед":   ["12.09", "15.09", "26.09", "06.10", "10.10", "24.10", "07.11", "21.11", "29.12"],
+  "Н. физ":   ["02.09", "16.09", "30.09", "14.10", "28.10", "18.11", "02.12", "16.12", "30.12"],
+  "Гиста":    ["09.09", "07.10", "11.11", "09.12", "13.01"],
+  "ОМиПК":    ["23.09", "21.10", "25.11", "23.12"]
+};
+
+// ============================================================
 //  НАСТРОЙКИ
 // ============================================================
 
-// 👇 Общий объём в байтах (можно завысить). 13000000 ≈ 12.4 МБ
-var MANUAL_SIZE_BYTES = 13000000;
+// 👇 Общий объём в байтах (можно завысить). 4400000 ≈ 4.2 МБ
+var MANUAL_SIZE_BYTES = 4400000;
 
 // 👇 Сколько дней держать метку NEW
 var NEW_DAYS = 2;
@@ -517,6 +662,7 @@ function cacheModalElements() {
 }
 
 function applyAccentTheme(colorKey) {
+  if (!modal) return;
   Array.prototype.slice.call(modal.classList).forEach(function (cls) {
     if (cls.indexOf("modal--") === 0 && cls !== "modal--open") {
       modal.classList.remove(cls);
@@ -526,6 +672,7 @@ function applyAccentTheme(colorKey) {
 }
 
 function buildDots() {
+  if (!modalDots) return;
   modalDots.innerHTML = "";
   var topics = subjects[currentSubject].topics;
   topics.forEach(function (topic, i) {
@@ -538,6 +685,8 @@ function buildDots() {
 }
 
 function showTopic(index) {
+  if (!modalTitle || !modalSection || !modalNum) return;
+
   var topics = subjects[currentSubject].topics;
   if (index < 0) index = topics.length - 1;
   if (index >= topics.length) index = 0;
@@ -562,45 +711,54 @@ function showTopic(index) {
     modalTitle.classList.toggle("modal__title--clamped", isClamped);
   });
 
-  modalDate.innerHTML = "";
-  var dateText = document.createElement("span");
-  dateText.textContent = "Добавлено " + formatDate(topic.date);
-  modalDate.appendChild(dateText);
+  if (modalDate) {
+    modalDate.innerHTML = "";
+    var dateText = document.createElement("span");
+    dateText.textContent = "Добавлено " + formatDate(topic.date);
+    modalDate.appendChild(dateText);
 
-  if (daysSince(topic.date) < NEW_DAYS) {
-    var tag = document.createElement("span");
-    tag.className = "modal__date-tag";
-    tag.textContent = "NEW";
-    modalDate.appendChild(tag);
+    if (daysSince(topic.date) < NEW_DAYS) {
+      var tag = document.createElement("span");
+      tag.className = "modal__date-tag";
+      tag.textContent = "NEW";
+      modalDate.appendChild(tag);
+    }
   }
 
-  modalSteps.innerHTML = "";
-  topic.steps.forEach(function (step) {
-    var li = document.createElement("li");
-    li.textContent = step;
-    modalSteps.appendChild(li);
-  });
+  if (modalSteps) {
+    modalSteps.innerHTML = "";
+    topic.steps.forEach(function (step) {
+      var li = document.createElement("li");
+      li.textContent = step;
+      modalSteps.appendChild(li);
+    });
+  }
 
-  modalFiles.innerHTML = "";
-  topic.files.forEach(function (file) {
-    var li = document.createElement("li");
-    var a = document.createElement("a");
-    a.href = file.url;
-    a.textContent = file.name;
-    a.target = "_blank";
-    a.rel = "noopener";
-    li.appendChild(a);
-    modalFiles.appendChild(li);
-  });
+  if (modalFiles) {
+    modalFiles.innerHTML = "";
+    topic.files.forEach(function (file) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = file.url;
+      a.textContent = file.name;
+      a.target = "_blank";
+      a.rel = "noopener";
+      li.appendChild(a);
+      modalFiles.appendChild(li);
+    });
+  }
 
-  var dots = modalDots.querySelectorAll(".modal__dot");
-  dots.forEach(function (dot, i) {
-    dot.classList.toggle("modal__dot--active", i === index);
-  });
+  if (modalDots) {
+    var dots = modalDots.querySelectorAll(".modal__dot");
+    dots.forEach(function (dot, i) {
+      dot.classList.toggle("modal__dot--active", i === index);
+    });
+  }
 }
 
 function openModal(key) {
   if (!subjects[key] || !subjects[key].topics.length) return;
+  if (!modal) return;
 
   currentSubject = key;
   var startIndex = (key === "recent") ? 0 : subjects[key].topics.length - 1;
@@ -613,6 +771,7 @@ function openModal(key) {
 }
 
 function closeModal() {
+  if (!modal) return;
   modal.classList.remove("modal--open");
   document.body.style.overflow = "";
   if (modalTitle) {
@@ -623,6 +782,9 @@ function closeModal() {
 
 function initModal() {
   cacheModalElements();
+
+  // Защита: если на странице нет модалки (например, hub.html) — выходим
+  if (!modal) return;
 
   document.querySelectorAll(".card").forEach(function (card) {
     card.addEventListener("click", function (e) {
@@ -788,6 +950,397 @@ function initGrowthChart() {
 }
 
 // ============================================================
+//  ЦЕНТР — РАСПИСАНИЕ (мини → полное)
+// ============================================================
+
+function initSchedule() {
+  var container = document.getElementById("hub-schedule");
+  if (!container) return;
+
+  var days = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"];
+  var dayNames = {
+    "ПН": "Понедельник",
+    "ВТ": "Вторник",
+    "СР": "Среда",
+    "ЧТ": "Четверг",
+    "ПТ": "Пятница",
+    "СБ": "Суббота"
+  };
+
+  var jsDay = new Date().getDay();
+  var todayKey = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"][jsDay];
+
+  var now = new Date();
+  var nowMinutes = now.getHours() * 60 + now.getMinutes();
+
+  function parseTime(str) {
+    if (!str) return null;
+    var parts = str.split(/[–—-]/).map(function (s) { return s.trim(); });
+    if (parts.length !== 2) return null;
+
+    function toMin(t) {
+      var m = t.match(/(\d{1,2}):(\d{2})/);
+      if (!m) return null;
+      return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+    }
+
+    var start = toMin(parts[0]);
+    var end = toMin(parts[1]);
+    if (start === null || end === null) return null;
+    return { start: start, end: end };
+  }
+
+  function isLessonNow(lesson) {
+    var t = parseTime(lesson.time);
+    if (!t) return false;
+    return nowMinutes >= t.start && nowMinutes <= t.end;
+  }
+
+  container.innerHTML = "";
+
+  days.forEach(function (day) {
+    var lessons = schedule[day] || [];
+
+    var col = document.createElement("div");
+    col.className = "sched-day";
+    col.dataset.day = day;
+    if (day === todayKey) col.classList.add("is-today");
+
+    // Заголовок
+    var head = document.createElement("div");
+    head.className = "sched-day__head";
+    head.innerHTML =
+      '<span class="sched-day__short">' + day + '</span>' +
+      '<span class="sched-day__full">' + dayNames[day] + '</span>';
+    col.appendChild(head);
+
+    // Список пар
+    var list = document.createElement("div");
+    list.className = "sched-day__list";
+
+    if (!lessons.length) {
+      var empty = document.createElement("div");
+      empty.className = "sched-day__empty";
+      empty.textContent = "Пар нет";
+      list.appendChild(empty);
+    } else {
+      lessons.forEach(function (lesson) {
+        var item = document.createElement("div");
+        item.className = "sched-item";
+        if (lesson.isLecture) item.classList.add("sched-item--lecture");
+        if (day === todayKey && isLessonNow(lesson)) {
+          item.classList.add("sched-item--now");
+        }
+
+        // Компактная строка — всегда видна
+        var compact = document.createElement("div");
+        compact.className = "sched-item__compact";
+        compact.innerHTML =
+          '<span class="sched-item__time">' + lesson.time + '</span>' +
+          '<span class="sched-item__title">' + lesson.title + '</span>';
+        item.appendChild(compact);
+
+        // Полные детали — появляются при раскрытии дня
+        var details = document.createElement("div");
+        details.className = "sched-item__details";
+
+        if (lesson.subtitle) {
+          var sub = document.createElement("div");
+          sub.className = "sched-item__subtitle";
+          sub.textContent = lesson.subtitle;
+          details.appendChild(sub);
+        }
+
+        // Обычная пара
+        if (lesson.room || lesson.teacher || lesson.place) {
+          var info = document.createElement("div");
+          info.className = "sched-item__info";
+          if (lesson.room) info.innerHTML += "<span>" + lesson.room + "</span>";
+          if (lesson.teacher) info.innerHTML += "<span>" + lesson.teacher + "</span>";
+          if (lesson.place) info.innerHTML += "<span>" + lesson.place + "</span>";
+          details.appendChild(info);
+        }
+
+        // Подгруппы
+        if (lesson.subgroups) {
+          var subs = document.createElement("div");
+          subs.className = "sched-item__subs";
+          lesson.subgroups.forEach(function (s) {
+            var subEl = document.createElement("div");
+            subEl.className = "sched-item__sub";
+            subEl.innerHTML =
+              '<span class="sched-item__sub-label">' + s.label + '</span>' +
+              '<span class="sched-item__sub-room">' + s.room + '</span>' +
+              '<span class="sched-item__sub-teacher">' + s.teacher + '</span>';
+            subs.appendChild(subEl);
+          });
+          details.appendChild(subs);
+
+          if (lesson.place) {
+            var place = document.createElement("div");
+            place.className = "sched-item__info";
+            place.innerHTML = "<span>" + lesson.place + "</span>";
+            details.appendChild(place);
+          }
+        }
+
+        item.appendChild(details);
+        list.appendChild(item);
+      });
+    }
+
+    col.appendChild(list);
+    container.appendChild(col);
+  });
+
+  // Клик по дню — раскрыть / свернуть
+  container.querySelectorAll(".sched-day").forEach(function (col) {
+    col.addEventListener("click", function (e) {
+      // Игнорируем клики внутри пунктов (например, по ссылке-файлу)
+      var wasActive = col.classList.contains("is-open");
+
+      container.querySelectorAll(".sched-day").forEach(function (c) {
+        c.classList.remove("is-open");
+      });
+
+      if (!wasActive) col.classList.add("is-open");
+    });
+  });
+}
+
+// ============================================================
+//  ЦЕНТР — ТАБЫ И ПОИСК
+// ============================================================
+
+function initHub() {
+  var tabs = document.querySelectorAll(".hub__tab");
+  var panels = document.querySelectorAll(".hub__panel");
+  if (!tabs.length || !panels.length) return;
+
+  // 1. Переключение вкладок
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      var target = tab.dataset.tab;
+
+      tabs.forEach(function (t) { t.classList.remove("is-active"); });
+      panels.forEach(function (p) { p.classList.remove("is-active"); });
+
+      tab.classList.add("is-active");
+      var panel = document.querySelector('[data-panel="' + target + '"]');
+      if (panel) panel.classList.add("is-active");
+
+      if (target === "search") renderSearch("");
+    });
+  });
+
+  // 2. Поиск
+  var input = document.getElementById("hub-search-input");
+  if (input) {
+    input.addEventListener("input", function () {
+      renderSearch(input.value.trim());
+    });
+  }
+
+  // 3. Если поиск открыт сразу — рендерим пустой список
+  renderSearch("");
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  // Подсвечивает совпадающие буквы зелёным
+  function highlight(text, query) {
+    if (!query) return escapeHtml(text);
+
+    var safeText = escapeHtml(text);
+    var safeQuery = escapeHtml(query);
+
+    var lowerText = safeText.toLowerCase();
+    var lowerQuery = safeQuery.toLowerCase();
+
+    var out = "";
+    var pos = 0;
+    var idx = lowerText.indexOf(lowerQuery, pos);
+
+    while (idx !== -1) {
+      out += safeText.slice(pos, idx);
+      out += '<mark class="hub__hl">' + safeText.slice(idx, idx + safeQuery.length) + '</mark>';
+      pos = idx + safeQuery.length;
+      idx = lowerText.indexOf(lowerQuery, pos);
+    }
+    out += safeText.slice(pos);
+    return out;
+  }
+
+  function renderSearch(query) {
+    var container = document.getElementById("hub-search-results");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    var q = query.toLowerCase();
+    var results = [];
+
+    Object.keys(subjects).forEach(function (key) {
+      if (key === "recent") return;
+      var section = subjects[key];
+      if (!section || !Array.isArray(section.topics)) return;
+
+      section.topics.forEach(function (topic) {
+        if (topic.title === "Раздел в разработке") return;
+
+        var haystack = (topic.title + " " + section.title + " " + (topic.num || "")).toLowerCase();
+
+        // При пустом запросе — показываем всё (прозрачно)
+        if (q === "" || haystack.indexOf(q) !== -1) {
+          results.push({
+            key: key,
+            sectionTitle: section.title,
+            topic: topic
+          });
+        }
+      });
+    });
+
+    // Сортируем: при пустом запросе — по дате (свежие сверху), иначе — по релевантности
+    if (q === "") {
+      results.sort(function (a, b) {
+        return new Date(b.topic.date) - new Date(a.topic.date);
+      });
+    } else {
+      results.sort(function (a, b) {
+        var aTitle = a.topic.title.toLowerCase();
+        var bTitle = b.topic.title.toLowerCase();
+        var aStarts = aTitle.indexOf(q) === 0 ? 0 : 1;
+        var bStarts = bTitle.indexOf(q) === 0 ? 0 : 1;
+        return aStarts - bStarts;
+      });
+    }
+
+    results = results.slice(0, 50);
+
+    if (!results.length) {
+      container.innerHTML = '<div class="hub__empty">Ничего не найдено</div>';
+      return;
+    }
+
+    // Если пустой запрос — показываем счётчик и подсказку
+    if (q === "") {
+      var hint = document.createElement("div");
+      hint.className = "hub__search-hint";
+      hint.textContent = "Все материалы · " + results.length + " " +
+        plural(results.length, "тема", "темы", "тем");
+      container.appendChild(hint);
+    }
+
+    results.forEach(function (r) {
+      var div = document.createElement("a");
+      div.href = "#";
+      div.className = "hub__result" + (q === "" ? " hub__result--dim" : "");
+
+      div.innerHTML =
+        '<div class="hub__result-title">' +
+          highlight(r.topic.title, query) +
+        '</div>' +
+        '<div class="hub__result-meta">' +
+          highlight(r.sectionTitle, query) +
+          (r.topic.num ? ' · ' + highlight(r.topic.num, query) : '') +
+          (r.topic.date ? ' · ' + formatDate(r.topic.date) : '') +
+        '</div>';
+
+      div.addEventListener("click", function (e) {
+        e.preventDefault();
+        openModal(r.key);
+        setTimeout(function () {
+          var topics = subjects[r.key].topics;
+          var idx = topics.indexOf(r.topic);
+          if (idx !== -1) showTopic(idx);
+        }, 50);
+      });
+
+      container.appendChild(div);
+    });
+  }
+}
+
+// ============================================================
+//  БЛИЖАЙШАЯ ЛЕКЦИЯ
+// ============================================================
+
+function getNextLecture() {
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  var next = null;
+
+  Object.keys(lectureDates).forEach(function (subject) {
+    lectureDates[subject].forEach(function (dateStr) {
+      var parts = dateStr.split(".");
+      if (parts.length !== 2) return;
+
+      var day = parseInt(parts[0], 10);
+      var month = parseInt(parts[1], 10) - 1; // JS: месяцы с 0
+
+      var d = new Date(LECTURE_YEAR, month, day);
+      d.setHours(0, 0, 0, 0);
+
+      if (d >= today) {
+        if (!next || d < next.date) {
+          next = { date: d, subject: subject, dateStr: dateStr };
+        }
+      }
+    });
+  });
+
+  return next;
+}
+
+function initNextLecture() {
+  var el = document.getElementById("next-lecture");
+  if (!el) return;
+
+  var next = getNextLecture();
+
+  // Все лекции прошли
+  if (!next) {
+    el.innerHTML =
+      '<div class="next-lecture__label">Ближайшая лекция</div>' +
+      '<div class="next-lecture__text">Все лекции этого семестра прошли</div>';
+    return;
+  }
+
+  // Есть следующая лекция
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  var diffDays = Math.round((next.date - today) / (1000 * 60 * 60 * 24));
+
+  var whenText;
+  if (diffDays === 0)      whenText = "сегодня";
+  else if (diffDays === 1) whenText = "завтра";
+  else if (diffDays === 2) whenText = "послезавтра";
+  else                     whenText = "через " + diffDays + " " + plural(diffDays, "день", "дня", "дней");
+
+  var dayName = next.date.toLocaleDateString("ru-RU", { weekday: "long" });
+  dayName = dayName.charAt(0).toUpperCase() + dayName.slice(1);
+
+  var dateFormatted = next.date.toLocaleDateString("ru-RU", { day: "numeric", month: "long" });
+
+  el.innerHTML =
+    '<div class="next-lecture__label">Ближайшая лекция</div>' +
+    '<div class="next-lecture__text">' +
+      '<strong>' + next.subject + '</strong>' +
+      ' · ' + dayName.toLowerCase() + ', ' + dateFormatted +
+      ', ' + LECTURE_TIME +
+      ' · ' + whenText +
+    '</div>';
+}
+
+// ============================================================
 //  ИНИЦИАЛИЗАЦИЯ
 // ============================================================
 
@@ -801,4 +1354,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initSmoothScroll();
   initModal();
   initGrowthChart();
+  initHub();
+  initSchedule();
+  initNextLecture();
 });

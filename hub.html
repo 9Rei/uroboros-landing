@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Центр — uroboros</title>
+
+  <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ШАПКА -->
+  <header class="header">
+    <svg class="header__snake" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M 0 20 Q 25 5, 50 20 T 100 20 T 150 20 T 200 20"
+            fill="none" stroke="currentColor" stroke-width="4"
+            stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 0 20 Q 25 5, 50 20 T 100 20 T 150 20 T 200 20"
+            fill="none" stroke="#e8ead9" stroke-width="1"
+            stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+    </svg>
+
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__mark">∞</span>
+        <span class="logo__text">uroboros</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Главная</a>
+        <a href="hub.html" class="is-active">Центр</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ЦЕНТР -->
+  <section class="hub section">
+    <div class="container">
+      <div class="section__head">
+        <h1 class="section__title">Центр</h1>
+        <p class="section__desc">Всё нужное — в одном месте</p>
+      </div>
+
+            <!-- Табы -->
+      <div class="hub__tabs" role="tablist">
+        <button class="hub__tab is-active" data-tab="schedule" role="tab">Расписание</button>
+        <button class="hub__tab" data-tab="search" role="tab">Поиск</button>
+        <button class="hub__tab" data-tab="archive" role="tab">Архив</button>
+      </div>
+
+      <!-- Панели -->
+        <div class="hub__panels">
+
+            <div class="hub__panel is-active" data-panel="schedule">
+            <div class="hub__schedule">
+                <div class="sched" id="hub-schedule"></div>
+                <div class="next-lecture" id="next-lecture"></div>
+            </div>
+            </div>
+
+            <div class="hub__panel" data-panel="search">
+            <div class="hub__search">
+                <input type="text" id="hub-search-input" class="hub__input"
+                    placeholder="Введите название темы или предмета…">
+            </div>
+            <div class="hub__search-results" id="hub-search-results"></div>
+            </div>
+
+            <div class="hub__panel" data-panel="archive">
+            <p class="hub__placeholder">Архив скоро появится.</p>
+            </div>
+
+         </div>
+
+      
+    </div>
+  </section>
+
+  <!-- ПОДВАЛ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <div class="footer__logo">∞ uroboros</div>
+        <p class="footer__note">Некоммерческий проект. Автор: KAGOR.</p>
+        <p class="footer__time" id="time-counter"></p>
+      </div>
+      <div class="footer__copy">© 2026</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
