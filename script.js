@@ -10,11 +10,7 @@ const subjects = {
       {
         num: "2.2",
         title: "Транскрипция, трансляция. ДНК технологии в медицине. Экспрессия генов",
-        steps: [
-          "Прочитать основной файлик",
-          "Прочитать файлик тестов",
-          "Решить тест"
-        ],
+        steps: ["Прочитать основной файлик", "Прочитать файлик тестов", "Решить тест"],
         date: "2026-10-10",
         files: [
           { name: "БХ_2.2.pdf", url: "files/biochem/БХ_2.2.pdf" },
@@ -31,10 +27,7 @@ const subjects = {
       {
         num: "1.5",
         title: "КОЛЛОКВИУМ по разделу «Общая физиология»",
-        steps: [
-          "Прочитать файлик",
-          "Выполнить тест"
-        ],
+        steps: ["Прочитать файлик", "Выполнить тест"],
         date: "2026-10-04",
         files: [
           { name: "ФИЗА_КОЛЛОК.pdf", url: "files/physio/ФИЗА_КОЛЛОК.pdf" }
@@ -43,11 +36,7 @@ const subjects = {
       {
         num: "2.1",
         title: "Общие принципы регуляции. Рефлекторная деятельность ЦНС. Особенности распространения возбуждения и торможения в ЦНС. Клинико-физиологическая оценка рефлекторной деятельности.",
-        steps: [
-          "Сделать конспект по ДЗ (либо по лекции)",
-          "Прочитать файл тестов",
-          "Выполнить тест"
-        ],
+        steps: ["Сделать конспект по ДЗ (либо по лекции)", "Прочитать файл тестов", "Выполнить тест"],
         date: "2026-10-11",
         files: [
           { name: "ФИЗА_2.1ТЕСТЫ.pdf", url: "files/physio/ФИЗА_2.1ТЕСТЫ.pdf" }
@@ -63,11 +52,7 @@ const subjects = {
       {
         num: "23",
         title: "Пищеварительная система. Морфологическая характеристика переднего отдела пищеварительной системы: органы ротовой полости, пищевод",
-        steps: [
-          "Прочитать файлик (совмещён с краткими ответами)",
-          "Посмотреть препараты",
-          "Выполнить тест"
-        ],
+        steps: ["Прочитать файлик (совмещён с краткими ответами)", "Посмотреть препараты", "Выполнить тест"],
         date: "2026-10-07",
         files: [
           { name: "ГИСТА_23.pdf", url: "files/histology/ГИСТА_23.pdf" },
@@ -84,10 +69,7 @@ const subjects = {
       {
         num: "06",
         title: "Инфекция, инфекционный процесс. Факторы патогенности бактерий",
-        steps: [
-          "Прочитать файлик «МИКРА_6.pdf»",
-          "Выполнить тест"
-        ],
+        steps: ["Прочитать файлик «МИКРА_6.pdf»", "Выполнить тест"],
         date: "2026-10-10",
         files: [
           { name: "МИКРА_6.pdf", url: "files/microbio/МИКРА_6.pdf" }
@@ -102,14 +84,9 @@ const subjects = {
     topics: [
       {
         title: "Раздел в разработке",
-        steps: [
-          "Материалы появятся позже",
-          "Следите за обновлениями"
-        ],
+        steps: ["Материалы появятся позже", "Следите за обновлениями"],
         date: "2026-09-01",
-        files: [
-          { name: "Пока пусто", url: "#" }
-        ]
+        files: [{ name: "Пока пусто", url: "#" }]
       }
     ]
   },
@@ -127,119 +104,36 @@ const subjects = {
 
 const schedule = {
   "ПН": [
-    {
-      time: "8:00–10:25",
-      title: "Микробио",
-      room: "239 каб.",
-      teacher: "Тимонов Андрей Викторович",
-      place: "Папанинцев, 126"
-    },
-    {
-      time: "10:40–13:05",
-      title: "Биохимия",
-      room: "305 каб.",
-      teacher: "Волобой Нина Леонидовна",
-      place: "Папанинцев, 126"
-    }
+    { time: "8:00–10:25", title: "Микробио", room: "239 каб.", teacher: "Тимонов Андрей Викторович", place: "Папанинцев, 126" },
+    { time: "10:40–13:05", title: "Биохимия", room: "305 каб.", teacher: "Волобой Нина Леонидовна", place: "Папанинцев, 126" }
   ],
-
   "ВТ": [
-    {
-      time: "8:00–9:30",
-      title: "ОМиПК",
-      subgroups: [
+    { time: "8:00–9:30", title: "ОМиПК", subgroups: [
         { label: "А", room: "48 каб.", teacher: "Старчикова Маргарита Валерьевна" },
         { label: "Б", room: "43 каб.", teacher: "Кленова Анна Фёдоровна" }
-      ],
-      place: "Комсомольский, 82"
-    },
-    {
-      time: "9:40–11:10",
-      title: "Биоэтика",
-      subgroups: [
+      ], place: "Комсомольский, 82" },
+    { time: "9:40–11:10", title: "Биоэтика", subgroups: [
         { label: "А", room: "53 каб.", teacher: "Кочетова Юлия Юрьевна" },
         { label: "Б", room: "55 каб.", teacher: "Вольферц Марина Валерьевна" }
-      ],
-      place: "Комсомольский, 82"
-    },
-    {
-      time: "13:00–14:30",
-      title: "ЛЕКЦИЯ",
-      subtitle: "Бх \\ мира \\ этика",
-      isLecture: true
-    },
-    {
-      time: "14:40–16:10",
-      title: "ЛЕКЦИЯ",
-      subtitle: "Гг \\ бжд \\ истмед",
-      isLecture: true
-    }
+      ], place: "Комсомольский, 82" },
+    { time: "13:00–14:30", title: "ЛЕКЦИЯ", subtitle: "Бх \\ мира \\ этика", isLecture: true },
+    { time: "14:40–16:10", title: "ЛЕКЦИЯ", subtitle: "Гг \\ бжд \\ истмед", isLecture: true }
   ],
-
   "СР": [
-    {
-      time: "8:00–10:25",
-      title: "БЖД",
-      room: "220 каб.",
-      teacher: "Асманова Мария Андреевна",
-      place: "Некрасова, 65"
-    },
-    {
-      time: "10:40–13:05",
-      title: "Гигиена",
-      room: "133 каб.",
-      teacher: "Ушаков Александр Анатольевич",
-      place: "Некрасова, 65"
-    },
-    {
-      time: "14:40–16:10",
-      title: "ЛЕКЦИЯ",
-      subtitle: "н.физ \\ гист \\ омипк",
-      isLecture: true
-    }
+    { time: "8:00–10:25", title: "БЖД", room: "220 каб.", teacher: "Асманова Мария Андреевна", place: "Некрасова, 65" },
+    { time: "10:40–13:05", title: "Гигиена", room: "133 каб.", teacher: "Ушаков Александр Анатольевич", place: "Некрасова, 65" },
+    { time: "14:40–16:10", title: "ЛЕКЦИЯ", subtitle: "н.физ \\ гист \\ омипк", isLecture: true }
   ],
-
   "ЧТ": [
-    {
-      time: "8:00–10:25",
-      title: "Норм физа",
-      room: "409 каб.",
-      teacher: "Шахматов Игорь Ильич",
-      place: "Папанинцев, 126"
-    },
-    {
-      time: "10:35–12:05",
-      title: "Истмед (1 нед.)",
-      room: "326 каб.",
-      teacher: "Кулипанова Наталья Викторовна",
-      place: "Папанинцев, 126"
-    }
+    { time: "8:00–10:25", title: "Норм физа", room: "409 каб.", teacher: "Шахматов Игорь Ильич", place: "Папанинцев, 126" },
+    { time: "10:35–12:05", title: "Истмед (1 нед.)", room: "326 каб.", teacher: "Кулипанова Наталья Викторовна", place: "Папанинцев, 126" }
   ],
-
   "ПТ": [
-    {
-      time: "10:30–12:00",
-      title: "Физра",
-      room: "4 каб.",
-      teacher: "Воронцов Павел Геннадьевич",
-      place: "Некрасова, 65"
-    },
-    {
-      time: "13:30–15:55",
-      title: "Гиста",
-      room: "433 каб.",
-      teacher: "Грибанова Ольга Геннадьевна",
-      place: "Папанинцев, 126"
-    }
+    { time: "10:30–12:00", title: "Физра", room: "4 каб.", teacher: "Воронцов Павел Геннадьевич", place: "Некрасова, 65" },
+    { time: "13:30–15:55", title: "Гиста", room: "433 каб.", teacher: "Грибанова Ольга Геннадьевна", place: "Папанинцев, 126" }
   ],
-
   "СБ": [
-    {
-      time: "9:40–11:10",
-      title: "ЛЕКЦИЯ",
-      subtitle: "истмед",
-      isLecture: true
-    }
+    { time: "9:40–11:10", title: "ЛЕКЦИЯ", subtitle: "истмед", isLecture: true }
   ]
 };
 
@@ -247,13 +141,9 @@ const schedule = {
 //  ДАТЫ ЛЕКЦИЙ
 // ============================================================
 
-// Год, для которого указаны даты (можно менять)
 var LECTURE_YEAR = 2026;
-
-// Время лекций по предмету (если разное — уточняйте)
 var LECTURE_TIME = "13:00";
 
-// Даты лекций — формат "ДД.ММ"
 var lectureDates = {
   "Биохимия": ["01.09", "22.09", "13.10", "03.11", "17.11", "01.12", "15.12", "22.12"],
   "Микра":    ["08.09", "29.09", "20.10", "10.11"],
@@ -270,10 +160,7 @@ var lectureDates = {
 //  НАСТРОЙКИ
 // ============================================================
 
-// 👇 Общий объём в байтах (можно завысить). 4400000 ≈ 4.2 МБ
 var MANUAL_SIZE_BYTES = 4400000;
-
-// 👇 Сколько дней держать метку NEW
 var NEW_DAYS = 2;
 
 // ============================================================
@@ -307,6 +194,29 @@ function formatSize(bytes) {
   return { value: (bytes / 1024 / 1024 / 1024).toFixed(2), unit: "ГБ" };
 }
 
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// ============================================================
+//  СОРТИРОВКА ТЕМ ПО ДАТЕ (свежие сверху)
+// ============================================================
+
+function sortTopicsByDate() {
+  Object.keys(subjects).forEach(function (key) {
+    if (key === "recent") return;
+    var section = subjects[key];
+    if (!section || !Array.isArray(section.topics)) return;
+    section.topics.sort(function (a, b) {
+      return new Date(b.date) - new Date(a.date);
+    });
+  });
+}
+
 // ============================================================
 //  HERO — ПРИВЕТСТВИЕ
 // ============================================================
@@ -323,7 +233,13 @@ function initGreeting() {
   else if (h >= 18 && h < 23){ first = "Добрый вечер!"; second = "Повторим пройденное?"; }
   else                       { first = "Не спится?";   second = "Конспекты ждут."; }
 
-  el.innerHTML = first + '<br><span class="accent">' + second + "</span>";
+  el.innerHTML = "";
+  el.appendChild(document.createTextNode(first));
+  el.appendChild(document.createElement("br"));
+  var span = document.createElement("span");
+  span.className = "accent";
+  span.textContent = second;
+  el.appendChild(span);
 }
 
 // ============================================================
@@ -347,60 +263,155 @@ function initTodayBadge() {
 //  СЧЁТЧИК ВРЕМЕНИ НА УСТРОЙСТВЕ
 // ============================================================
 
-var TIME_STORAGE_KEY = "uroboros_time_total_seconds";
+var HINT_KEY = "uroboros_time_hint_sessions";
+var HINT_MAX_SESSIONS = 2;
+var TIME_TOTAL_KEY = "uroboros_time_total_seconds";
+var TIME_TODAY_KEY = "uroboros_time_today";
 var SESSION_START = Date.now();
 
-function formatDuration(totalSeconds) {
-  var h = Math.floor(totalSeconds / 3600);
-  var m = Math.floor((totalSeconds % 3600) / 60);
+function todayKey() {
+  var d = new Date();
+  var m = String(d.getMonth() + 1).padStart(2, "0");
+  var day = String(d.getDate()).padStart(2, "0");
+  return d.getFullYear() + "-" + m + "-" + day;
+}
 
-  if (h > 0) return h + " ч " + m + " мин";
-  if (m > 0) return m + " мин";
-  return "< 1 мин";
+function getTotalTime() {
+  return parseInt(localStorage.getItem(TIME_TOTAL_KEY) || "0", 10);
+}
+
+function getTodayTime() {
+  var raw = localStorage.getItem(TIME_TODAY_KEY);
+  if (!raw) return 0;
+  try {
+    var obj = JSON.parse(raw);
+    if (obj.date !== todayKey()) return 0;
+    return parseInt(obj.seconds || 0, 10);
+  } catch (e) {
+    return 0;
+  }
+}
+
+function addTimeToStorage(seconds) {
+  var total = getTotalTime() + seconds;
+  localStorage.setItem(TIME_TOTAL_KEY, String(total));
+
+  var today = getTodayTime() + seconds;
+  localStorage.setItem(TIME_TODAY_KEY, JSON.stringify({
+    date: todayKey(),
+    seconds: today
+  }));
 }
 
 function saveSessionTime() {
   var elapsed = Math.round((Date.now() - SESSION_START) / 1000);
   if (elapsed < 1) return;
-
-  var total = parseInt(localStorage.getItem(TIME_STORAGE_KEY) || "0", 10);
-  localStorage.setItem(TIME_STORAGE_KEY, total + elapsed);
-
+  addTimeToStorage(elapsed);
   SESSION_START = Date.now();
 }
 
-function getTotalTime() {
-  return parseInt(localStorage.getItem(TIME_STORAGE_KEY) || "0", 10);
+function getCurrentToday() {
+  return getTodayTime() + Math.round((Date.now() - SESSION_START) / 1000);
 }
 
-function getCurrentTime() {
+function getCurrentTotal() {
   return getTotalTime() + Math.round((Date.now() - SESSION_START) / 1000);
+}
+
+function formatDuration(totalSeconds) {
+  var h = Math.floor(totalSeconds / 3600);
+  var m = Math.floor((totalSeconds % 3600) / 60);
+  if (h > 0) return h + " ч " + m + " мин";
+  if (m > 0) return m + " мин";
+  return "< 1 мин";
 }
 
 function initTimeCounter() {
   var footerEl = document.getElementById("time-counter");
   var deviceEl = document.getElementById("stat-device");
+  var labelEl  = document.getElementById("stat-device-label");
+  var cardEl   = document.getElementById("stat-device-card");
 
   if (footerEl) {
     footerEl.textContent = "Вы на этом устройстве: " + formatDuration(getTotalTime());
   }
 
-  setInterval(function () {
-    var current = getCurrentTime();
+  if (deviceEl) {
+    deviceEl.textContent = formatDuration(getCurrentToday());
+  }
 
+  setInterval(function () {
     if (footerEl) {
-      footerEl.textContent = "Вы на этом устройстве: " + formatDuration(current);
+      footerEl.textContent = "Вы на этом устройстве: " + formatDuration(getCurrentTotal());
     }
-    if (deviceEl) {
-      deviceEl.textContent = formatDuration(current);
+    if (deviceEl && (!cardEl || !cardEl.classList.contains("is-showing-total"))) {
+      deviceEl.textContent = formatDuration(getCurrentToday());
     }
   }, 30000);
+
+  if (cardEl && deviceEl && labelEl) {
+    var showingTotal = false;
+
+    cardEl.addEventListener("click", function () {
+      showingTotal = !showingTotal;
+
+      localStorage.setItem(HINT_KEY, "-1");
+      cardEl.classList.remove("is-hint");
+
+      if (showingTotal) {
+        deviceEl.textContent = formatDuration(getCurrentTotal());
+        labelEl.textContent = "всего на сайте";
+        cardEl.classList.add("is-showing-total");
+      } else {
+        deviceEl.textContent = formatDuration(getCurrentToday());
+        labelEl.textContent = "сегодня на сайте";
+        cardEl.classList.remove("is-showing-total");
+      }
+    });
+
+    cardEl.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        cardEl.click();
+      }
+    });
+  }
 
   window.addEventListener("beforeunload", saveSessionTime);
 
   document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "hidden") saveSessionTime();
   });
+
+  showHintIfFirstVisit();
+}
+
+// ============================================================
+//  ПОДСКАЗКА ПРИ ПЕРВОМ ЗАХОДЕ (до 2 сессий, если не нажали)
+// ============================================================
+
+function showHintIfFirstVisit() {
+  var cardEl  = document.getElementById("stat-device-card");
+  var labelEl = document.getElementById("stat-device-label");
+  if (!cardEl || !labelEl) return;
+
+  var sessionsSeen = parseInt(localStorage.getItem(HINT_KEY) || "0", 10);
+
+  if (sessionsSeen < 0) return;
+  if (sessionsSeen >= HINT_MAX_SESSIONS) return;
+
+  localStorage.setItem(HINT_KEY, String(sessionsSeen + 1));
+
+  setTimeout(function () {
+    var oldText = labelEl.textContent;
+    cardEl.classList.add("is-hint");
+    labelEl.textContent = "нажми — покажу всего на сайте";
+
+    setTimeout(function () {
+      labelEl.textContent = oldText;
+      cardEl.classList.remove("is-hint");
+    }, 3500);
+  }, 1500);
 }
 
 // ============================================================
@@ -430,9 +441,7 @@ function animateNumber(el, target, decimals) {
     var p = Math.min((now - start) / duration, 1);
     var eased = 1 - Math.pow(1 - p, 3);
     var current = numericTarget * eased;
-
     el.textContent = decimals > 0 ? current.toFixed(decimals) : Math.round(current);
-
     if (p < 1) requestAnimationFrame(step);
     else el.textContent = decimals > 0 ? numericTarget.toFixed(decimals) : numericTarget;
   }
@@ -480,9 +489,9 @@ function animateTopicsMerge(target) {
 
   var dotDelay = 500;
   var mergeDelay = 700;
+  var totalDots = 5;
 
   var dots = [];
-  var totalDots = 5;
   for (var i = 0; i < totalDots; i++) {
     var dot = document.createElement("span");
     dot.className = "stat__dot";
@@ -532,10 +541,7 @@ function initHeroStats() {
       unitSpan.textContent = sizeData.unit;
     }
 
-    if (deviceEl) {
-      animateDuration(deviceEl, getCurrentTime());
-    }
-
+    if (deviceEl) animateDuration(deviceEl, getCurrentToday());
     if (topicsEl) animateTopicsMerge(topicsCount);
   };
 
@@ -589,15 +595,34 @@ function fillCards() {
     var section = subjects[key];
     if (!section || !section.topics.length) return { card: card, key: key, sortKey: "" };
 
-    var lastTopic = section.topics[section.topics.length - 1];
+    var lastTopic = section.topics[0];
 
     var lastEl = card.querySelector("[data-last-topic]");
     if (lastEl) lastEl.textContent = lastTopic.title;
 
-    var badge = card.querySelector("[data-badge]");
-    if (badge && daysSince(lastTopic.date) < NEW_DAYS) {
-      badge.textContent = "NEW";
-      badge.classList.add("card__badge--show");
+    var banner  = card.querySelector("[data-banner]");
+    var dot     = card.querySelector("[data-dot]");
+    var seenKey = "uroboros_card_seen_" + key;
+    var isSeen  = localStorage.getItem(seenKey) === "1";
+
+    if (key !== "recent") {
+      var days = daysSince(lastTopic.date);
+      var isFresh = days < NEW_DAYS;
+
+      if (isFresh) {
+        if (isSeen) {
+          // Кликнул — шапки нет, кружок есть
+          if (dot) dot.classList.add("card__dot--show");
+        } else {
+          // Ещё не кликал — шапка + кружок
+          if (banner) {
+            banner.textContent = days < 1 ? "Новое" : "Обновлено";
+            banner.classList.add("card__banner--show");
+          }
+          if (dot) dot.classList.add("card__dot--show");
+        }
+      }
+      // Если не свежая — ничего не показываем
     }
 
     return { card: card, key: key, sortKey: section.title || "" };
@@ -620,6 +645,19 @@ function fillCards() {
 
   regular.concat(special).forEach(function (item) {
     container.appendChild(item.card);
+  });
+
+  // Клик — шапка уезжает, флаг в localStorage
+  cards.forEach(function (card) {
+    card.addEventListener("click", function () {
+      var key = card.dataset.subject;
+      if (!key || key === "recent") return;
+
+      localStorage.setItem("uroboros_card_seen_" + key, "1");
+
+      var banner = card.querySelector("[data-banner]");
+      if (banner) banner.classList.remove("card__banner--show");
+    });
   });
 }
 
@@ -718,10 +756,10 @@ function showTopic(index) {
     modalDate.appendChild(dateText);
 
     if (daysSince(topic.date) < NEW_DAYS) {
-      var tag = document.createElement("span");
-      tag.className = "modal__date-tag";
-      tag.textContent = "NEW";
-      modalDate.appendChild(tag);
+      var dot = document.createElement("span");
+      dot.className = "modal__date-dot";
+      dot.title = "Новое";
+      modalDate.appendChild(dot);
     }
   }
 
@@ -761,10 +799,8 @@ function openModal(key) {
   if (!modal) return;
 
   currentSubject = key;
-  var startIndex = (key === "recent") ? 0 : subjects[key].topics.length - 1;
-
   buildDots();
-  showTopic(startIndex);
+  showTopic(0);
 
   modal.classList.add("modal--open");
   document.body.style.overflow = "hidden";
@@ -782,8 +818,6 @@ function closeModal() {
 
 function initModal() {
   cacheModalElements();
-
-  // Защита: если на странице нет модалки (например, hub.html) — выходим
   if (!modal) return;
 
   document.querySelectorAll(".card").forEach(function (card) {
@@ -872,8 +906,7 @@ function initGrowthChart() {
   }
 
   if (lastEl && topics.length) {
-    var last = topics[topics.length - 1];
-    lastEl.textContent = last.sectionTitle;
+    lastEl.textContent = topics[topics.length - 1].sectionTitle;
   }
 
   if (!topics.length) { axis.innerHTML = ""; return; }
@@ -950,7 +983,7 @@ function initGrowthChart() {
 }
 
 // ============================================================
-//  ЦЕНТР — РАСПИСАНИЕ (мини → полное)
+//  ЦЕНТР — РАСПИСАНИЕ
 // ============================================================
 
 function initSchedule() {
@@ -959,16 +992,12 @@ function initSchedule() {
 
   var days = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"];
   var dayNames = {
-    "ПН": "Понедельник",
-    "ВТ": "Вторник",
-    "СР": "Среда",
-    "ЧТ": "Четверг",
-    "ПТ": "Пятница",
-    "СБ": "Суббота"
+    "ПН": "Понедельник", "ВТ": "Вторник", "СР": "Среда",
+    "ЧТ": "Четверг", "ПТ": "Пятница", "СБ": "Суббота"
   };
 
   var jsDay = new Date().getDay();
-  var todayKey = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"][jsDay];
+  var todayKeyShort = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"][jsDay];
 
   var now = new Date();
   var nowMinutes = now.getHours() * 60 + now.getMinutes();
@@ -977,13 +1006,11 @@ function initSchedule() {
     if (!str) return null;
     var parts = str.split(/[–—-]/).map(function (s) { return s.trim(); });
     if (parts.length !== 2) return null;
-
     function toMin(t) {
       var m = t.match(/(\d{1,2}):(\d{2})/);
       if (!m) return null;
       return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
     }
-
     var start = toMin(parts[0]);
     var end = toMin(parts[1]);
     if (start === null || end === null) return null;
@@ -1004,17 +1031,20 @@ function initSchedule() {
     var col = document.createElement("div");
     col.className = "sched-day";
     col.dataset.day = day;
-    if (day === todayKey) col.classList.add("is-today");
+    if (day === todayKeyShort) col.classList.add("is-today");
 
-    // Заголовок
     var head = document.createElement("div");
     head.className = "sched-day__head";
-    head.innerHTML =
-      '<span class="sched-day__short">' + day + '</span>' +
-      '<span class="sched-day__full">' + dayNames[day] + '</span>';
+    var short = document.createElement("span");
+    short.className = "sched-day__short";
+    short.textContent = day;
+    var full = document.createElement("span");
+    full.className = "sched-day__full";
+    full.textContent = dayNames[day];
+    head.appendChild(short);
+    head.appendChild(full);
     col.appendChild(head);
 
-    // Список пар
     var list = document.createElement("div");
     list.className = "sched-day__list";
 
@@ -1028,19 +1058,22 @@ function initSchedule() {
         var item = document.createElement("div");
         item.className = "sched-item";
         if (lesson.isLecture) item.classList.add("sched-item--lecture");
-        if (day === todayKey && isLessonNow(lesson)) {
+        if (day === todayKeyShort && isLessonNow(lesson)) {
           item.classList.add("sched-item--now");
         }
 
-        // Компактная строка — всегда видна
         var compact = document.createElement("div");
         compact.className = "sched-item__compact";
-        compact.innerHTML =
-          '<span class="sched-item__time">' + lesson.time + '</span>' +
-          '<span class="sched-item__title">' + lesson.title + '</span>';
+        var time = document.createElement("span");
+        time.className = "sched-item__time";
+        time.textContent = lesson.time;
+        var title = document.createElement("span");
+        title.className = "sched-item__title";
+        title.textContent = lesson.title;
+        compact.appendChild(time);
+        compact.appendChild(title);
         item.appendChild(compact);
 
-        // Полные детали — появляются при раскрытии дня
         var details = document.createElement("div");
         details.className = "sched-item__details";
 
@@ -1051,27 +1084,45 @@ function initSchedule() {
           details.appendChild(sub);
         }
 
-        // Обычная пара
         if (lesson.room || lesson.teacher || lesson.place) {
           var info = document.createElement("div");
           info.className = "sched-item__info";
-          if (lesson.room) info.innerHTML += "<span>" + lesson.room + "</span>";
-          if (lesson.teacher) info.innerHTML += "<span>" + lesson.teacher + "</span>";
-          if (lesson.place) info.innerHTML += "<span>" + lesson.place + "</span>";
+          if (lesson.room) {
+            var sp1 = document.createElement("span");
+            sp1.textContent = lesson.room;
+            info.appendChild(sp1);
+          }
+          if (lesson.teacher) {
+            var sp2 = document.createElement("span");
+            sp2.textContent = lesson.teacher;
+            info.appendChild(sp2);
+          }
+          if (lesson.place) {
+            var sp3 = document.createElement("span");
+            sp3.textContent = lesson.place;
+            info.appendChild(sp3);
+          }
           details.appendChild(info);
         }
 
-        // Подгруппы
         if (lesson.subgroups) {
           var subs = document.createElement("div");
           subs.className = "sched-item__subs";
           lesson.subgroups.forEach(function (s) {
             var subEl = document.createElement("div");
             subEl.className = "sched-item__sub";
-            subEl.innerHTML =
-              '<span class="sched-item__sub-label">' + s.label + '</span>' +
-              '<span class="sched-item__sub-room">' + s.room + '</span>' +
-              '<span class="sched-item__sub-teacher">' + s.teacher + '</span>';
+            var lbl = document.createElement("span");
+            lbl.className = "sched-item__sub-label";
+            lbl.textContent = s.label;
+            var rm = document.createElement("span");
+            rm.className = "sched-item__sub-room";
+            rm.textContent = s.room;
+            var tch = document.createElement("span");
+            tch.className = "sched-item__sub-teacher";
+            tch.textContent = s.teacher;
+            subEl.appendChild(lbl);
+            subEl.appendChild(rm);
+            subEl.appendChild(tch);
             subs.appendChild(subEl);
           });
           details.appendChild(subs);
@@ -1079,7 +1130,9 @@ function initSchedule() {
           if (lesson.place) {
             var place = document.createElement("div");
             place.className = "sched-item__info";
-            place.innerHTML = "<span>" + lesson.place + "</span>";
+            var pSpan = document.createElement("span");
+            pSpan.textContent = lesson.place;
+            place.appendChild(pSpan);
             details.appendChild(place);
           }
         }
@@ -1093,16 +1146,12 @@ function initSchedule() {
     container.appendChild(col);
   });
 
-  // Клик по дню — раскрыть / свернуть
   container.querySelectorAll(".sched-day").forEach(function (col) {
-    col.addEventListener("click", function (e) {
-      // Игнорируем клики внутри пунктов (например, по ссылке-файлу)
+    col.addEventListener("click", function () {
       var wasActive = col.classList.contains("is-open");
-
       container.querySelectorAll(".sched-day").forEach(function (c) {
         c.classList.remove("is-open");
       });
-
       if (!wasActive) col.classList.add("is-open");
     });
   });
@@ -1117,23 +1166,18 @@ function initHub() {
   var panels = document.querySelectorAll(".hub__panel");
   if (!tabs.length || !panels.length) return;
 
-  // 1. Переключение вкладок
   tabs.forEach(function (tab) {
     tab.addEventListener("click", function () {
       var target = tab.dataset.tab;
-
       tabs.forEach(function (t) { t.classList.remove("is-active"); });
       panels.forEach(function (p) { p.classList.remove("is-active"); });
-
       tab.classList.add("is-active");
       var panel = document.querySelector('[data-panel="' + target + '"]');
       if (panel) panel.classList.add("is-active");
-
       if (target === "search") renderSearch("");
     });
   });
 
-  // 2. Поиск
   var input = document.getElementById("hub-search-input");
   if (input) {
     input.addEventListener("input", function () {
@@ -1141,24 +1185,13 @@ function initHub() {
     });
   }
 
-  // 3. Если поиск открыт сразу — рендерим пустой список
   renderSearch("");
 
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
-
-  // Подсвечивает совпадающие буквы зелёным
   function highlight(text, query) {
     if (!query) return escapeHtml(text);
 
     var safeText = escapeHtml(text);
     var safeQuery = escapeHtml(query);
-
     var lowerText = safeText.toLowerCase();
     var lowerQuery = safeQuery.toLowerCase();
 
@@ -1193,26 +1226,46 @@ function initHub() {
       section.topics.forEach(function (topic) {
         if (topic.title === "Раздел в разработке") return;
 
-        var haystack = (topic.title + " " + section.title + " " + (topic.num || "")).toLowerCase();
+        var haystackTopic = (topic.title + " " + section.title + " " + (topic.num || "")).toLowerCase();
+        var topicMatch = q === "" || haystackTopic.indexOf(q) !== -1;
 
-        // При пустом запросе — показываем всё (прозрачно)
-        if (q === "" || haystack.indexOf(q) !== -1) {
+        if (topicMatch) {
           results.push({
+            type: "topic",
             key: key,
             sectionTitle: section.title,
             topic: topic
           });
         }
+
+        if (Array.isArray(topic.files)) {
+          topic.files.forEach(function (file) {
+            if (!file || !file.name) return;
+            if (file.url === "#") return;
+
+            var fileMatch = q !== "" && file.name.toLowerCase().indexOf(q) !== -1;
+
+            if (fileMatch) {
+              results.push({
+                type: "file",
+                key: key,
+                sectionTitle: section.title,
+                topic: topic,
+                file: file
+              });
+            }
+          });
+        }
       });
     });
 
-    // Сортируем: при пустом запросе — по дате (свежие сверху), иначе — по релевантности
     if (q === "") {
       results.sort(function (a, b) {
         return new Date(b.topic.date) - new Date(a.topic.date);
       });
     } else {
       results.sort(function (a, b) {
+        if (a.type !== b.type) return a.type === "topic" ? -1 : 1;
         var aTitle = a.topic.title.toLowerCase();
         var bTitle = b.topic.title.toLowerCase();
         var aStarts = aTitle.indexOf(q) === 0 ? 0 : 1;
@@ -1228,12 +1281,11 @@ function initHub() {
       return;
     }
 
-    // Если пустой запрос — показываем счётчик и подсказку
     if (q === "") {
       var hint = document.createElement("div");
       hint.className = "hub__search-hint";
       hint.textContent = "Все материалы · " + results.length + " " +
-        plural(results.length, "тема", "темы", "тем");
+        plural(results.length, "запись", "записи", "записей");
       container.appendChild(hint);
     }
 
@@ -1242,15 +1294,31 @@ function initHub() {
       div.href = "#";
       div.className = "hub__result" + (q === "" ? " hub__result--dim" : "");
 
-      div.innerHTML =
-        '<div class="hub__result-title">' +
-          highlight(r.topic.title, query) +
-        '</div>' +
-        '<div class="hub__result-meta">' +
+      var titleHtml, metaHtml;
+
+      if (r.type === "topic") {
+        titleHtml = highlight(r.topic.title, query);
+        metaHtml =
           highlight(r.sectionTitle, query) +
           (r.topic.num ? ' · ' + highlight(r.topic.num, query) : '') +
-          (r.topic.date ? ' · ' + formatDate(r.topic.date) : '') +
-        '</div>';
+          (r.topic.date ? ' · ' + formatDate(r.topic.date) : '');
+      } else {
+        titleHtml = highlight(r.file.name, query);
+        metaHtml =
+          'Файл · ' + highlight(r.sectionTitle, query) +
+          (r.topic.num ? ' · ' + highlight(r.topic.num, query) : '');
+      }
+
+      var titleEl = document.createElement("div");
+      titleEl.className = "hub__result-title";
+      titleEl.innerHTML = titleHtml;
+
+      var metaEl = document.createElement("div");
+      metaEl.className = "hub__result-meta";
+      metaEl.innerHTML = metaHtml;
+
+      div.appendChild(titleEl);
+      div.appendChild(metaEl);
 
       div.addEventListener("click", function (e) {
         e.preventDefault();
@@ -1283,7 +1351,7 @@ function getNextLecture() {
       if (parts.length !== 2) return;
 
       var day = parseInt(parts[0], 10);
-      var month = parseInt(parts[1], 10) - 1; // JS: месяцы с 0
+      var month = parseInt(parts[1], 10) - 1;
 
       var d = new Date(LECTURE_YEAR, month, day);
       d.setHours(0, 0, 0, 0);
@@ -1305,15 +1373,19 @@ function initNextLecture() {
 
   var next = getNextLecture();
 
-  // Все лекции прошли
   if (!next) {
-    el.innerHTML =
-      '<div class="next-lecture__label">Ближайшая лекция</div>' +
-      '<div class="next-lecture__text">Все лекции этого семестра прошли</div>';
+    el.innerHTML = "";
+    var lbl = document.createElement("div");
+    lbl.className = "next-lecture__label";
+    lbl.textContent = "Ближайшая лекция";
+    var txt = document.createElement("div");
+    txt.className = "next-lecture__text";
+    txt.textContent = "Все лекции этого семестра прошли";
+    el.appendChild(lbl);
+    el.appendChild(txt);
     return;
   }
 
-  // Есть следующая лекция
   var today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -1330,14 +1402,25 @@ function initNextLecture() {
 
   var dateFormatted = next.date.toLocaleDateString("ru-RU", { day: "numeric", month: "long" });
 
-  el.innerHTML =
-    '<div class="next-lecture__label">Ближайшая лекция</div>' +
-    '<div class="next-lecture__text">' +
-      '<strong>' + next.subject + '</strong>' +
-      ' · ' + dayName.toLowerCase() + ', ' + dateFormatted +
-      ', ' + LECTURE_TIME +
-      ' · ' + whenText +
-    '</div>';
+  el.innerHTML = "";
+  var label = document.createElement("div");
+  label.className = "next-lecture__label";
+  label.textContent = "Ближайшая лекция";
+
+  var text = document.createElement("div");
+  text.className = "next-lecture__text";
+
+  var strong = document.createElement("strong");
+  strong.textContent = next.subject;
+  text.appendChild(strong);
+  text.appendChild(document.createTextNode(
+    " · " + dayName.toLowerCase() + ", " + dateFormatted +
+    ", " + LECTURE_TIME +
+    " · " + whenText
+  ));
+
+  el.appendChild(label);
+  el.appendChild(text);
 }
 
 // ============================================================
@@ -1345,6 +1428,8 @@ function initNextLecture() {
 // ============================================================
 
 document.addEventListener("DOMContentLoaded", function () {
+  sortTopicsByDate();
+
   initGreeting();
   initTodayBadge();
   initTimeCounter();

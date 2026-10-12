@@ -19,18 +19,11 @@
   <header class="header">
     <svg class="header__snake" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true">
       <path d="M 0 20 Q 25 5, 50 20 T 100 20 T 150 20 T 200 20"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="4"
-            stroke-linecap="round"
-            stroke-linejoin="round"/>
+            fill="none" stroke="currentColor" stroke-width="4"
+            stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M 0 20 Q 25 5, 50 20 T 100 20 T 150 20 T 200 20"
-            fill="none"
-            stroke="#e8ead9"
-            stroke-width="1"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            opacity="0.35"/>
+            fill="none" stroke="#e8ead9" stroke-width="1"
+            stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
     </svg>
 
     <div class="container header__inner">
@@ -72,11 +65,11 @@
           <div class="stat__label">общий объём</div>
         </div>
 
-        <div class="stat">
+        <div class="stat stat--device" id="stat-device-card" tabindex="0" role="button" aria-label="Показать общее время">
           <div class="stat__value">
             <span id="stat-device">—</span>
           </div>
-          <div class="stat__label">за учёбой</div>
+          <div class="stat__label" id="stat-device-label">сегодня на сайте</div>
         </div>
 
         <div class="stat">
@@ -89,7 +82,6 @@
       </div>
 
       <div class="hero__cta">
-        <a href="#files" class="btn btn--primary">Перейти к файлам</a>
         <a href="#links" class="btn btn--ghost">Полезные ссылки</a>
       </div>
     </div>
@@ -103,60 +95,67 @@
         <p class="section__desc">Нажми на карточку, чтобы открыть темы раздела</p>
       </div>
 
-      <div class="cards">
+            <div class="cards">
         <a href="#" class="card" data-subject="biochem">
+          <div class="card__banner" data-banner></div>
           <div class="card__top">
             <div class="card__num">01</div>
-            <div class="card__badge" data-badge></div>
+            <div class="card__dot" data-dot></div>
           </div>
           <h3 class="card__title">Биохимия</h3>
           <p class="card__last" data-last-topic>—</p>
         </a>
 
         <a href="#" class="card" data-subject="physio">
+          <div class="card__banner" data-banner></div>
           <div class="card__top">
             <div class="card__num">02</div>
-            <div class="card__badge" data-badge></div>
+            <div class="card__dot" data-dot></div>
           </div>
           <h3 class="card__title">Физиология</h3>
           <p class="card__last" data-last-topic>—</p>
         </a>
 
         <a href="#" class="card" data-subject="histology">
+          <div class="card__banner" data-banner></div>
           <div class="card__top">
             <div class="card__num">03</div>
-            <div class="card__badge" data-badge></div>
+            <div class="card__dot" data-dot></div>
           </div>
           <h3 class="card__title">Гистология</h3>
           <p class="card__last" data-last-topic>—</p>
         </a>
 
         <a href="#" class="card" data-subject="microbio">
+          <div class="card__banner" data-banner></div>
           <div class="card__top">
             <div class="card__num">04</div>
-            <div class="card__badge" data-badge></div>
+            <div class="card__dot" data-dot></div>
           </div>
           <h3 class="card__title">Микробиология</h3>
           <p class="card__last" data-last-topic>—</p>
         </a>
 
         <a href="#" class="card" data-subject="hygiene">
+          <div class="card__banner" data-banner></div>
           <div class="card__top">
             <div class="card__num">05</div>
-            <div class="card__badge" data-badge></div>
+            <div class="card__dot" data-dot></div>
           </div>
           <h3 class="card__title">Гигиена</h3>
           <p class="card__last" data-last-topic>—</p>
         </a>
 
         <a href="#" class="card card--recent" data-subject="recent">
+          <div class="card__banner" data-banner></div>
           <div class="card__top">
             <div class="card__num">∞</div>
-            <div class="card__badge" data-badge></div>
+            <div class="card__dot" data-dot></div>
           </div>
           <h3 class="card__title">Недавно обновлённые</h3>
         </a>
       </div>
+
     </div>
   </section>
 
