@@ -620,6 +620,7 @@ function fillCards() {
             banner.classList.add("card__banner--show");
           }
           if (dot) dot.classList.add("card__dot--show");
+          card.classList.add("card--has-banner");
         }
       }
       // Если не свежая — ничего не показываем
@@ -648,7 +649,7 @@ function fillCards() {
   });
 
   // Клик — шапка уезжает, флаг в localStorage
-  cards.forEach(function (card) {
+    cards.forEach(function (card) {
     card.addEventListener("click", function () {
       var key = card.dataset.subject;
       if (!key || key === "recent") return;
@@ -657,6 +658,7 @@ function fillCards() {
 
       var banner = card.querySelector("[data-banner]");
       if (banner) banner.classList.remove("card__banner--show");
+      card.classList.remove("card--has-banner");
     });
   });
 }

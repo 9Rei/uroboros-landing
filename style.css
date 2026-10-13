@@ -523,11 +523,6 @@ button { font-family: inherit; }
   transition: border-color 0.25s, background 0.35s, box-shadow 0.25s;
 }
 
-/* Если у карточки есть шапка — опускаем содержимое */
-.card:has(.card__banner--show) {
-  padding-top: 50px;
-}
-
 .card::before {
   content: '';
   position: absolute;
@@ -678,7 +673,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   ШАПКА КАРТОЧКИ — поверх, не сдвигает
+   ШАПКА КАРТОЧКИ — проявляется через opacity
    ============================================================ */
 .card__banner {
   position: absolute;
@@ -693,12 +688,7 @@ button { font-family: inherit; }
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #0d0f0c;
-  background: linear-gradient(
-    90deg,
-    var(--card-accent) 0%,
-    var(--card-accent) 50%,
-    var(--card-accent) 100%
-  );
+  background: var(--card-accent);
   border-radius: var(--radius) var(--radius) 0 0;
   box-shadow:
     0 2px 12px -2px var(--card-tint-hover),
@@ -706,14 +696,19 @@ button { font-family: inherit; }
   z-index: 3;
   pointer-events: none;
   opacity: 0;
-  transform: translateY(-100%);
-  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, opacity;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .card__banner--show {
   opacity: 0.95;
-  transform: translateY(0);
+  visibility: visible;
+}
+
+/* Класс для отступа карточки, когда баннер виден.
+   Добавляется через JS — заменяет :has() */
+.card--has-banner {
+  padding-top: 50px;
 }
 
 /* ============================================================
@@ -1811,7 +1806,7 @@ button { font-family: inherit; }
   }
 
   /* если показан баннер — увеличиваем верхний паддинг */
-  .card:has(.card__banner--show) {
+  .card--has-banner {
     padding-top: 48px;
   }
 
@@ -1929,7 +1924,7 @@ button { font-family: inherit; }
   .card {
     padding: 20px 16px 16px;
   }
-  .card:has(.card__banner--show) {
+  .card--has-banner {
     padding-top: 46px;
   }
   .card__title { font-size: 20px; }
