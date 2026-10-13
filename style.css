@@ -98,10 +98,8 @@ button { font-family: inherit; }
 }
 
 .nav a:hover { color: var(--accent); }
-
 .nav a.is-active { color: var(--accent); }
 
-/* Змея, проползающая по шапке */
 .header__snake {
   position: absolute;
   top: 50%;
@@ -217,8 +215,7 @@ button { font-family: inherit; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: border-color 0.25s ease, background 0.25s ease,
-              transform 0.2s ease;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.2s ease;
 }
 
 .stat::before {
@@ -264,7 +261,6 @@ button { font-family: inherit; }
   color: var(--muted);
 }
 
-/* Анимация «слияния точек в число» */
 .stat__value--merge {
   position: relative;
   min-height: 26px;
@@ -318,9 +314,6 @@ button { font-family: inherit; }
   transform: translateY(-50%) scale(0.2);
 }
 
-/* ============================================================
-   ПЛИТКА «ЗА УЧЁБОЙ» — интерактив
-   ============================================================ */
 .stat--device {
   cursor: pointer;
   user-select: none;
@@ -354,7 +347,6 @@ button { font-family: inherit; }
   100% { transform: scale(1); }
 }
 
-/* Мигание — подсказка при первом заходе */
 .stat--device.is-hint {
   animation: stat-hint 0.9s ease-in-out 3;
   border-color: var(--accent);
@@ -576,6 +568,7 @@ button { font-family: inherit; }
   align-items: center;
   margin-bottom: 20px;
   flex-shrink: 0;
+  min-height: 20px;
 }
 
 .card__num {
@@ -673,61 +666,31 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   ШАПКА КАРТОЧКИ — проявляется через opacity
+   БЕЙДЖ «NEW» В УГЛУ КАРТОЧКИ
    ============================================================ */
-.card__banner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  font-size: 10px;
+.card__badge {
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #0d0f0c;
   background: var(--card-accent);
-  border-radius: var(--radius) var(--radius) 0 0;
-  box-shadow:
-    0 2px 12px -2px var(--card-tint-hover),
-    0 0 24px -6px var(--card-accent);
-  z-index: 3;
-  pointer-events: none;
+  padding: 3px 8px;
+  border-radius: 999px;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.card__banner--show {
-  opacity: 0.95;
-  visibility: visible;
-}
-
-/* Класс для отступа карточки, когда баннер виден.
-   Добавляется через JS — заменяет :has() */
-.card--has-banner {
-  padding-top: 50px;
-}
-
-/* ============================================================
-   КРУЖОК В УГЛУ КАРТОЧКИ (статичный)
-   ============================================================ */
-.card__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--card-accent);
-  opacity: 0;
-  transform: scale(0.4);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: scale(0.9);
+  transition: opacity 0.2s, transform 0.2s;
   flex-shrink: 0;
 }
 
-.card__dot--show {
+.card__badge--show {
   opacity: 1;
   transform: scale(1);
+}
+
+.card[data-subject="recent"] .card__badge {
+  font-size: 10px;
+  padding: 4px 10px;
 }
 
 /* ============================================================
@@ -853,7 +816,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   ПОЛЕЗНЫЕ ССЫЛКИ — таблетки
+   ПОЛЕЗНЫЕ ССЫЛКИ
    ============================================================ */
 .links-grid {
   display: grid;
@@ -1084,12 +1047,16 @@ button { font-family: inherit; }
   white-space: nowrap;
 }
 
-.modal__date-dot {
+.modal__date-tag {
   display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #0d0f0c;
   background: var(--accent);
+  padding: 2px 7px;
+  border-radius: 999px;
 }
 
 .modal__close {
@@ -1289,11 +1256,9 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   ЦЕНТР (hub.html)
+   ЦЕНТР
    ============================================================ */
-.hub {
-  padding: 40px 0 70px;
-}
+.hub { padding: 40px 0 70px; }
 
 .hub__tabs {
   display: flex;
@@ -1719,7 +1684,6 @@ button { font-family: inherit; }
   .section { padding: 50px 0; }
   .section__title { font-size: 26px; }
 
-  /* ---- КАРТОЧКИ: 2 колонки, одинаковая высота ---- */
   .cards {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 1fr;
@@ -1753,14 +1717,12 @@ button { font-family: inherit; }
   .nav { gap: 16px; }
   .nav a { font-size: 13.5px; }
 
-  /* ---- HERO ---- */
   .hero { padding: 44px 0 40px; }
   .hero__uroboros { width: 180px; height: 180px; top: -30px; right: -30px; opacity: 0.07; }
   .hero__glow { width: 460px; height: 460px; top: -140px; }
   .hero__title { font-size: 30px; line-height: 1.15; }
   .hero__subtitle { font-size: 14px; margin-top: 12px; }
 
-  /* ---- СТАТИСТИКА ---- */
   .stats { grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: none; }
   .stat { padding: 14px 10px 12px; }
   .stat__value { font-size: 18px; }
@@ -1770,7 +1732,6 @@ button { font-family: inherit; }
   .stat__value--merge { min-height: 20px; }
   .stat__dot { width: 6px; height: 6px; }
 
-  /* ---- КНОПКИ ---- */
   .hero__cta {
     margin-top: 22px;
     flex-direction: column;
@@ -1779,18 +1740,13 @@ button { font-family: inherit; }
   .hero__cta .btn { justify-content: center; width: 100%; }
   .btn { padding: 11px 18px; font-size: 14px; }
 
-  /* ---- СЕКЦИИ ---- */
   .section { padding: 40px 0; }
   .section__title { font-size: 22px; }
 
-  /* ============================================================
-     КАРТОЧКИ — ГЛАВНОЕ ИСПРАВЛЕНИЕ
-     Одна колонка, все карточки одной высоты, ничего не съезжает
-     ============================================================ */
   .cards {
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: auto;
+    grid-auto-rows: 1fr;
     gap: 12px;
     align-items: stretch;
   }
@@ -1799,17 +1755,11 @@ button { font-family: inherit; }
     display: flex;
     flex-direction: column;
     min-height: 0;
-    height: auto;
+    height: 100%;
     padding: 22px 20px 18px;
     box-sizing: border-box;
     overflow: hidden;
   }
-
-  /* если показан баннер — увеличиваем верхний паддинг */
-  .card--has-banner {
-    padding-top: 48px;
-  }
-
   .card::before { background-size: 50px 50px; }
 
   .card__top {
@@ -1834,12 +1784,10 @@ button { font-family: inherit; }
     flex-shrink: 0;
   }
 
-  /* карточка "recent" — без последней темы, но такой же структуры */
   .card[data-subject="recent"] {
     justify-content: flex-start;
   }
 
-  /* ---- ПОЛЕЗНЫЕ ССЫЛКИ ---- */
   .links-grid {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -1851,11 +1799,9 @@ button { font-family: inherit; }
   .link-card__title { font-size: 18px; }
   .link-card__desc { font-size: 12.5px; }
 
-  /* ---- ПОДВАЛ ---- */
   .footer { padding: 22px 0; }
   .footer__inner { flex-direction: column; align-items: flex-start; gap: 10px; }
 
-  /* ---- МОДАЛЬНОЕ ОКНО ---- */
   .modal { padding: 12px 8px; }
   .modal__box { padding: 18px 16px 20px; border-radius: 12px; }
   .modal__backdrop {
@@ -1886,7 +1832,6 @@ button { font-family: inherit; }
   .modal__dots { margin-top: 20px; padding-top: 16px; gap: 6px; }
   .modal__dot { min-width: 40px; padding: 8px 11px; font-size: 12px; }
 
-  /* ---- ЦЕНТР ---- */
   .hub__tabs {
     border-radius: 16px;
     padding: 4px;
@@ -1900,12 +1845,10 @@ button { font-family: inherit; }
     font-size: 15px;
   }
 
-  /* ---- РАСПИСАНИЕ ---- */
   .sched-day { padding: 14px 16px; }
   .sched-item__compact { font-size: 13px; }
   .sched-item__details { padding-left: 0; }
 
-  /* ---- БЛИЖАЙШАЯ ЛЕКЦИЯ ---- */
   .next-lecture { padding: 16px 20px; }
   .next-lecture__label { font-size: 10px; margin-bottom: 6px; }
   .next-lecture__text { font-size: 14px; }
@@ -1918,22 +1861,9 @@ button { font-family: inherit; }
   .container { padding: 0 14px; }
   .hero__title { font-size: 26px; }
   .section__title { font-size: 20px; }
-
-  /* ---- КАРТОЧКИ ---- */
-  .cards { gap: 10px; }
-  .card {
-    padding: 20px 16px 16px;
-  }
-  .card--has-banner {
-    padding-top: 46px;
-  }
   .card__title { font-size: 20px; }
-
-  /* ---- СТАТИСТИКА ---- */
   .stat__value { font-size: 16px; }
   .stat__label { font-size: 9px; }
-
-  /* ---- МОДАЛКА ---- */
   .modal__box { padding: 16px 14px 18px; }
   .modal__title { font-size: 18px; }
   .modal__steps li { font-size: 13px; }

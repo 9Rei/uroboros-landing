@@ -58,7 +58,6 @@ const subjects = {
           { name: "ГИСТА_24.pdf", url: "files/histology/ГИСТА_24.pdf" }
         ]
       },
-
       {
         num: "23",
         title: "Пищеварительная система. Морфологическая характеристика переднего отдела пищеварительной системы: органы ротовой полости, пищевод",
@@ -213,7 +212,7 @@ function escapeHtml(str) {
 }
 
 // ============================================================
-//  СОРТИРОВКА ТЕМ ПО ДАТЕ (свежие сверху)
+//  СОРТИРОВКА ТЕМ ПО ДАТЕ
 // ============================================================
 
 function sortTopicsByDate() {
@@ -397,7 +396,7 @@ function initTimeCounter() {
 }
 
 // ============================================================
-//  ПОДСКАЗКА ПРИ ПЕРВОМ ЗАХОДЕ (до 2 сессий, если не нажали)
+//  ПОДСКАЗКА ПРИ ПЕРВОМ ЗАХОДЕ
 // ============================================================
 
 function showHintIfFirstVisit() {
@@ -610,30 +609,10 @@ function fillCards() {
     var lastEl = card.querySelector("[data-last-topic]");
     if (lastEl) lastEl.textContent = lastTopic.title;
 
-    var banner  = card.querySelector("[data-banner]");
-    var dot     = card.querySelector("[data-dot]");
-    var seenKey = "uroboros_card_seen_" + key;
-    var isSeen  = localStorage.getItem(seenKey) === "1";
-
-    if (key !== "recent") {
-      var days = daysSince(lastTopic.date);
-      var isFresh = days < NEW_DAYS;
-
-      if (isFresh) {
-        if (isSeen) {
-          // Кликнул — шапки нет, кружок есть
-          if (dot) dot.classList.add("card__dot--show");
-        } else {
-          // Ещё не кликал — шапка + кружок
-          if (banner) {
-            banner.textContent = days < 1 ? "Новое" : "Обновлено";
-            banner.classList.add("card__banner--show");
-          }
-          if (dot) dot.classList.add("card__dot--show");
-          card.classList.add("card--has-banner");
-        }
-      }
-      // Если не свежая — ничего не показываем
+    var badge = card.querySelector("[data-badge]");
+    if (badge && key !== "recent" && daysSince(lastTopic.date) < NEW_DAYS) {
+      badge.textContent = "NEW";
+      badge.classList.add("card__badge--show");
     }
 
     return { card: card, key: key, sortKey: section.title || "" };
@@ -656,20 +635,6 @@ function fillCards() {
 
   regular.concat(special).forEach(function (item) {
     container.appendChild(item.card);
-  });
-
-  // Клик — шапка уезжает, флаг в localStorage
-    cards.forEach(function (card) {
-    card.addEventListener("click", function () {
-      var key = card.dataset.subject;
-      if (!key || key === "recent") return;
-
-      localStorage.setItem("uroboros_card_seen_" + key, "1");
-
-      var banner = card.querySelector("[data-banner]");
-      if (banner) banner.classList.remove("card__banner--show");
-      card.classList.remove("card--has-banner");
-    });
   });
 }
 
@@ -768,10 +733,10 @@ function showTopic(index) {
     modalDate.appendChild(dateText);
 
     if (daysSince(topic.date) < NEW_DAYS) {
-      var dot = document.createElement("span");
-      dot.className = "modal__date-dot";
-      dot.title = "Новое";
-      modalDate.appendChild(dot);
+      var tag = document.createElement("span");
+      tag.className = "modal__date-tag";
+      tag.textContent = "NEW";
+      modalDate.appendChild(tag);
     }
   }
 
