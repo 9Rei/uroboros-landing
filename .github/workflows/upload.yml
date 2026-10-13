@@ -1,0 +1,36 @@
+name: Upload from Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  process:
+    if: |
+      startsWith(github.event.issue.title, 'добавить ') ||
+      startsWith(github.event.issue.title, 'доб ') ||
+      startsWith(github.event.issue.title, 'Добавить ') ||
+      startsWith(github.event.issue.title, 'Доб ')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install requests
+
+      - name: Process issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          REPO: ${{ github.repository }}
+        run: python .github/scripts/process_issue.py
