@@ -353,8 +353,14 @@ button { font-family: inherit; }
 }
 
 @keyframes stat-hint {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(163, 230, 53, 0); border-color: var(--border); }
-  50%      { box-shadow: 0 0 0 6px rgba(163, 230, 53, 0.15); border-color: var(--accent); }
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(163, 230, 53, 0);
+    border-color: var(--border);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(163, 230, 53, 0.15);
+    border-color: var(--accent);
+  }
 }
 
 .stat--device.is-hint .stat__label {
@@ -383,10 +389,22 @@ button { font-family: inherit; }
   border: 1px solid transparent;
 }
 
-.btn--primary { background: var(--accent); color: var(--on-accent); }
+.btn--primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
 .btn--primary:hover { background: var(--accent-soft); }
-.btn--ghost { border-color: var(--border); color: var(--text); }
-.btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn--ghost {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn--ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
 
 /* ============================================================
    ПОЯВЛЕНИЕ HERO
@@ -479,13 +497,14 @@ button { font-family: inherit; }
   --card-tint: rgba(163, 230, 53, 0.14);
   --card-tint-hover: rgba(163, 230, 53, 0.24);
   --card-pattern: none;
+  --card-bg: #181613;
 
   position: relative;
   display: flex;
   flex-direction: column;
   min-height: 200px;
   height: 100%;
-  background: var(--surface);
+  background: var(--card-bg);
   background-image: linear-gradient(135deg, var(--card-tint) 0%, transparent 60%);
   background-repeat: no-repeat;
   background-position: left top;
@@ -496,28 +515,20 @@ button { font-family: inherit; }
   overflow: hidden;
   transition: border-color 0.25s, background 0.35s, box-shadow 0.25s;
 }
-
 .card::before {
-  content: '';
+  content: attr(data-num);
   position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image: var(--card-pattern);
-  background-repeat: repeat;
-  background-position: right bottom;
-  background-size: 70px 70px;
+  right: 10px;
+  bottom: -20px;
+  font-size: 140px;
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  color: var(--card-accent);
+  opacity: 0.06;
   pointer-events: none;
-  opacity: 0.85;
-  -webkit-mask-image: radial-gradient(
-    ellipse 75% 75% at 100% 100%,
-    black 0%, rgba(0, 0, 0, 0.55) 30%,
-    rgba(0, 0, 0, 0.15) 60%, transparent 90%
-  );
-  mask-image: radial-gradient(
-    ellipse 75% 75% at 100% 100%,
-    black 0%, rgba(0, 0, 0, 0.55) 30%,
-    rgba(0, 0, 0, 0.15) 60%, transparent 90%
-  );
+  z-index: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .card::after {
@@ -539,7 +550,7 @@ button { font-family: inherit; }
 
 .card:hover::after { opacity: 1; }
 
-.card__top, .card__title, .card__tomorrow, .card__last {
+.card__top, .card__title, .card__last {
   position: relative;
   z-index: 1;
 }
@@ -639,16 +650,16 @@ button { font-family: inherit; }
   --card-tint: rgba(100, 116, 139, 0.06);
   --card-tint-hover: rgba(100, 116, 139, 0.10);
   --card-pattern: none;
-  background: rgba(20, 23, 15, 0.55);
+  background: rgba(20, 20, 24, 0.55);
 }
 
 .card[data-subject="recent"]:hover {
   box-shadow: none;
-  background: rgba(20, 23, 15, 0.75);
+  background: rgba(20, 20, 24, 0.75);
 }
 
 /* ============================================================
-   БЕЙДЖ NEW
+   БЕЙДЖ «NEW» В УГЛУ КАРТОЧКИ
    ============================================================ */
 .card__badge {
   font-size: 9px;
@@ -673,35 +684,6 @@ button { font-family: inherit; }
 .card[data-subject="recent"] .card__badge {
   font-size: 10px;
   padding: 4px 10px;
-}
-
-/* ============================================================
-   СТАТУС ПАРЫ В КАРТОЧКЕ
-   ============================================================ */
-.card__tomorrow {
-  display: none;
-  margin-top: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.35;
-  color: var(--card-accent);
-  opacity: 0.65;
-  flex-shrink: 0;
-}
-
-.card__tomorrow--show,
-.card__tomorrow--now {
-  display: block;
-}
-
-.card__tomorrow--now {
-  opacity: 1;
-  animation: card-tomorrow-blink 1.8s ease-in-out infinite;
-}
-
-@keyframes card-tomorrow-blink {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.55; }
 }
 
 /* ============================================================
@@ -790,7 +772,9 @@ button { font-family: inherit; }
   animation: draw-line 1.6s ease forwards;
 }
 
-@keyframes draw-line { to { stroke-dashoffset: 0; } }
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
 
 .growth__area {
   fill: url(#growthGradient);
@@ -798,7 +782,9 @@ button { font-family: inherit; }
   animation: fade-area 0.8s ease 1.1s forwards;
 }
 
-@keyframes fade-area { to { opacity: 1; } }
+@keyframes fade-area {
+  to { opacity: 1; }
+}
 
 .growth__point {
   fill: var(--accent);
@@ -808,7 +794,9 @@ button { font-family: inherit; }
   animation: pop-point 0.35s ease forwards;
 }
 
-@keyframes pop-point { to { opacity: 1; } }
+@keyframes pop-point {
+  to { opacity: 1; }
+}
 
 .growth__axis {
   display: flex;
@@ -945,12 +933,42 @@ button { font-family: inherit; }
   cursor: pointer;
 }
 
-.modal--biochem .modal__box   { --accent: #a3e635; --accent-dim: rgba(163, 230, 53, 0.18);  --on-accent: #0d0f0c; --modal-accent-solid: 163, 230, 53; }
-.modal--physio .modal__box    { --accent: #38bdf8; --accent-dim: rgba(56, 189, 248, 0.20); --on-accent: #0d0f0c; --modal-accent-solid: 56, 189, 248; }
-.modal--histology .modal__box { --accent: #e879f9; --accent-dim: rgba(232, 121, 249, 0.20); --on-accent: #0d0f0c; --modal-accent-solid: 232, 121, 249; }
-.modal--microbio .modal__box  { --accent: #fb923c; --accent-dim: rgba(251, 146, 60, 0.20); --on-accent: #0d0f0c; --modal-accent-solid: 251, 146, 60; }
-.modal--hygiene .modal__box   { --accent: #2dd4bf; --accent-dim: rgba(45, 212, 191, 0.20); --on-accent: #0d0f0c; --modal-accent-solid: 45, 212, 191; }
-.modal--recent .modal__box    { --accent: #94a3b8; --accent-dim: rgba(148, 163, 184, 0.20); --on-accent: #0d0f0c; --modal-accent-solid: 148, 163, 184; }
+.modal--biochem .modal__box {
+  --accent: #a3e635;
+  --accent-dim: rgba(163, 230, 53, 0.18);
+  --on-accent: #0d0f0c;
+  --modal-accent-solid: 163, 230, 53;
+}
+.modal--physio .modal__box {
+  --accent: #38bdf8;
+  --accent-dim: rgba(56, 189, 248, 0.20);
+  --on-accent: #0d0f0c;
+  --modal-accent-solid: 56, 189, 248;
+}
+.modal--histology .modal__box {
+  --accent: #e879f9;
+  --accent-dim: rgba(232, 121, 249, 0.20);
+  --on-accent: #0d0f0c;
+  --modal-accent-solid: 232, 121, 249;
+}
+.modal--microbio .modal__box {
+  --accent: #fb923c;
+  --accent-dim: rgba(251, 146, 60, 0.20);
+  --on-accent: #0d0f0c;
+  --modal-accent-solid: 251, 146, 60;
+}
+.modal--hygiene .modal__box {
+  --accent: #2dd4bf;
+  --accent-dim: rgba(45, 212, 191, 0.20);
+  --on-accent: #0d0f0c;
+  --modal-accent-solid: 45, 212, 191;
+}
+.modal--recent .modal__box {
+  --accent: #94a3b8;
+  --accent-dim: rgba(148, 163, 184, 0.20);
+  --on-accent: #0d0f0c;
+  --modal-accent-solid: 148, 163, 184;
+}
 
 .modal__box {
   position: relative;
@@ -965,7 +983,7 @@ button { font-family: inherit; }
       rgba(var(--modal-accent-solid, 163, 230, 53), 0.03) 50%,
       transparent 100%
     ),
-    rgba(26, 30, 20, 0.78);
+    rgba(22, 22, 22, 0.92);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
   border: 1px solid rgba(var(--modal-accent-solid, 163, 230, 53), 0.28);
@@ -1062,7 +1080,11 @@ button { font-family: inherit; }
 }
 
 .modal__body { display: block; }
-.modal__content { width: 100%; min-width: 0; }
+
+.modal__content {
+  width: 100%;
+  min-width: 0;
+}
 
 .modal__num {
   font-size: 13px;
@@ -1259,7 +1281,11 @@ button { font-family: inherit; }
 }
 
 .hub__tab:hover { color: var(--text); }
-.hub__tab.is-active { background: var(--accent); color: var(--on-accent); }
+
+.hub__tab.is-active {
+  background: var(--accent);
+  color: var(--on-accent);
+}
 
 .hub__panel { display: none; }
 .hub__panel.is-active { display: block; }
@@ -1286,7 +1312,11 @@ button { font-family: inherit; }
   transition: border-color 0.2s;
 }
 
-.hub__input:focus { outline: none; border-color: var(--accent); }
+.hub__input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
 .hub__input::placeholder { color: var(--muted); }
 
 .hub__search-results {
@@ -1424,7 +1454,10 @@ button { font-family: inherit; }
   font-size: 13px;
 }
 
-.sched-item { position: relative; padding: 6px 0; }
+.sched-item {
+  position: relative;
+  padding: 6px 0;
+}
 
 .sched-item__compact {
   display: flex;
@@ -1508,8 +1541,15 @@ button { font-family: inherit; }
   color: var(--accent);
 }
 
-.sched-item__sub-room { font-weight: 600; color: var(--text); }
-.sched-item__sub-teacher { color: var(--muted); font-size: 11px; }
+.sched-item__sub-room {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.sched-item__sub-teacher {
+  color: var(--muted);
+  font-size: 11px;
+}
 
 .sched-item--lecture {
   max-height: 0;
@@ -1707,41 +1747,65 @@ button { font-family: inherit; }
   .card {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     min-height: 0;
     height: 100%;
-    padding: 22px 20px 18px;
+    padding: 20px 20px 18px;
     box-sizing: border-box;
     overflow: hidden;
   }
   .card::before { background-size: 50px 50px; }
 
-  .card__top { margin-bottom: 16px; flex-shrink: 0; }
+  .card__top {
+    margin-bottom: 12px;
+    flex-shrink: 0;
+    min-height: 0;
+    justify-content: flex-end;
+  }
+
+  .card__top:not(:has(.card__badge--show)) {
+    margin-bottom: 0;
+    min-height: 0;
+  }
+
   .card__num { font-size: 13px; }
 
   .card__title {
-    font-size: 22px;
+    font-size: 24px;
     line-height: 1.15;
-    margin-bottom: 0;
+    margin-top: 0;
+    margin-bottom: auto;
     flex-shrink: 0;
   }
 
-  .card__tomorrow {
-    margin-top: 3px;
-    font-size: 11.5px;
-  }
-
   .card__last {
-    margin-top: auto;
+    margin-top: 14px;
     padding-top: 12px;
     font-size: 12px;
     min-height: 0;
     flex-shrink: 0;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: clip;
   }
 
-  .card[data-subject="recent"] { justify-content: flex-start; }
+  .card[data-subject="recent"] {
+    justify-content: flex-start;
+  }
 
-  .links-grid { grid-template-columns: 1fr; gap: 10px; }
-  .link-card { min-height: 100px; padding: 20px 26px; }
+  .links-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .link-card {
+    min-height: 100px;
+    padding: 20px 26px;
+  }
   .link-card__title { font-size: 18px; }
   .link-card__desc { font-size: 12.5px; }
 
@@ -1778,9 +1842,18 @@ button { font-family: inherit; }
   .modal__dots { margin-top: 20px; padding-top: 16px; gap: 6px; }
   .modal__dot { min-width: 40px; padding: 8px 11px; font-size: 12px; }
 
-  .hub__tabs { border-radius: 16px; padding: 4px; }
-  .hub__tab { padding: 8px 14px; font-size: 13px; }
-  .hub__input { padding: 14px 18px; font-size: 15px; }
+  .hub__tabs {
+    border-radius: 16px;
+    padding: 4px;
+  }
+  .hub__tab {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  .hub__input {
+    padding: 14px 18px;
+    font-size: 15px;
+  }
 
   .sched-day { padding: 14px 16px; }
   .sched-item__compact { font-size: 13px; }
@@ -1807,3 +1880,4 @@ button { font-family: inherit; }
   .modal__files a { font-size: 13px; padding: 11px 12px; }
   .modal__dot { min-width: 36px; padding: 7px 10px; font-size: 11px; }
 }
+
