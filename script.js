@@ -1,104 +1,91 @@
 // ============================================================
-//  ДАННЫЕ САЙТА
+//  ДАННЫЕ
 // ============================================================
 
 const subjects = {
   biochem: {
     num: "01",
     title: "Биохимия",
-    topics: [
-      {
-        num: "2.2",
-        title: "Транскрипция, трансляция. ДНК технологии в медицине. Экспрессия генов",
-        steps: ["Прочитать основной файлик", "Прочитать файлик тестов", "Решить тест"],
-        date: "2026-10-10",
-        files: [
-          { name: "БХ_2.2.pdf", url: "files/biochem/БХ_2.2.pdf" },
-          { name: "БХ_2.2ТЕСТЫ.pdf", url: "files/biochem/БХ_2.2ТЕСТЫ.pdf" }
-        ]
-      }
-    ]
+    scheduleKey: "Биохимия",
+    topics: [{
+      num: "2.2",
+      title: "Транскрипция, трансляция. ДНК технологии в медицине. Экспрессия генов",
+      steps: ["Прочитать основной файлик", "Прочитать файлик тестов", "Решить тест"],
+      date: "2026-10-10",
+      files: [
+        { name: "БХ_2.2.pdf", url: "files/biochem/БХ_2.2.pdf" },
+        { name: "БХ_2.2ТЕСТЫ.pdf", url: "files/biochem/БХ_2.2ТЕСТЫ.pdf" }
+      ]
+    }]
   },
 
   physio: {
     num: "02",
     title: "Физиология",
-    topics: [
-      {
-        num: "1.5",
-        title: "КОЛЛОКВИУМ по разделу «Общая физиология»",
-        steps: ["Прочитать файлик", "Выполнить тест"],
-        date: "2026-10-04",
-        files: [
-          { name: "ФИЗА_КОЛЛОК.pdf", url: "files/physio/ФИЗА_КОЛЛОК.pdf" }
-        ]
-      },
-      {
-        num: "2.1",
-        title: "Общие принципы регуляции. Рефлекторная деятельность ЦНС. Особенности распространения возбуждения и торможения в ЦНС. Клинико-физиологическая оценка рефлекторной деятельности.",
-        steps: ["Сделать конспект по ДЗ (либо по лекции)", "Прочитать файл тестов", "Выполнить тест"],
-        date: "2026-10-13",
-        files: [
-          { name: "ФИЗА_2.1.pdf", url: "files/physio/ФИЗА_2.1.pdf" },
-          { name: "ФИЗА_2.1ТЕСТЫ.pdf", url: "files/physio/ФИЗА_2.1ТЕСТЫ.pdf" }
-        ]
-      }
-    ]
+    scheduleKey: "Норм физа",
+    topics: [{
+      num: "1.5",
+      title: "КОЛЛОКВИУМ по разделу «Общая физиология»",
+      steps: ["Прочитать файлик", "Выполнить тест"],
+      date: "2026-10-04",
+      files: [{ name: "ФИЗА_КОЛЛОК.pdf", url: "files/physio/ФИЗА_КОЛЛОК.pdf" }]
+    }, {
+      num: "2.1",
+      title: "Общие принципы регуляции. Рефлекторная деятельность ЦНС. Особенности распространения возбуждения и торможения в ЦНС. Клинико-физиологическая оценка рефлекторной деятельности.",
+      steps: ["Сделать конспект по ДЗ (либо по лекции)", "Прочитать файл тестов", "Выполнить тест"],
+      date: "2026-10-13",
+      files: [
+        { name: "ФИЗА_2.1.pdf", url: "files/physio/ФИЗА_2.1.pdf" },
+        { name: "ФИЗА_2.1ТЕСТЫ.pdf", url: "files/physio/ФИЗА_2.1ТЕСТЫ.pdf" }
+      ]
+    }]
   },
 
   histology: {
     num: "03",
     title: "Гистология",
-    topics: [
-      {
-        num: "24",
-        title: "Пищеварительная система. Морфологическая характеристика желудка.",
-        steps: ["Прочитать основной файлик", "Препараты тоже в основном", "Решить тест"],
-        date: "2026-10-13",
-        files: [
-          { name: "ГИСТА_24.pdf", url: "files/histology/ГИСТА_24.pdf" }
-        ]
-      },
-      {
-        num: "23",
-        title: "Пищеварительная система. Морфологическая характеристика переднего отдела пищеварительной системы: органы ротовой полости, пищевод",
-        steps: ["Прочитать файлик (совмещён с краткими ответами)", "Посмотреть препараты", "Выполнить тест"],
-        date: "2026-10-07",
-        files: [
-          { name: "ГИСТА_23.pdf", url: "files/histology/ГИСТА_23.pdf" },
-          { name: "ГИСТА_23ПРЕПАРАТЫ.pdf", url: "files/histology/ГИСТА_23ПРЕПАРАТЫ.pdf" }
-        ]
-      }
-    ]
+    scheduleKey: "Гиста",
+    topics: [{
+      num: "24",
+      title: "Пищеварительная система. Морфологическая характеристика желудка.",
+      steps: ["Прочитать основной файлик", "Препараты тоже в основном", "Решить тест"],
+      date: "2026-10-13",
+      files: [{ name: "ГИСТА_24.pdf", url: "files/histology/ГИСТА_24.pdf" }]
+    }, {
+      num: "23",
+      title: "Пищеварительная система. Морфологическая характеристика переднего отдела пищеварительной системы: органы ротовой полости, пищевод",
+      steps: ["Прочитать файлик (совмещён с краткими ответами)", "Посмотреть препараты", "Выполнить тест"],
+      date: "2026-10-07",
+      files: [
+        { name: "ГИСТА_23.pdf", url: "files/histology/ГИСТА_23.pdf" },
+        { name: "ГИСТА_23ПРЕПАРАТЫ.pdf", url: "files/histology/ГИСТА_23ПРЕПАРАТЫ.pdf" }
+      ]
+    }]
   },
 
   microbio: {
     num: "04",
     title: "Микробиология",
-    topics: [
-      {
-        num: "06",
-        title: "Инфекция, инфекционный процесс. Факторы патогенности бактерий",
-        steps: ["Прочитать файлик «МИКРА_6.pdf»", "Выполнить тест"],
-        date: "2026-10-10",
-        files: [
-          { name: "МИКРА_6.pdf", url: "files/microbio/МИКРА_6.pdf" }
-        ]
-      }
-    ]
+    scheduleKey: "Микробио",
+    topics: [{
+      num: "06",
+      title: "Инфекция, инфекционный процесс. Факторы патогенности бактерий",
+      steps: ["Прочитать файлик «МИКРА_6.pdf»", "Выполнить тест"],
+      date: "2026-10-10",
+      files: [{ name: "МИКРА_6.pdf", url: "files/microbio/МИКРА_6.pdf" }]
+    }]
   },
 
   hygiene: {
     num: "05",
     title: "Гигиена",
-    topics: [
-      {
-        title: "Раздел в разработке",
-        steps: ["Материалы появятся позже", "Следите за обновлениями"],
-        date: "2026-09-01",
-        files: [{ name: "Пока пусто", url: "#" }]
-      }
-    ]
+    scheduleKey: "Гигиена",
+    topics: [{
+      title: "Раздел в разработке",
+      steps: ["Материалы появятся позже", "Следите за обновлениями"],
+      date: "2026-09-01",
+      files: [{ name: "Пока пусто", url: "#" }]
+    }]
   },
 
   recent: {
@@ -170,11 +157,12 @@ var lectureDates = {
 //  НАСТРОЙКИ
 // ============================================================
 
-var MANUAL_SIZE_BYTES = 4400000;
-var NEW_DAYS = 2;
+var MANUAL_SIZE_BYTES = 4400000;  // общий объём в байтах
+var NEW_DAYS = 2;                 // сколько дней держать метку NEW
+var UPCOMING_MINUTES = 180;       // за сколько минут до пары показывать «Сегодня в …»
 
 // ============================================================
-//  ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+//  УТИЛИТЫ
 // ============================================================
 
 function daysSince(dateInput) {
@@ -213,7 +201,53 @@ function escapeHtml(str) {
 }
 
 // ============================================================
-//  СОРТИРОВКА ТЕМ ПО ДАТЕ
+//  БЛИЖАЙШАЯ ПАРА
+// ============================================================
+
+function parseLessonTime(str) {
+  if (!str) return null;
+  var parts = str.split(/[–—-]/).map(function (s) { return s.trim(); });
+  if (parts.length !== 2) return null;
+
+  function toMin(t) {
+    var m = t.match(/(\d{1,2}):(\d{2})/);
+    if (!m) return null;
+    return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+  }
+
+  var start = toMin(parts[0]);
+  var end = toMin(parts[1]);
+  if (start === null || end === null) return null;
+  return { start: start, end: end };
+}
+
+function getNextLesson(scheduleKey) {
+  if (!scheduleKey) return null;
+
+  var days = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"];
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  for (var offset = 0; offset <= 7; offset++) {
+    var d = new Date(today);
+    d.setDate(d.getDate() + offset);
+    var lessons = schedule[days[d.getDay()]] || [];
+
+    for (var i = 0; i < lessons.length; i++) {
+      if (lessons[i].title === scheduleKey) {
+        return {
+          daysAhead: offset,
+          time: lessons[i].time,
+          timeRange: parseLessonTime(lessons[i].time)
+        };
+      }
+    }
+  }
+  return null;
+}
+
+// ============================================================
+//  СОРТИРОВКА
 // ============================================================
 
 function sortTopicsByDate() {
@@ -238,10 +272,10 @@ function initGreeting() {
   var h = new Date().getHours();
   var first, second;
 
-  if (h >= 5 && h < 12)      { first = "Доброе утро!"; second = "Готовы к учёбе?"; }
-  else if (h >= 12 && h < 18){ first = "Добрый день!"; second = "Загляните в материалы."; }
-  else if (h >= 18 && h < 23){ first = "Добрый вечер!"; second = "Повторим пройденное?"; }
-  else                       { first = "Не спится?";   second = "Конспекты ждут."; }
+  if (h >= 5 && h < 12)       { first = "Доброе утро!"; second = "Готовы к учёбе?"; }
+  else if (h >= 12 && h < 18) { first = "Добрый день!"; second = "Загляните в материалы."; }
+  else if (h >= 18 && h < 23) { first = "Добрый вечер!"; second = "Повторим пройденное?"; }
+  else                        { first = "Не спится?";   second = "Конспекты ждут."; }
 
   el.innerHTML = "";
   el.appendChild(document.createTextNode(first));
@@ -253,7 +287,7 @@ function initGreeting() {
 }
 
 // ============================================================
-//  HERO — ДАТА В БЕЙДЖЕ
+//  HERO — ДАТА
 // ============================================================
 
 function initTodayBadge() {
@@ -261,16 +295,14 @@ function initTodayBadge() {
   if (!el) return;
 
   var text = new Date().toLocaleDateString("ru-RU", {
-    weekday: "long",
-    day: "numeric",
-    month: "long"
+    weekday: "long", day: "numeric", month: "long"
   });
 
   el.textContent = text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 // ============================================================
-//  СЧЁТЧИК ВРЕМЕНИ НА УСТРОЙСТВЕ
+//  СЧЁТЧИК ВРЕМЕНИ
 // ============================================================
 
 var HINT_KEY = "uroboros_time_hint_sessions";
@@ -303,13 +335,10 @@ function getTodayTime() {
 }
 
 function addTimeToStorage(seconds) {
-  var total = getTotalTime() + seconds;
-  localStorage.setItem(TIME_TOTAL_KEY, String(total));
-
-  var today = getTodayTime() + seconds;
+  localStorage.setItem(TIME_TOTAL_KEY, String(getTotalTime() + seconds));
   localStorage.setItem(TIME_TODAY_KEY, JSON.stringify({
     date: todayKey(),
-    seconds: today
+    seconds: getTodayTime() + seconds
   }));
 }
 
@@ -342,18 +371,11 @@ function initTimeCounter() {
   var labelEl  = document.getElementById("stat-device-label");
   var cardEl   = document.getElementById("stat-device-card");
 
-  if (footerEl) {
-    footerEl.textContent = "Вы на этом устройстве: " + formatDuration(getTotalTime());
-  }
-
-  if (deviceEl) {
-    deviceEl.textContent = formatDuration(getCurrentToday());
-  }
+  if (footerEl) footerEl.textContent = "Вы на этом устройстве: " + formatDuration(getTotalTime());
+  if (deviceEl) deviceEl.textContent = formatDuration(getCurrentToday());
 
   setInterval(function () {
-    if (footerEl) {
-      footerEl.textContent = "Вы на этом устройстве: " + formatDuration(getCurrentTotal());
-    }
+    if (footerEl) footerEl.textContent = "Вы на этом устройстве: " + formatDuration(getCurrentTotal());
     if (deviceEl && (!cardEl || !cardEl.classList.contains("is-showing-total"))) {
       deviceEl.textContent = formatDuration(getCurrentToday());
     }
@@ -396,19 +418,13 @@ function initTimeCounter() {
   showHintIfFirstVisit();
 }
 
-// ============================================================
-//  ПОДСКАЗКА ПРИ ПЕРВОМ ЗАХОДЕ
-// ============================================================
-
 function showHintIfFirstVisit() {
   var cardEl  = document.getElementById("stat-device-card");
   var labelEl = document.getElementById("stat-device-label");
   if (!cardEl || !labelEl) return;
 
   var sessionsSeen = parseInt(localStorage.getItem(HINT_KEY) || "0", 10);
-
-  if (sessionsSeen < 0) return;
-  if (sessionsSeen >= HINT_MAX_SESSIONS) return;
+  if (sessionsSeen < 0 || sessionsSeen >= HINT_MAX_SESSIONS) return;
 
   localStorage.setItem(HINT_KEY, String(sessionsSeen + 1));
 
@@ -435,8 +451,7 @@ function computeTopicsCount() {
     var section = subjects[key];
     if (!section || !Array.isArray(section.topics)) return;
     section.topics.forEach(function (topic) {
-      if (topic.title === "Раздел в разработке") return;
-      total++;
+      if (topic.title !== "Раздел в разработке") total++;
     });
   });
   return total;
@@ -510,9 +525,7 @@ function animateTopicsMerge(target) {
   }
 
   dots.forEach(function (dot, i) {
-    setTimeout(function () {
-      dot.classList.add("stat__dot--visible");
-    }, 200 + i * dotDelay);
+    setTimeout(function () { dot.classList.add("stat__dot--visible"); }, 200 + i * dotDelay);
   });
 
   var mergeTime = 200 + target * dotDelay + mergeDelay;
@@ -607,13 +620,41 @@ function fillCards() {
 
     var lastTopic = section.topics[0];
 
+    // Последняя тема
     var lastEl = card.querySelector("[data-last-topic]");
     if (lastEl) lastEl.textContent = lastTopic.title;
 
+    // Бейдж NEW
     var badge = card.querySelector("[data-badge]");
     if (badge && key !== "recent" && daysSince(lastTopic.date) < NEW_DAYS) {
       badge.textContent = "NEW";
       badge.classList.add("card__badge--show");
+    }
+
+    // Статус пары
+    var statusEl = card.querySelector("[data-tomorrow]");
+    if (statusEl && key !== "recent" && section.scheduleKey) {
+      var nextLesson = getNextLesson(section.scheduleKey);
+      var now = new Date();
+      var nowMinutes = now.getHours() * 60 + now.getMinutes();
+
+      if (nextLesson && nextLesson.daysAhead === 0 && nextLesson.timeRange) {
+        var t = nextLesson.timeRange;
+        var time = nextLesson.time.split("–")[0].trim();
+        var minutesUntil = t.start - nowMinutes;
+
+        if (nowMinutes >= t.start && nowMinutes <= t.end) {
+          statusEl.textContent = "Сейчас идёт";
+          statusEl.classList.add("card__tomorrow--now");
+        } else if (minutesUntil > 0 && minutesUntil <= UPCOMING_MINUTES) {
+          statusEl.textContent = "Сегодня в " + time;
+          statusEl.classList.add("card__tomorrow--show");
+        }
+      } else if (nextLesson && nextLesson.daysAhead === 1) {
+        var timeT = nextLesson.time.split("–")[0].trim();
+        statusEl.textContent = "Завтра в " + timeT;
+        statusEl.classList.add("card__tomorrow--show");
+      }
     }
 
     return { card: card, key: key, sortKey: section.title || "" };
@@ -690,8 +731,7 @@ function applyAccentTheme(colorKey) {
 function buildDots() {
   if (!modalDots) return;
   modalDots.innerHTML = "";
-  var topics = subjects[currentSubject].topics;
-  topics.forEach(function (topic, i) {
+  subjects[currentSubject].topics.forEach(function (topic, i) {
     var btn = document.createElement("button");
     btn.className = "modal__dot";
     btn.textContent = topic.num || String(i + 1).padStart(2, "0");
@@ -710,10 +750,9 @@ function showTopic(index) {
   currentTopicIndex = index;
   var topic = topics[index];
 
-  var colorKey = (currentSubject === "recent" && topic.sectionKey)
-    ? topic.sectionKey
-    : currentSubject;
-  applyAccentTheme(colorKey);
+  applyAccentTheme(
+    (currentSubject === "recent" && topic.sectionKey) ? topic.sectionKey : currentSubject
+  );
 
   modalSection.textContent = subjects[currentSubject].title;
   modalNum.textContent = topic.num || String(index + 1).padStart(2, "0");
@@ -841,7 +880,7 @@ function initModal() {
 }
 
 // ============================================================
-//  ГРАФИК НАКОПИТЕЛЬНОГО РОСТА
+//  ГРАФИК РОСТА
 // ============================================================
 
 function collectTopicsByDate() {
@@ -879,8 +918,7 @@ function initGrowthChart() {
   if (weekEl) {
     var weekAgo = new Date();
     weekAgo.setDate(weekAgo.getDate() - 7);
-    var weekCount = topics.filter(function (t) { return t.date >= weekAgo; }).length;
-    weekEl.textContent = weekCount;
+    weekEl.textContent = topics.filter(function (t) { return t.date >= weekAgo; }).length;
   }
 
   if (lastEl && topics.length) {
@@ -935,7 +973,6 @@ function initGrowthChart() {
   points.forEach(function (p, i) {
     var isChange = p.y !== shownY;
     var isEdge = (i === 0 || i === points.length - 1);
-
     if (!isChange && !isEdge) return;
     shownY = p.y;
 
@@ -980,23 +1017,8 @@ function initSchedule() {
   var now = new Date();
   var nowMinutes = now.getHours() * 60 + now.getMinutes();
 
-  function parseTime(str) {
-    if (!str) return null;
-    var parts = str.split(/[–—-]/).map(function (s) { return s.trim(); });
-    if (parts.length !== 2) return null;
-    function toMin(t) {
-      var m = t.match(/(\d{1,2}):(\d{2})/);
-      if (!m) return null;
-      return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
-    }
-    var start = toMin(parts[0]);
-    var end = toMin(parts[1]);
-    if (start === null || end === null) return null;
-    return { start: start, end: end };
-  }
-
   function isLessonNow(lesson) {
-    var t = parseTime(lesson.time);
+    var t = parseLessonTime(lesson.time);
     if (!t) return false;
     return nowMinutes >= t.start && nowMinutes <= t.end;
   }
@@ -1036,9 +1058,7 @@ function initSchedule() {
         var item = document.createElement("div");
         item.className = "sched-item";
         if (lesson.isLecture) item.classList.add("sched-item--lecture");
-        if (day === todayKeyShort && isLessonNow(lesson)) {
-          item.classList.add("sched-item--now");
-        }
+        if (day === todayKeyShort && isLessonNow(lesson)) item.classList.add("sched-item--now");
 
         var compact = document.createElement("div");
         compact.className = "sched-item__compact";
@@ -1127,9 +1147,7 @@ function initSchedule() {
   container.querySelectorAll(".sched-day").forEach(function (col) {
     col.addEventListener("click", function () {
       var wasActive = col.classList.contains("is-open");
-      container.querySelectorAll(".sched-day").forEach(function (c) {
-        c.classList.remove("is-open");
-      });
+      container.querySelectorAll(".sched-day").forEach(function (c) { c.classList.remove("is-open"); });
       if (!wasActive) col.classList.add("is-open");
     });
   });
@@ -1190,7 +1208,6 @@ function initHub() {
   function renderSearch(query) {
     var container = document.getElementById("hub-search-results");
     if (!container) return;
-
     container.innerHTML = "";
 
     var q = query.toLowerCase();
@@ -1204,32 +1221,18 @@ function initHub() {
       section.topics.forEach(function (topic) {
         if (topic.title === "Раздел в разработке") return;
 
-        var haystackTopic = (topic.title + " " + section.title + " " + (topic.num || "")).toLowerCase();
-        var topicMatch = q === "" || haystackTopic.indexOf(q) !== -1;
-
-        if (topicMatch) {
-          results.push({
-            type: "topic",
-            key: key,
-            sectionTitle: section.title,
-            topic: topic
-          });
+        var haystack = (topic.title + " " + section.title + " " + (topic.num || "")).toLowerCase();
+        if (q === "" || haystack.indexOf(q) !== -1) {
+          results.push({ type: "topic", key: key, sectionTitle: section.title, topic: topic });
         }
 
         if (Array.isArray(topic.files)) {
           topic.files.forEach(function (file) {
-            if (!file || !file.name) return;
-            if (file.url === "#") return;
-
-            var fileMatch = q !== "" && file.name.toLowerCase().indexOf(q) !== -1;
-
-            if (fileMatch) {
+            if (!file || !file.name || file.url === "#") return;
+            if (q !== "" && file.name.toLowerCase().indexOf(q) !== -1) {
               results.push({
-                type: "file",
-                key: key,
-                sectionTitle: section.title,
-                topic: topic,
-                file: file
+                type: "file", key: key, sectionTitle: section.title,
+                topic: topic, file: file
               });
             }
           });
@@ -1238,16 +1241,12 @@ function initHub() {
     });
 
     if (q === "") {
-      results.sort(function (a, b) {
-        return new Date(b.topic.date) - new Date(a.topic.date);
-      });
+      results.sort(function (a, b) { return new Date(b.topic.date) - new Date(a.topic.date); });
     } else {
       results.sort(function (a, b) {
         if (a.type !== b.type) return a.type === "topic" ? -1 : 1;
-        var aTitle = a.topic.title.toLowerCase();
-        var bTitle = b.topic.title.toLowerCase();
-        var aStarts = aTitle.indexOf(q) === 0 ? 0 : 1;
-        var bStarts = bTitle.indexOf(q) === 0 ? 0 : 1;
+        var aStarts = a.topic.title.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+        var bStarts = b.topic.title.toLowerCase().indexOf(q) === 0 ? 0 : 1;
         return aStarts - bStarts;
       });
     }
@@ -1273,17 +1272,14 @@ function initHub() {
       div.className = "hub__result" + (q === "" ? " hub__result--dim" : "");
 
       var titleHtml, metaHtml;
-
       if (r.type === "topic") {
         titleHtml = highlight(r.topic.title, query);
-        metaHtml =
-          highlight(r.sectionTitle, query) +
+        metaHtml = highlight(r.sectionTitle, query) +
           (r.topic.num ? ' · ' + highlight(r.topic.num, query) : '') +
           (r.topic.date ? ' · ' + formatDate(r.topic.date) : '');
       } else {
         titleHtml = highlight(r.file.name, query);
-        metaHtml =
-          'Файл · ' + highlight(r.sectionTitle, query) +
+        metaHtml = 'Файл · ' + highlight(r.sectionTitle, query) +
           (r.topic.num ? ' · ' + highlight(r.topic.num, query) : '');
       }
 
@@ -1328,16 +1324,11 @@ function getNextLecture() {
       var parts = dateStr.split(".");
       if (parts.length !== 2) return;
 
-      var day = parseInt(parts[0], 10);
-      var month = parseInt(parts[1], 10) - 1;
-
-      var d = new Date(LECTURE_YEAR, month, day);
+      var d = new Date(LECTURE_YEAR, parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
       d.setHours(0, 0, 0, 0);
 
-      if (d >= today) {
-        if (!next || d < next.date) {
-          next = { date: d, subject: subject, dateStr: dateStr };
-        }
+      if (d >= today && (!next || d < next.date)) {
+        next = { date: d, subject: subject };
       }
     });
   });
@@ -1393,8 +1384,7 @@ function initNextLecture() {
   text.appendChild(strong);
   text.appendChild(document.createTextNode(
     " · " + dayName.toLowerCase() + ", " + dateFormatted +
-    ", " + LECTURE_TIME +
-    " · " + whenText
+    ", " + LECTURE_TIME + " · " + whenText
   ));
 
   el.appendChild(label);
